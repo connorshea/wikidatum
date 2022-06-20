@@ -13,9 +13,11 @@ class Wikidatum::Item
   # @return [Array<Wikidatum::Term>]
   def labels(languages = []); end
 
+  # @param language [String, Symbol]
   # @return [Wikidatum::Term]
   def description(language); end
 
+  # @param languages [Array<String, Symbol>]
   # @return [Array<Wikidatum::Term>]
   def descriptions(languages = []); end
 
