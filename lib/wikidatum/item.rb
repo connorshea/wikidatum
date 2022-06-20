@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Wikidatum::Item
+  # @!visibility private
+  #
   # @param labels [Array<Wikidatum::Term>] An array of {Wikidatum::Term}s representing labels for this item.
   # @param descriptions [Array<Wikidatum::Term>] An array of {Wikidatum::Term}s representing descriptions for this item.
   # @param aliases [Array<Wikidatum::Term>] An array of {Wikidatum::Term}s representing aliases for this item.

@@ -9,6 +9,8 @@ class Wikidatum::Term
   # @return [String]
   attr_reader :value
 
+  # @!visibility private
+  #
   # @param lang [String, Symbol] A language code ('en', 'zh-mo', etc), can be a symbol or a string.
   # @param value [String] The value of the term.
   # @return [Wikidatum::Term]
