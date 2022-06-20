@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # Wikidatum::Sitelinks represent associated sitelinks on a Wikidata item.
-# For example, the sitelinks have 
 class Wikidatum::Sitelink
   # @return [String]
   attr_reader :site

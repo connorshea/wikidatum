@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 class Wikidatum::Item
+  # @param labels [Array<Wikidatum::Term>] An array of {Wikidatum::Term}s representing labels for this item.
+  # @param descriptions [Array<Wikidatum::Term>] An array of {Wikidatum::Term}s representing descriptions for this item.
+  # @param aliases [Array<Wikidatum::Term>] An array of {Wikidatum::Term}s representing aliases for this item.
+  # @param statements [Array<Wikidatum::Statement>] Statements for this item.
+  # @param sitelinks [Array<Wikidatum::Sitelink>]
+  # @return [Wikidatum::Item]
+  def initialize(labels:, descriptions:, aliases:, statements:, sitelinks:); end
+
   # @param property [String] Wikidata property, in the format of 'P123'. If unspecified, will return all statements for the item.
   # @return [Array<Wikidatum::Statement>]
   def statements(property: nil); end
