@@ -12,3 +12,6 @@ Style/ClassAndModuleChildren:
 
 Layout/LineLength:
   Enabled: false
+
+Bundler/OrderedGems:
+  Enabled: false
