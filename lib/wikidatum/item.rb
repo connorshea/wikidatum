@@ -17,7 +17,12 @@ class Wikidatum::Item
 
   # @param property [String] Wikidata property, in the format of 'P123'. If unspecified, will return all statements for the item.
   # @return [Array<Wikidatum::Statement>]
-  def statements(property: nil); end
+  def statements(property: nil)
+    return @statements if property.nil?
+
+    # TODO
+    @statements
+  end
 
   # @param lang [String, Symbol]
   # @return [Wikidatum::Term, nil]
