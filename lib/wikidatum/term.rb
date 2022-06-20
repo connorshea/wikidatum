@@ -1,0 +1,2 @@
+class Wikidatum::Term
+end
