@@ -1,8 +1,8 @@
 # Wikidatum
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/wikidatum`. To experiment with that code, run `bin/console` for an interactive prompt.
+This gem will support making requests with the [new Wikidata/Wikibase REST API](https://doc.wikimedia.org/Wikibase/master/js/rest-api/).
 
-TODO: Delete this and the text above, and describe your gem
+**Currently it is in very early development and is not ready for actual usage**.
 
 ## Installation
 
