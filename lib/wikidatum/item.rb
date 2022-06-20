@@ -5,25 +5,25 @@ class Wikidatum::Item
   # @return [Array<Wikidatum::Statement>]
   def statements(property: nil); end
 
-  # @param language [String, Symbol]
+  # @param lang [String, Symbol]
   # @return [Wikidatum::Term]
-  def label(language); end
+  def label(lang); end
 
-  # @param languages [Array<String, Symbol>]
+  # @param langs [Array<String, Symbol>]
   # @return [Array<Wikidatum::Term>]
-  def labels(languages = []); end
+  def labels(langs = []); end
 
-  # @param language [String, Symbol]
+  # @param lang [String, Symbol]
   # @return [Wikidatum::Term]
-  def description(language); end
+  def description(lang); end
 
-  # @param languages [Array<String, Symbol>]
+  # @param langs [Array<String, Symbol>]
   # @return [Array<Wikidatum::Term>]
-  def descriptions(languages = []); end
+  def descriptions(langs = []); end
 
-  # @param languages [Array<Symbol, String>] If unspecified, will return all aliases for all languages.
+  # @param langs [Array<Symbol, String>] If unspecified, will return all aliases for all languages.
   # @return [Array<Wikidatum::Term>]
-  def aliases(languages = []); end
+  def aliases(langs = []); end
 
   # @return [Array<Wikidatum::Sitelink>]
   def sitelinks; end
