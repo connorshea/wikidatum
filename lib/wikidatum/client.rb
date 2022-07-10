@@ -26,6 +26,8 @@ class Wikidatum::Client
 
     @wikibase_url = wikibase_url
     @bot = bot
+    # TODO: Add the Ruby gem version to the UserAgent automatically, and
+    # restrict the ability for end-users to actually set the UserAgent?
     @user_agent = user_agent
   end
 
@@ -62,11 +64,13 @@ class Wikidatum::Client
   end
 
   # @param path [String] The relative path for the 
+  # @param tags [Array<String>] The tags to apply to the edit being made by this request, for PUT/POST/DELETE requests.
+  # @param comment [String] The edit description, for PUT/POST/DELETE requests.
   # @return [Hash] JSON response, parsed into a hash.
-  def request(path)
+  def request(path, tags: nil, comment: nil)
     url = "#{api_url}#{path}"
 
     # TODO: Have this actually send a request and parse the response, and
-    # handle errors if necessary.
+    # handle errors if necessary. Make sure to use the user_agent here.
   end
 end
