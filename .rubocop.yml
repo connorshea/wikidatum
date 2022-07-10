@@ -15,3 +15,6 @@ Layout/LineLength:
 
 Bundler/OrderedGems:
   Enabled: false
+
+Metrics/ParameterLists:
+  Enabled: false

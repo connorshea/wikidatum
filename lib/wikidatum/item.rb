@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Wikidatum::Item
-
   # @return [String] The ID of the Wikibase item, in the format "Q123".
   attr_reader :id
 
