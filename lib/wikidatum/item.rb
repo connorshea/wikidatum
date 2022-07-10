@@ -1,15 +1,21 @@
 # frozen_string_literal: true
 
 class Wikidatum::Item
+
+  # @return [String] The ID of the Wikibase item, in the format "Q123".
+  attr_reader :id
+
   # @!visibility private
   #
+  # @param id [String] The ID of the Wikibase item, in the format "Q123".
   # @param labels [Array<Wikidatum::Term>] An array of {Wikidatum::Term}s representing labels for this item.
   # @param descriptions [Array<Wikidatum::Term>] An array of {Wikidatum::Term}s representing descriptions for this item.
   # @param aliases [Array<Wikidatum::Term>] An array of {Wikidatum::Term}s representing aliases for this item.
   # @param statements [Array<Wikidatum::Statement>] Statements for this item.
   # @param sitelinks [Array<Wikidatum::Sitelink>] Sitelinks for this item.
   # @return [Wikidatum::Item]
-  def initialize(labels:, descriptions:, aliases:, statements:, sitelinks:)
+  def initialize(id:, labels:, descriptions:, aliases:, statements:, sitelinks:)
+    @id = id
     @labels = labels
     @descriptions = descriptions
     @aliases = aliases
