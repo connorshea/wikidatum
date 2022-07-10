@@ -19,6 +19,7 @@ module Wikidatum
   # This will only cover some of the most common language codes, not all of
   # them.
   module LanguageCodes
+    # rubocop:disable Naming/ConstantName
     Arabic = 'ar'
     BrazilianPortuguese = 'pt-br'
     Chinese = 'zh'
@@ -38,5 +39,6 @@ module Wikidatum
     TraditionalChinese = 'zh-hant'
     Turkish = 'tr'
     Ukrainian = 'uk'
+    # rubocop:enable Naming/ConstantName
   end
 end
