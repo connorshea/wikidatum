@@ -102,6 +102,7 @@ class Wikidatum::Client
   def post_request(path, body = {}, tags: nil, comment: nil)
     url = "#{api_url}#{path}"
 
+    body[:bot] = @bot
     body[:tags] = tags unless tags.nil?
     body[:comment] = comment unless comment.nil?
 
