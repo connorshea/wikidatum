@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'faraday'
+require 'faraday/net_http'
+
 class Wikidatum::Client
   # @return [String] The root URL of the Wikibase instance we want to interact
   #   with. If not provided, will default to Wikidata.
@@ -29,6 +32,8 @@ class Wikidatum::Client
     @user_agent = user_agent
     @wikibase_url = wikibase_url
     @bot = bot
+
+    Faraday.default_adapter = :net_http
   end
 
   # Get an item from the Wikibase API based on its QID.
@@ -48,7 +53,7 @@ class Wikidatum::Client
     # coerce it if necessary.
     id = "Q#{id}" unless id.start_with?('Q')
 
-    response = request("/entities/items/#{id}")
+    response = get_request("/entities/items/#{id}")
     # TODO: Do something with this response, presumably we'll want to create an instance of the Item class.
     puts response
   end
@@ -64,19 +69,44 @@ class Wikidatum::Client
     @api_url ||= @wikibase_url
   end
 
+  # Default headers to be sent with every request.
+  #
+  # @return [Hash] A hash of some headers that should be used when sending a request.
+  def universal_headers
+    @universal_headers ||= {
+      'User-Agent' => @user_agent,
+      'Content-Type' => 'application/json'
+    }
+  end
+
+  # Make a GET request to a given Wikibase endpoint.
+  #
   # @param path [String] The relative path for the API endpoint.
+  # @param params [Hash] Query parameters to send with the request, if any.
+  # @return [Hash] JSON response, parsed into a hash.
+  def get_request(path, params = nil)
+    url = "#{api_url}#{path}"
+
+    response = Faraday.get(url, params, universal_headers)
+
+    puts response.inspect
+  end
+
+  # Make a POST request to a given Wikibase endpoint.
+  #
+  # @param path [String] The relative path for the API endpoint.
+  # @param body [Hash] The body to post to the endpoint.
   # @param tags [Array<String>] The tags to apply to the edit being made by this request, for PUT/POST/DELETE requests.
   # @param comment [String] The edit description, for PUT/POST/DELETE requests.
   # @return [Hash] JSON response, parsed into a hash.
-  def request(path, tags: nil, comment: nil)
+  def post_request(path, body = {}, tags: nil, comment: nil)
     url = "#{api_url}#{path}"
 
-    # TODO: Have this actually send a request and parse the response, and
-    # handle errors if necessary. Make sure to use the user_agent here.
+    body[:tags] = tags unless tags.nil?
+    body[:comment] = comment unless comment.nil?
 
-    # TODO: Actually use these.
-    puts tags
-    puts comment
-    puts url
+    response = Faraday.post(url, body, universal_headers)
+
+    puts response.inspect
   end
 end
