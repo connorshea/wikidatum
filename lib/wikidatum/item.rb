@@ -99,6 +99,18 @@ class Wikidatum::Item
     @sitelinks.filter { |sitelink| sites.include?(sitelink.site) }
   end
 
+  # @return [Hash]
+  def to_h
+    {
+      id: @id,
+      labels: @labels.map(&:to_h),
+      descriptions: @descriptions.map(&:to_h),
+      aliases: @aliases.map(&:to_h),
+      statements: @statements.map(&:to_h),
+      sitelinks: @sitelinks.map(&:to_h)
+    }
+  end
+
   # @!visibility private
   #
   # This takes in the JSON blob (as a hash) that is output for an item record

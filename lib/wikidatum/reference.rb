@@ -14,4 +14,12 @@ class Wikidatum::Reference
     @hash = hash
     @snaks = snaks
   end
+
+  # @return [Hash]
+  def to_h
+    {
+      lang: @hash,
+      value: @snaks
+    }
+  end
 end

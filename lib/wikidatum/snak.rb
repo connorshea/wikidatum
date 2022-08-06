@@ -30,6 +30,17 @@ class Wikidatum::Snak
     @datavalue = datavalue
   end
 
+  # @return [Hash]
+  def to_h
+    {
+      hash: @hash,
+      snaktype: @snaktype,
+      property: @property,
+      datatype: @datatype,
+      datavalue: @datavalue
+    }
+  end
+
   # @!visibility private
   #
   # This takes in the JSON blob (as a hash) that is output for a given

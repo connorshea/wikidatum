@@ -22,4 +22,13 @@ class Wikidatum::Sitelink
     @title = title
     @badges = badges
   end
+
+  # @return [Hash]
+  def to_h
+    {
+      site: @site,
+      title: @title,
+      badges: @badges
+    }
+  end
 end

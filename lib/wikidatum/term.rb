@@ -18,4 +18,12 @@ class Wikidatum::Term
     @lang = lang.to_s
     @value = value
   end
+
+  # @return [Hash]
+  def to_h
+    {
+      lang: @lang,
+      value: @value
+    }
+  end
 end

@@ -35,6 +35,18 @@ class Wikidatum::Statement
     @rank = rank
   end
 
+  # @return [Hash]
+  def to_h
+    {
+      id: @id,
+      property_id: @property_id,
+      mainsnak: @mainsnak.to_h,
+      qualifiers: @qualifiers.map(&:to_h),
+      references: @references.map(&:to_h),
+      rank: @rank
+    }
+  end
+
   # @!visibility private
   #
   # This takes in the JSON blob (as a hash) that is output for a given
