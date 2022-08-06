@@ -55,7 +55,8 @@ class Wikidatum::Client
 
     response = get_request("/entities/items/#{id}")
     # TODO: Do something with this response, presumably we'll want to create an instance of the Item class.
-    puts response
+
+    response
   end
 
   private
@@ -66,7 +67,7 @@ class Wikidatum::Client
   #
   # @return [String] URL for the Wikibase API endpoint.
   def api_url
-    @api_url ||= @wikibase_url
+    @api_url ||= "#{@wikibase_url}/w/rest.php/wikibase/v0"
   end
 
   # Default headers to be sent with every request.
@@ -89,7 +90,9 @@ class Wikidatum::Client
 
     response = Faraday.get(url, params, universal_headers)
 
-    puts response.inspect
+    # TODO: Error handling if it doesn't return a 200
+
+    JSON.parse(response.body)
   end
 
   # Make a POST request to a given Wikibase endpoint.
