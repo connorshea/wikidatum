@@ -1,8 +1,8 @@
 # Wikidatum
 
-This gem will support making requests with the [new Wikidata/Wikibase REST API](https://doc.wikimedia.org/Wikibase/master/js/rest-api/).
+This gem supports making requests to the [new Wikidata/Wikibase REST API](https://doc.wikimedia.org/Wikibase/master/js/rest-api/).
 
-**The gem is currently in very early development and is not ready for actual usage**.
+**The gem is currently in very early development and is not ready for production usage**.
 
 ## Installation
 
