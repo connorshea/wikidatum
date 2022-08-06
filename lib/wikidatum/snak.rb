@@ -41,6 +41,11 @@ class Wikidatum::Snak
     }
   end
 
+  # @return [String]
+  def inspect
+    "<Wikidatum::Snak hash=#{@hash.inspect} snaktype=#{@snaktype.inspect} property=#{@property.inspect} datatype=#{@datatype.inspect} datavalue=#{@datavalue.inspect}>"
+  end
+
   # @!visibility private
   #
   # This takes in the JSON blob (as a hash) that is output for a given

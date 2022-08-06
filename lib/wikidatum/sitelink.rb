@@ -31,4 +31,9 @@ class Wikidatum::Sitelink
       badges: @badges
     }
   end
+
+  # @return [String]
+  def inspect
+    "<Wikidatum::Sitelink site=#{@site.inspect} title=#{@title.inspect} badges=#{@badges.inspect}>"
+  end
 end
