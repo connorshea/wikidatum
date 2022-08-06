@@ -30,6 +30,8 @@ class Wikidatum::Snak
     @datavalue = datavalue
   end
 
+  # @!visibility private
+  #
   # This takes in the JSON blob (as a hash) that is output for a given
   # snak in the API and turns it into an actual instance of a Snak.
   #

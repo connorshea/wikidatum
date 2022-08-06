@@ -99,7 +99,8 @@ class Wikidatum::Item
     @sitelinks.filter { |sitelink| sites.include?(sitelink.site) }
   end
 
-
+  # @!visibility private
+  #
   # This takes in the JSON blob (as a hash) that is output for an item record
   # in the API and turns it into an actual instance of an Item.
   #

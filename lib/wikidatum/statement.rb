@@ -35,6 +35,8 @@ class Wikidatum::Statement
     @rank = rank
   end
 
+  # @!visibility private
+  #
   # This takes in the JSON blob (as a hash) that is output for a given
   # statement in the API and turns it into an actual instance of a Statement.
   #
