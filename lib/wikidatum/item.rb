@@ -103,7 +103,7 @@ class Wikidatum::Item
   end
 
   # Get statements on the item.
-  # 
+  #
   # @example Get all statements.
   #   item.statements
   # @example Get statements for one or more specific properties.
@@ -155,7 +155,7 @@ class Wikidatum::Item
   #
   # @example View the contents of an item according to the Wikidatum gem by outputting prettified JSON.
   #   require 'json'
-  #   
+  #
   #   puts JSON.pretty_generate(item.to_h)
   #
   # @return [Hash]

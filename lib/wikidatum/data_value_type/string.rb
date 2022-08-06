@@ -2,17 +2,16 @@
 
 require 'wikidatum/data_value_type/base'
 
-# The String type datavalue looks like this:
+# The String type datavalue JSON looks like this:
 #
-# ```json
-# {
-#   "datavalue": {
-#     "value": "Foobar",
-#     "type": "string"
-#   }
-# }
-# ```
+#  {
+#    "datavalue": {
+#      "value": "Foobar",
+#      "type": "string"
+#    }
+#  }
 class Wikidatum::DataValueType::String < Wikidatum::DataValueType::Base
+  # @!visibility private
   def self.serialize(string)
     new(type: :string, value: string)
   end

@@ -2,24 +2,23 @@
 
 require 'wikidatum/data_value_type/base'
 
-# The time type datavalue looks like this:
+# The time type datavalue JSON looks like this:
 #
-# ```json
-# {
-#   "datavalue": {
-#     "value": {
-#       "time": "+2019-11-14T00:00:00Z",
-#       "timezone": 0,
-#       "before": 0,
-#       "after": 0,
-#       "precision": 11,
-#       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
-#     },
-#     "type": "time"
-#   }
-# }
-# ```
+#  {
+#    "datavalue": {
+#      "value": {
+#        "time": "+2019-11-14T00:00:00Z",
+#        "timezone": 0,
+#        "before": 0,
+#        "after": 0,
+#        "precision": 11,
+#        "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+#      },
+#      "type": "time"
+#    }
+#  }
 class Wikidatum::DataValueType::Time < Wikidatum::DataValueType::Base
+  # @!visibility private
   def self.serialize(data_value_json)
     new(
       type: :time,
