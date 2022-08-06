@@ -4,15 +4,15 @@ require 'faraday'
 require 'faraday/net_http'
 
 class Wikidatum::Client
-  # @return [String] The root URL of the Wikibase instance we want to interact
+  # @return [String] the root URL of the Wikibase instance we want to interact
   #   with. If not provided, will default to Wikidata.
   attr_reader :wikibase_url
 
-  # @return [Boolean] Whether this client instance should identify itself
+  # @return [Boolean] whether this client instance should identify itself
   #   as a bot when making requests.
   attr_reader :bot
 
-  # @return [String] The UserAgent header to send with all requests to the
+  # @return [String] the UserAgent header to send with all requests to the
   #   Wikibase API.
   attr_reader :user_agent
 

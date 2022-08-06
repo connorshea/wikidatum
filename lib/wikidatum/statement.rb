@@ -16,7 +16,8 @@ class Wikidatum::Statement
   # @return [Array<Wikidatum::Reference>]
   attr_accessor :references
 
-  # @return [String]
+  # @return [String] the rank of the given statement.
+  #   Can have the values "preferred", "normal", or "deprecated". Defaults to "normal".
   attr_accessor :rank
 
   # @param id [String]

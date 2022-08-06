@@ -42,7 +42,7 @@ item = wikidatum_client.item(id: 'Q2') #=> Wikidatum::Item
 item.statements #=> Array<Wikidatum::Statement>
 
 # Get the statments for property P123 on the item.
-item.statements(property: 'P123') #=> Array<Wikidatum::Statement>
+item.statements(properties: ['P123']) #=> Array<Wikidatum::Statement>
 
 # Get all the labels for the item.
 item.labels #=> Array<Wikidatum::Term>

@@ -14,6 +14,8 @@ require_relative 'wikidatum/version'
 module Wikidatum
   class Error < StandardError; end
 
+  # rubocop:disable Naming/ConstantName
+
   # These language codes are not enforced, you can pass whatever language code
   # you want, even if it's not represented in this list. The purpose of this
   # is to provide helper constants to allow writing more readable code.
@@ -21,7 +23,6 @@ module Wikidatum
   # This will only cover some of the most common language codes, not all of
   # them.
   module LanguageCodes
-    # rubocop:disable Naming/ConstantName
     Arabic = 'ar'
     BrazilianPortuguese = 'pt-br'
     Chinese = 'zh'
