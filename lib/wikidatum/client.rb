@@ -47,7 +47,7 @@ class Wikidatum::Client
   #   the item's QID, e.g. `"Q123"`, `"123"`, or `123`.
   # @return [Wikidatum::Item]
   def item(id:)
-    raise ArgumentError, "'#{id}' is an invalid Wikibase QID. Must be an integer, a string representation of an integer, or in the format 'Q123'." unless id.is_a?(Integer) || id.match?(/^Q?\d+$/)
+    raise ArgumentError, "#{id.inspect} is an invalid Wikibase QID. Must be an integer, a string representation of an integer, or in the format 'Q123'." unless id.is_a?(Integer) || id.match?(/^Q?\d+$/)
 
     # We need to have the ID in the format "Q123" for the API request, so
     # coerce it if necessary.
