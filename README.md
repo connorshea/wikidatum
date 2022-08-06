@@ -2,7 +2,7 @@
 
 This gem will support making requests with the [new Wikidata/Wikibase REST API](https://doc.wikimedia.org/Wikibase/master/js/rest-api/).
 
-**Currently it is in very early development and is not ready for actual usage**.
+**The gem is currently in very early development and is not ready for actual usage**.
 
 ## Installation
 
@@ -22,7 +22,40 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Currently, the gem is able to hit a few GET endpoints, and currently has no way to provide authentication and perform POST/PUT/DELETE requests. The additional features will be added later.
+
+```ruby
+require 'wikidatum'
+
+wikidatum_client = Wikidatum::Client.new(
+  user_agent: 'REPLACE ME WITH THE NAME OF YOUR BOT!',
+  # Currently only the beta site has the API available, you'll
+  # likely want to use wikidata.org once it's stable.
+  wikibase_url: 'https://wikidata.beta.wmflabs.org',
+  bot: true
+)
+
+# Get an item from the Wikibase instance.
+item = wikidatum_client.item(id: 'Q2') #=> Wikidatum::Item
+
+# Get the statements from the item.
+item.statements #=> Array<Wikidatum::Statement>
+
+# Get the statments for property P123 on the item.
+item.statements(property: 'P123') #=> Array<Wikidatum::Statement>
+
+# Get all the labels for the item.
+item.labels #=> Array<Wikidatum::Term>
+
+# Get the English label for the item.
+item.label(lang: :en) #=> Wikidatum::Term
+
+# Get the actual value for the label.
+item.label(lang: :en).value #=> "Earth"
+
+# Get the values for all English aliases on this item.
+item.aliases(langs: [:en]).map(&:value) #=> ["Planet Earth", "Pale Blue Dot"]
+```
 
 ## Development
 
