@@ -61,7 +61,9 @@ class Wikidatum::Statement
     qualifiers = statement_json['qualifiers'].to_a.flat_map do |qualifier_prop_id, qualifier|
       qualifier.map { |q| Wikidatum::Qualifier.serialize(q) }
     end
-    references = []
+    references = statement_json['references'].flat_map do |reference|
+      Wikidatum::Reference.serialize(reference)
+    end
 
     Wikidatum::Statement.new(
       id: statement_json['id'],

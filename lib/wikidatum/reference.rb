@@ -18,8 +18,23 @@ class Wikidatum::Reference
   # @return [Hash]
   def to_h
     {
-      lang: @hash,
-      value: @snaks
+      hash: @hash,
+      snaks: @snaks.map(&:to_h)
     }
+  end
+
+  # This takes in the JSON blob (as a hash) that is output for a given
+  # reference in the API and turns it into an actual instance of a
+  # Reference.
+  #
+  # @param ref_json [Hash]
+  # @return [Wikidatum::Reference]
+  def self.serialize(ref_json)
+    snaks = ref_json['snaks'].values.flatten.map { |snak| Wikidatum::Snak.serialize(snak) }
+
+    Wikidatum::Reference.new(
+      hash: ref_json['hash'],
+      snaks: snaks
+    )
   end
 end
