@@ -55,6 +55,8 @@ class Wikidatum::Client
 
     response = get_request("/entities/items/#{id}")
 
+    puts JSON.pretty_generate(response) if ENV['DEBUG']
+
     Wikidatum::Item.serialize(response)
   end
 
@@ -110,6 +112,6 @@ class Wikidatum::Client
 
     response = Faraday.post(url, body, universal_headers)
 
-    puts response.inspect
+    puts response.inspect if ENV['DEBUG']
   end
 end

@@ -1,0 +1,32 @@
+# frozen_string_literal: true
+
+require 'wikidatum/data_value_type/base'
+
+# The Quantity type datavalue looks like this:
+#
+# ```json
+# {
+#   "datavalue": {
+#     "value": {
+#       "amount": "+10.38",
+#       "upperBound": "+10.375",
+#       "lowerBound": "+10.385",
+#       "unit": "http://www.wikidata.org/entity/Q712226"
+#     },
+#     "type": "quantity"
+#   }
+# }
+# ```
+class Wikidatum::DataValueType::Quantity < Wikidatum::DataValueType::Base
+  def self.serialize(data_value_json)
+    new(
+      type: :quantity,
+      value: {
+        amount: data_value_json['amount'],
+        upper_bound: data_value_json['upperBound'],
+        lower_bound: data_value_json['lowerBound'],
+        unit: data_value_json['unit']
+      }
+    )
+  end
+end

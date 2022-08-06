@@ -37,8 +37,13 @@ class Wikidatum::Snak
       snaktype: @snaktype,
       property: @property,
       datatype: @datatype,
-      datavalue: @datavalue
+      datavalue: @datavalue.to_h
     }
+  end
+
+  # @return [String]
+  def inspect
+    "<Wikidatum::Snak hash=#{@hash.inspect} snaktype=#{@snaktype.inspect} property=#{@property.inspect} datatype=#{@datatype.inspect} datavalue=#{@datavalue.inspect}>"
   end
 
   # @!visibility private
@@ -49,14 +54,22 @@ class Wikidatum::Snak
   # @param snak_json [Hash]
   # @return [Wikidatum::Snak]
   def self.serialize(snak_json)
+    # snaktype can be 'novalue' (no value) or 'somevalue' (unknown), so we handle those as somewhat special cases
+    case snak_json['snaktype']
+    when 'novalue'
+      datavalue = Wikidatum::DataValueType::Base.serialize('novalue', nil)
+    when 'somevalue'
+      datavalue = Wikidatum::DataValueType::Base.serialize('somevalue', nil)
+    when 'value'
+      datavalue = Wikidatum::DataValueType::Base.serialize(snak_json['datavalue']['type'], snak_json['datavalue']['value'])
+    end
+
     Wikidatum::Snak.new(
       hash: snak_json['hash'],
       snaktype: snak_json['snaktype'],
       property: snak_json['property'],
       datatype: snak_json['datatype'],
-      # TODO: datavalue can have a bunch of different formats, so we'll handle
-      #       this later. God help us all.
-      datavalue: nil
+      datavalue: datavalue
     )
   end
 end

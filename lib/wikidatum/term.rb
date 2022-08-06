@@ -26,4 +26,9 @@ class Wikidatum::Term
       value: @value
     }
   end
+
+  # @return [String]
+  def inspect
+    "<Wikidatum::Term lang=#{@lang.inspect} value=#{@value.inspect}>"
+  end
 end
