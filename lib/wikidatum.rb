@@ -46,6 +46,7 @@ module Wikidatum
 
   module DataValueType
     DATA_VALUE_TYPES = {
+      'globecoordinate': 'Wikidatum::DataValueType::GlobeCoordinate',
       'monolingualtext': 'Wikidatum::DataValueType::MonolingualText',
       'novalue': 'Wikidatum::DataValueType::NoValue',
       'somevalue': 'Wikidatum::DataValueType::SomeValue',

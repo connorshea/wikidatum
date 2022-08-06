@@ -1,4 +1,5 @@
 require 'wikidatum/data_value_type/base'
+require 'wikidatum/data_value_type/globe_coordinate'
 require 'wikidatum/data_value_type/monolingual_text'
 require 'wikidatum/data_value_type/no_value'
 require 'wikidatum/data_value_type/some_value'
