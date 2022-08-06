@@ -16,6 +16,15 @@ class Wikidatum::Client
   #   Wikibase API.
   attr_reader :user_agent
 
+  # Create a new Wikidatum::Client to interact with the Wikibase REST API.
+  #
+  # @example
+  #  wikidatum_client = Wikidatum::Client.new(
+  #    user_agent: 'REPLACE ME WITH THE NAME OF YOUR BOT!',
+  #    wikibase_url: 'https://www.wikidata.org',
+  #    bot: true
+  #  )
+  #
   # @param user_agent [String] The UserAgent header to send with all requests
   #   to the Wikibase API.
   # @param wikibase_url [String] The root URL of the Wikibase instance we want
