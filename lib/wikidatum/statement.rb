@@ -41,21 +41,23 @@ class Wikidatum::Statement
   # statement in the API and turns it into an actual instance of a Statement.
   #
   # @param property_id [String] the property ID for the statement, e.g. 'P123'
-  # @param json [Hash]
+  # @param statement_json [Hash]
   # @return [Wikidatum::Statement]
-  def self.serialize(property_id, json)
-    mainsnak = Wikidatum::Snak.serialize(json['mainsnak'])
+  def self.serialize(property_id, statement_json)
+    mainsnak = Wikidatum::Snak.serialize(statement_json['mainsnak'])
 
-    qualifiers = []
+    qualifiers = statement_json['qualifiers'].to_a.flat_map do |qualifier_prop_id, qualifier|
+      qualifier.map { |q| Wikidatum::Qualifier.serialize(q) }
+    end
     references = []
 
     Wikidatum::Statement.new(
-      id: json['id'],
+      id: statement_json['id'],
       property_id: property_id,
       mainsnak: mainsnak,
       qualifiers: qualifiers,
       references: references,
-      rank: json['rank']
+      rank: statement_json['rank']
     )
   end
 end
