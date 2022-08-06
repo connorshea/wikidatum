@@ -29,4 +29,21 @@ class Wikidatum::Snak
     @datatype = datatype
     @datavalue = datavalue
   end
+
+  # This takes in the JSON blob (as a hash) that is output for a given
+  # snak in the API and turns it into an actual instance of a Snak.
+  #
+  # @param snak_json [Hash]
+  # @return [Wikidatum::Snak]
+  def self.serialize(snak_json)
+    Wikidatum::Snak.new(
+      hash: snak_json['hash'],
+      snaktype: snak_json['snaktype'],
+      property: snak_json['property'],
+      datatype: snak_json['datatype'],
+      # TODO: datavalue can have a bunch of different formats, so we'll handle
+      #       this later. God help us all.
+      datavalue: nil
+    )
+  end
 end

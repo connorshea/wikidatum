@@ -55,7 +55,7 @@ class Wikidatum::Client
 
     response = get_request("/entities/items/#{id}")
 
-    Wikidatum::Item.ingest(response)
+    Wikidatum::Item.serialize(response)
   end
 
   private
