@@ -28,6 +28,8 @@ class Wikidatum::Reference
     "<Wikidatum::Reference hash=#{@hash.inspect} snaks=#{@snaks.inspect}>"
   end
 
+  # @!visibility private
+  #
   # This takes in the JSON blob (as a hash) that is output for a given
   # reference in the API and turns it into an actual instance of a
   # Reference.
