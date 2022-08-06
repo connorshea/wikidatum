@@ -25,7 +25,7 @@ class Wikidatum::Client
   #   be registered as bot requests. Defaults to `true`.
   # @return [Wikidatum::Client]
   def initialize(user_agent:, wikibase_url: 'https://www.wikidata.org', bot: true)
-    raise ArgumentError, "Wikibase URL must not end with a `/`, got '#{wikibase_url}'." if wikibase_url.end_with?('/')
+    raise ArgumentError, "Wikibase URL must not end with a `/`, got #{wikibase_url.inspect}." if wikibase_url.end_with?('/')
 
     # TODO: Add the Ruby gem version to the UserAgent automatically, and
     # restrict the ability for end-users to actually set the UserAgent?
