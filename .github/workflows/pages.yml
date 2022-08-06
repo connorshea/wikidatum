@@ -1,5 +1,5 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+name: Deploy YARD docs to GitHub Pages
 
 on:
   # Runs on pushes targeting the default branch
@@ -38,12 +38,12 @@ jobs:
           ruby-version: '3.1'
       - name: Bundle Install
         run: bundle install
-      - name: Run YARD
+      - name: Generate YARD docs
         run: bundle exec yard
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          # Upload entire repository
+          # Upload doc directory
           path: './doc/'
       - name: Deploy to GitHub Pages
         id: deployment
