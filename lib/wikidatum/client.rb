@@ -55,6 +55,8 @@ class Wikidatum::Client
 
     response = get_request("/entities/items/#{id}")
 
+    puts JSON.pretty_generate(response)
+
     Wikidatum::Item.serialize(response)
   end
 

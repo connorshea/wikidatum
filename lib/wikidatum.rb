@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'wikidatum/client'
+require_relative 'wikidatum/data_value_type'
 require_relative 'wikidatum/item'
 require_relative 'wikidatum/qualifier'
 require_relative 'wikidatum/reference'
@@ -42,4 +43,14 @@ module Wikidatum
     Ukrainian = 'uk'
     # rubocop:enable Naming/ConstantName
   end
+
+  module DataValueType
+    DATA_VALUE_TYPES = {
+      # 'time': Wikidatum::DataValueType::Time,
+      'string': 'Wikidatum::DataValueType::String'
+      # 'monolingualtext': Wikidatum::DataValueType::MonolingualText,
+      # 'wikibase-entityid': Wikidatum::DataValueType::WikibaseEntityId
+    }.freeze
+  end
+
 end
