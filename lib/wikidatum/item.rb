@@ -98,4 +98,34 @@ class Wikidatum::Item
     sites.map!(&:to_s)
     @sitelinks.filter { |sitelink| sites.include?(sitelink.site) }
   end
+
+  # TODO: Rename this method to something less stupid
+  #
+  # This takes in the JSON blob (as a hash) that is output for an item record
+  # in the API and turns it into an actual instance of an Item.
+  #
+  # @param json [Hash]
+  # @return [Wikidatum::Item]
+  def self.ingest(json)
+    labels = json['labels'].to_a.map { |lang, label| Wikidatum::Term.new(lang: lang, value: label) }
+    descriptions = json['descriptions'].to_a.map { |lang, desc| Wikidatum::Term.new(lang: lang, value: desc) }
+    aliases = json['aliases'].to_a.flat_map do |lang, als|
+      als.map { |al| Wikidatum::Term.new(lang: lang, value: al) }
+    end
+    statements = []
+    sitelinks = json['sitelinks'].to_a.map do |name, sitelink|
+      Wikidatum::Sitelink.new(site: sitelink['site'], title: sitelink['title'], badges: sitelink['badges'])
+    end
+
+    item = Wikidatum::Item.new(
+      id: json['id'],
+      labels: labels,
+      descriptions: descriptions,
+      aliases: aliases,
+      statements: statements,
+      sitelinks: sitelinks
+    )
+
+    return item
+  end
 end

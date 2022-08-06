@@ -54,9 +54,8 @@ class Wikidatum::Client
     id = "Q#{id}" unless id.start_with?('Q')
 
     response = get_request("/entities/items/#{id}")
-    # TODO: Do something with this response, presumably we'll want to create an instance of the Item class.
 
-    response
+    Wikidatum::Item.ingest(response)
   end
 
   private
