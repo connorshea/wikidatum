@@ -87,7 +87,7 @@ class Wikidatum::Item
   # @example Getting all sitelinks for the item.
   #   item.sitelinks
   # @example Getting only a few specific sitelinks.
-  #   item.sitelink(sites: ['enwiki', 'eswiki', 'commons'])
+  #   item.sitelinks(sites: ['enwiki', 'eswiki', 'commons'])
   #
   # @param sites [Array<String, Symbol>] An array of sitelink shortcodes to return (e.g. ['enwiki', 'eswiki']), if not provided then all sitelinks will be returned.
   # @return [Array<Wikidatum::Sitelink>]
