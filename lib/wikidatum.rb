@@ -49,6 +49,7 @@ module Wikidatum
       'globecoordinate': 'Wikidatum::DataValueType::GlobeCoordinate',
       'monolingualtext': 'Wikidatum::DataValueType::MonolingualText',
       'novalue': 'Wikidatum::DataValueType::NoValue',
+      'quantity': 'Wikidatum::DataValueType::Quantity',
       'somevalue': 'Wikidatum::DataValueType::SomeValue',
       'string': 'Wikidatum::DataValueType::String',
       'time': 'Wikidatum::DataValueType::Time',
