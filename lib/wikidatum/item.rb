@@ -27,8 +27,7 @@ class Wikidatum::Item
   def statements(property: nil)
     return @statements if property.nil?
 
-    # TODO
-    @statements
+    @statements.filter { |statement| statement.property_id == property }
   end
 
   # @param lang [String, Symbol]
