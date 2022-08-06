@@ -46,10 +46,12 @@ module Wikidatum
 
   module DataValueType
     DATA_VALUE_TYPES = {
-      # 'time': Wikidatum::DataValueType::Time,
-      'string': 'Wikidatum::DataValueType::String'
-      # 'monolingualtext': Wikidatum::DataValueType::MonolingualText,
-      # 'wikibase-entityid': Wikidatum::DataValueType::WikibaseEntityId
+      'monolingualtext': 'Wikidatum::DataValueType::MonolingualText',
+      'novalue': 'Wikidatum::DataValueType::NoValue',
+      'somevalue': 'Wikidatum::DataValueType::SomeValue',
+      'string': 'Wikidatum::DataValueType::String',
+      'time': 'Wikidatum::DataValueType::Time',
+      'wikibase-entityid': 'Wikidatum::DataValueType::WikibaseEntityId'
     }.freeze
   end
 

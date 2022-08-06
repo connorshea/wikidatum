@@ -37,7 +37,7 @@ class Wikidatum::Snak
       snaktype: @snaktype,
       property: @property,
       datatype: @datatype,
-      datavalue: @datavalue
+      datavalue: @datavalue.to_h
     }
   end
 
@@ -49,12 +49,15 @@ class Wikidatum::Snak
   # @param snak_json [Hash]
   # @return [Wikidatum::Snak]
   def self.serialize(snak_json)
-    puts 'snak_json'
-    puts snak_json.inspect
-    puts 'snaktype'
-    puts snak_json['snaktype'].inspect
-    datavalue = Wikidatum::DataValueType::Base.serialize('novalue', nil) if snak_json['snaktype'] == 'novalue'
-    datavalue ||= Wikidatum::DataValueType::Base.serialize(snak_json['datavalue']['type'], snak_json['datavalue']['value'])
+    # snaktype can be 'novalue' (no value) or 'somevalue' (unknown), so we handle those as somewhat special cases
+    case snak_json['snaktype']
+    when 'novalue'
+      datavalue = Wikidatum::DataValueType::Base.serialize('novalue', nil)
+    when 'somevalue'
+      datavalue = Wikidatum::DataValueType::Base.serialize('somevalue', nil)
+    when 'value'
+      datavalue = Wikidatum::DataValueType::Base.serialize(snak_json['datavalue']['type'], snak_json['datavalue']['value'])
+    end
 
     Wikidatum::Snak.new(
       hash: snak_json['hash'],

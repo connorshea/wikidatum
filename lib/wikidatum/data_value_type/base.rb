@@ -2,6 +2,23 @@
 
 module Wikidatum::DataValueType
   class Base
+    attr_reader :type
+    attr_reader :value
+
+    # @param type [Symbol]
+    # @param value [*]
+    def initialize(type:, value:)
+      @type = type
+      @value = value
+    end
+
+    def to_h
+      {
+        type: @type,
+        value: @value
+      }
+    end
+
     # @param data_value_type [String] The value of `type` for the given Snak's datavalue.
     # @param data_value_json [Hash] The `value` part of datavalue.
     # @return [] Any of the DataValues subclasses.

@@ -12,10 +12,8 @@ require 'wikidatum/data_value_type/base'
 #   }
 # }
 # ```
-module Wikidatum::DataValueType
-  class String < Base
-    def self.serialize(data_value_json)
-      puts data_value_json
-    end
+class Wikidatum::DataValueType::String < Wikidatum::DataValueType::Base
+  def self.serialize(string)
+    new(type: :string, value: string)
   end
 end
