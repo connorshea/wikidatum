@@ -56,5 +56,4 @@ module Wikidatum
       'wikibase-entityid': 'Wikidatum::DataValueType::WikibaseEntityId'
     }.freeze
   end
-
 end

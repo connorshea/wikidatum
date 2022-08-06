@@ -2,8 +2,7 @@
 
 module Wikidatum::DataValueType
   class Base
-    attr_reader :type
-    attr_reader :value
+    attr_reader :type, :value
 
     # @param type [Symbol]
     # @param value [*]

@@ -58,7 +58,7 @@ class Wikidatum::Statement
   def self.serialize(property_id, statement_json)
     mainsnak = Wikidatum::Snak.serialize(statement_json['mainsnak'])
 
-    qualifiers = statement_json['qualifiers'].to_a.flat_map do |qualifier_prop_id, qualifier|
+    qualifiers = statement_json['qualifiers'].to_a.flat_map do |_qualifier_prop_id, qualifier|
       qualifier.map { |q| Wikidatum::Qualifier.serialize(q) }
     end
     references = statement_json['references'].flat_map do |reference|

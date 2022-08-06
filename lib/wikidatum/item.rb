@@ -126,7 +126,7 @@ class Wikidatum::Item
     statements = item_json['statements'].to_a.flat_map do |property_id, st_arr|
       st_arr.map { |statement| Wikidatum::Statement.serialize(property_id, statement) }
     end
-    sitelinks = item_json['sitelinks'].to_a.map do |name, sitelink|
+    sitelinks = item_json['sitelinks'].to_a.map do |_name, sitelink|
       Wikidatum::Sitelink.new(site: sitelink['site'], title: sitelink['title'], badges: sitelink['badges'])
     end
 

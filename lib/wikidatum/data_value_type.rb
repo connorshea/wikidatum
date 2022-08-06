@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'wikidatum/data_value_type/base'
 require 'wikidatum/data_value_type/globe_coordinate'
 require 'wikidatum/data_value_type/monolingual_text'
