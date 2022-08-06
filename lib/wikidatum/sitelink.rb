@@ -15,7 +15,7 @@ class Wikidatum::Sitelink
   #
   # @param site [String, Symbol] The shortcode for the given site (e.g. 'enwiki', 'commons', etc.), can be either a string or a symbol.
   # @param title [String] The title of the page in the associated Wikimedia site.
-  # @param badges [Array<String>] An array of badge names, optional.
+  # @param badges [Array<String>] An array of badges, given as item IDs (e.g. `['Q123', 'Q124']`) optional.
   # @return [Wikidatum::Sitelink]
   def initialize(site:, title:, badges: [])
     @site = site.to_s
