@@ -55,14 +55,14 @@ class Wikidatum::Statement
   #
   # @param statement_json [Hash]
   # @return [Wikidatum::Statement]
-  def self.serialize(statement_json)
-    mainsnak = Wikidatum::Snak.serialize(statement_json['mainsnak'])
+  def self.marshal_load(statement_json)
+    mainsnak = Wikidatum::Snak.marshal_load(statement_json['mainsnak'])
 
     qualifiers = statement_json['qualifiers'].to_a.flat_map do |_qualifier_prop_id, qualifier|
-      qualifier.map { |q| Wikidatum::Qualifier.serialize(q) }
+      qualifier.map { |q| Wikidatum::Qualifier.marshal_load(q) }
     end
     references = statement_json['references'].flat_map do |reference|
-      Wikidatum::Reference.serialize(reference)
+      Wikidatum::Reference.marshal_load(reference)
     end
 
     Wikidatum::Statement.new(

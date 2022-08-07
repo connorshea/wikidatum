@@ -6,7 +6,7 @@ require 'wikidatum/data_value_type/base'
 # around this by just passing nil to the serializer.
 class Wikidatum::DataValueType::NoValue < Wikidatum::DataValueType::Base
   # @!visibility private
-  def self.serialize(_data_value_json)
+  def self.marshal_load(_data_value_json)
     new(type: :no_value, value: nil)
   end
 end

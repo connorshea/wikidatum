@@ -53,15 +53,15 @@ class Wikidatum::Snak
   #
   # @param snak_json [Hash]
   # @return [Wikidatum::Snak]
-  def self.serialize(snak_json)
+  def self.marshal_load(snak_json)
     # snaktype can be 'novalue' (no value) or 'somevalue' (unknown), so we handle those as somewhat special cases
     case snak_json['snaktype']
     when 'novalue'
-      datavalue = Wikidatum::DataValueType::Base.serialize('novalue', nil)
+      datavalue = Wikidatum::DataValueType::Base.marshal_load('novalue', nil)
     when 'somevalue'
-      datavalue = Wikidatum::DataValueType::Base.serialize('somevalue', nil)
+      datavalue = Wikidatum::DataValueType::Base.marshal_load('somevalue', nil)
     when 'value'
-      datavalue = Wikidatum::DataValueType::Base.serialize(snak_json['datavalue']['type'], snak_json['datavalue']['value'])
+      datavalue = Wikidatum::DataValueType::Base.marshal_load(snak_json['datavalue']['type'], snak_json['datavalue']['value'])
     end
 
     Wikidatum::Snak.new(

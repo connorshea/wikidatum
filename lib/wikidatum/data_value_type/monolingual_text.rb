@@ -15,7 +15,7 @@ require 'wikidatum/data_value_type/base'
 #  }
 class Wikidatum::DataValueType::MonolingualText < Wikidatum::DataValueType::Base
   # @!visibility private
-  def self.serialize(data_value_json)
+  def self.marshal_load(data_value_json)
     new(type: :monolingual_text, value: { language: data_value_json['language'], text: data_value_json['text'] })
   end
 end

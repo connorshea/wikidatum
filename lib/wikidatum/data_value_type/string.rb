@@ -12,7 +12,7 @@ require 'wikidatum/data_value_type/base'
 #  }
 class Wikidatum::DataValueType::String < Wikidatum::DataValueType::Base
   # @!visibility private
-  def self.serialize(string)
+  def self.marshal_load(string)
     new(type: :string, value: string)
   end
 end

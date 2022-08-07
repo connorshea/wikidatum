@@ -36,8 +36,8 @@ class Wikidatum::Reference
   #
   # @param ref_json [Hash]
   # @return [Wikidatum::Reference]
-  def self.serialize(ref_json)
-    snaks = ref_json['snaks'].values.flatten.map { |snak| Wikidatum::Snak.serialize(snak) }
+  def self.marshal_load(ref_json)
+    snaks = ref_json['snaks'].values.flatten.map { |snak| Wikidatum::Snak.marshal_load(snak) }
 
     Wikidatum::Reference.new(
       hash: ref_json['hash'],

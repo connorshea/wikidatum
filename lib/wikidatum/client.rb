@@ -69,7 +69,7 @@ class Wikidatum::Client
 
     puts JSON.pretty_generate(response) if ENV['DEBUG']
 
-    Wikidatum::Item.serialize(response)
+    Wikidatum::Item.marshal_load(response)
   end
 
   # Get a statement from the Wikibase API based on its ID.
@@ -86,7 +86,30 @@ class Wikidatum::Client
 
     puts JSON.pretty_generate(response) if ENV['DEBUG']
 
-    Wikidatum::Statement.serialize(response)
+    Wikidatum::Statement.marshal_load(response)
+  end
+
+  # Add a statement to an item.
+  #
+  # @example
+  #   wikidatum_client.add_statement(
+  #     'Q123$4543523c-1d1d-1111-1e1e-11b11111b1f1',
+  #     comment: "Deleting this statement because it's bad."
+  #   )
+  #
+  # @param id [String] the ID of the item on which the statement will be added.
+  # @param body [Hash] the body of the statement being created.
+  # @param tags [Array<String>]
+  # @param comment [String, nil]
+  # @return [Boolean] True if the request succeeded.
+  def add_statement(id:, body:, tags: [], comment: nil)
+    raise ArgumentError, "#{id.inspect} is an invalid Wikibase Statement ID. Must be a string in the format 'Q123$f004ec2b-4857-3b69-b370-e8124f5bd3ac'." unless id.match?(STATEMENT_REGEX)
+
+    response = post_request("/entities/items/#{id}/statements", body, tags: tags, comment: comment)
+
+    puts JSON.pretty_generate(response) if ENV['DEBUG']
+
+    response.success?
   end
 
   # Delete a statement from an item.

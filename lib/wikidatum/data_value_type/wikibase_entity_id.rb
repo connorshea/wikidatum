@@ -16,7 +16,7 @@ require 'wikidatum/data_value_type/base'
 #  }
 class Wikidatum::DataValueType::WikibaseEntityId < Wikidatum::DataValueType::Base
   # @!visibility private
-  def self.serialize(data_value_json)
+  def self.marshal_load(data_value_json)
     new(
       type: :wikibase_entity_id,
       value: {
