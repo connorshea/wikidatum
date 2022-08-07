@@ -4,6 +4,9 @@ require 'faraday'
 require 'faraday/net_http'
 
 class Wikidatum::Client
+  ITEM_REGEX = /^Q?\d+$/.freeze
+  STATEMENT_REGEX = /^Q?\d+\$[\w-]+$/.freeze
+
   # @return [String] the root URL of the Wikibase instance we want to interact
   #   with. If not provided, will default to Wikidata.
   attr_reader :wikibase_url
@@ -56,7 +59,7 @@ class Wikidatum::Client
   #   the item's QID, e.g. `"Q123"`, `"123"`, or `123`.
   # @return [Wikidatum::Item]
   def item(id:)
-    raise ArgumentError, "#{id.inspect} is an invalid Wikibase QID. Must be an integer, a string representation of an integer, or in the format 'Q123'." unless id.is_a?(Integer) || id.match?(/^Q?\d+$/)
+    raise ArgumentError, "#{id.inspect} is an invalid Wikibase QID. Must be an integer, a string representation of an integer, or in the format 'Q123'." unless id.is_a?(Integer) || id.match?(ITEM_REGEX)
 
     # We need to have the ID in the format "Q123" for the API request, so
     # coerce it if necessary.
@@ -77,13 +80,27 @@ class Wikidatum::Client
   # @param id [String] A string representation of the statement's ID.
   # @return [Wikidatum::Statement]
   def statement(id:)
-    raise ArgumentError, "#{id.inspect} is an invalid Wikibase Statement ID. Must be a string in the format 'Q123$f004ec2b-4857-3b69-b370-e8124f5bd3ac'." unless id.match?(/^Q?\d+\$[\w-]+$/)
+    raise ArgumentError, "#{id.inspect} is an invalid Wikibase Statement ID. Must be a string in the format 'Q123$f004ec2b-4857-3b69-b370-e8124f5bd3ac'." unless id.match?(STATEMENT_REGEX)
 
     response = get_request("/statements/#{id}")
 
     puts JSON.pretty_generate(response) if ENV['DEBUG']
 
     Wikidatum::Statement.serialize(response)
+  end
+
+  # @param id [String]
+  # @param tags [Array<String>, nil]
+  # @param comment [String, nil]
+  # @return [Boolean] True if the request succeeded.
+  def delete_statement(id:, tags: nil, comment: nil)
+    raise ArgumentError, "#{id.inspect} is an invalid Wikibase Statement ID. Must be a string in the format 'Q123$f004ec2b-4857-3b69-b370-e8124f5bd3ac'." unless id.match?(STATEMENT_REGEX)
+
+    response = delete_request("/statements/#{id}")
+
+    puts JSON.pretty_generate(response) if ENV['DEBUG']
+
+    response.success?
   end
 
   private
@@ -117,7 +134,11 @@ class Wikidatum::Client
 
     response = Faraday.get(url, params, universal_headers)
 
-    # TODO: Error handling if it doesn't return a 200
+    # Error handling if it doesn't return a 200
+    unless response.success?
+      puts 'Something went wrong with this request!'
+      puts response.inspect
+    end
 
     JSON.parse(response.body)
   end
@@ -139,5 +160,37 @@ class Wikidatum::Client
     response = Faraday.post(url, body, universal_headers)
 
     puts response.inspect if ENV['DEBUG']
+
+    response
+  end
+
+  # Make a DELETE request to a given Wikibase endpoint.
+  #
+  # @param path [String] The relative path for the API endpoint.
+  # @param tags [Array<String>] The tags to apply to the edit being made by this request, for PUT/POST/DELETE requests.
+  # @param comment [String] The edit description, for PUT/POST/DELETE requests.
+  # @return [Hash] JSON response, parsed into a hash.
+  def delete_request(path, tags: [], comment: nil)
+    url = "#{api_url}#{path}"
+
+    body = {}
+    body[:bot] = @bot
+    body[:tags] = tags unless tags.nil?
+    body[:comment] = comment unless comment.nil?
+
+    response = Faraday.delete(url) do |req|
+      req.body = JSON.generate(body)
+      req.headers = universal_headers
+    end
+
+    puts response.inspect if ENV['DEBUG']
+
+    # Error handling if it doesn't return a 200
+    unless response.success?
+      puts 'Something went wrong with this request!'
+      puts response.inspect
+    end
+
+    response
   end
 end
