@@ -22,6 +22,8 @@ Or install it yourself as:
 
 ## Usage
 
+You can view the YARD docs on GitHub Pages [here](https://connorshea.github.io/wikidatum/index.html).
+
 Currently, the gem is able to hit a few GET endpoints, and currently has no way to provide authentication and perform POST/PUT/DELETE requests. The additional features will be added later.
 
 ```ruby
