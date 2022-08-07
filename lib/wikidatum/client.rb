@@ -69,6 +69,23 @@ class Wikidatum::Client
     Wikidatum::Item.serialize(response)
   end
 
+  # Get a statement from the Wikibase API based on its ID.
+  #
+  # @example
+  #   wikidatum_client.statement(id: 'Q123$f004ec2b-4857-3b69-b370-e8124f5bd3ac')
+  #
+  # @param id [String] A string representation of the statement's ID.
+  # @return [Wikidatum::Statement]
+  def statement(id:)
+    raise ArgumentError, "#{id.inspect} is an invalid Wikibase Statement ID. Must be a string in the format 'Q123$f004ec2b-4857-3b69-b370-e8124f5bd3ac'." unless id.match?(/^Q?\d+\$[\w-]+$/)
+
+    response = get_request("/statements/#{id}")
+
+    puts JSON.pretty_generate(response) if ENV['DEBUG']
+
+    Wikidatum::Statement.serialize(response)
+  end
+
   private
 
   # For now this just returns the `@wikibase_url`, but in the future the API

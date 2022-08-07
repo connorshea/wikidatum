@@ -183,8 +183,8 @@ class Wikidatum::Item
     aliases = item_json['aliases'].to_a.flat_map do |lang, als|
       als.map { |al| Wikidatum::Term.new(lang: lang, value: al) }
     end
-    statements = item_json['statements'].to_a.flat_map do |property_id, st_arr|
-      st_arr.map { |statement| Wikidatum::Statement.serialize(property_id, statement) }
+    statements = item_json['statements'].to_a.flat_map do |_property_id, st_arr|
+      st_arr.map { |statement| Wikidatum::Statement.serialize(statement) }
     end
     sitelinks = item_json['sitelinks'].to_a.map do |_name, sitelink|
       Wikidatum::Sitelink.new(site: sitelink['site'], title: sitelink['title'], badges: sitelink['badges'])

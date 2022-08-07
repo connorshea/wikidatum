@@ -4,7 +4,7 @@ class Wikidatum::Statement
   # @return [String]
   attr_reader :id
 
-  # @return [String]
+  # @return [String] property ID, in the format of 'P123'.
   attr_accessor :property_id
 
   # @return [Wikidatum::Snak]
@@ -53,10 +53,9 @@ class Wikidatum::Statement
   # This takes in the JSON blob (as a hash) that is output for a given
   # statement in the API and turns it into an actual instance of a Statement.
   #
-  # @param property_id [String] the property ID for the statement, e.g. 'P123'
   # @param statement_json [Hash]
   # @return [Wikidatum::Statement]
-  def self.serialize(property_id, statement_json)
+  def self.serialize(statement_json)
     mainsnak = Wikidatum::Snak.serialize(statement_json['mainsnak'])
 
     qualifiers = statement_json['qualifiers'].to_a.flat_map do |_qualifier_prop_id, qualifier|
@@ -68,7 +67,7 @@ class Wikidatum::Statement
 
     Wikidatum::Statement.new(
       id: statement_json['id'],
-      property_id: property_id,
+      property_id: mainsnak.property,
       mainsnak: mainsnak,
       qualifiers: qualifiers,
       references: references,
