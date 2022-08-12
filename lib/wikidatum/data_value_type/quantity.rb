@@ -4,19 +4,21 @@ require 'wikidatum/data_value_type/base'
 
 # The Quantity type datavalue JSON looks like this:
 #
-#  {
-#    "datavalue": {
-#      "value": {
-#        "amount": "+10.38",
-#        "upperBound": "+10.375",
-#        "lowerBound": "+10.385",
-#        "unit": "http://www.wikidata.org/entity/Q712226"
-#      },
-#      "type": "quantity"
-#    }
-#  }
+# ```json
+# {
+#   "datavalue": {
+#     "value": {
+#       "amount": "+10.38",
+#       "upperBound": "+10.375",
+#       "lowerBound": "+10.385",
+#       "unit": "http://www.wikidata.org/entity/Q712226"
+#     },
+#     "type": "quantity"
+#   }
+# }
+# ```
 class Wikidatum::DataValueType::Quantity
-  # @return [String]
+  # @return [String] A string value like "+2", usually an integer but not always.
   attr_reader :amount
 
   # @return [String, nil] upper bound, if one is defined.
@@ -34,6 +36,16 @@ class Wikidatum::DataValueType::Quantity
     @upper_bound = upper_bound
     @lower_bound = lower_bound
     @unit = unit
+  end
+
+  # @return [Hash]
+  def to_h
+    {
+      amount: @amount,
+      upper_bound: @upper_bound,
+      lower_bound: @lower_bound,
+      unit: @unit
+    }
   end
 
   # @!visibility private

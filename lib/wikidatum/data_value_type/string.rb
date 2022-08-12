@@ -4,19 +4,28 @@ require 'wikidatum/data_value_type/base'
 
 # The String type datavalue JSON looks like this:
 #
-#  {
-#    "datavalue": {
-#      "value": "Foobar",
-#      "type": "string"
-#    }
-#  }
+# ```json
+# {
+#   "datavalue": {
+#     "value": "Foobar",
+#     "type": "string"
+#   }
+# }
+# ```
 class Wikidatum::DataValueType::String
-  # @return [String]
+  # @return [String] the value for the string.
   attr_reader :string
 
   # @!visibility private
   def initialize(string:)
     @string = string
+  end
+
+  # @return [Hash]
+  def to_h
+    {
+      string: @string
+    }
   end
 
   # @!visibility private

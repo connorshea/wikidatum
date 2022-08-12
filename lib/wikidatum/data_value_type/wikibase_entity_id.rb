@@ -4,16 +4,18 @@ require 'wikidatum/data_value_type/base'
 
 # The Wikibase Entity ID type datavalue JSON looks like this:
 #
-#  {
-#    "datavalue": {
-#      "value": {
-#        "entity-type": "item",
-#        "numeric-id": 552863,
-#        "id": "Q552863"
-#      },
-#      "type": "wikibase-entityid"
-#    }
-#  }
+# ```json
+# {
+#   "datavalue": {
+#     "value": {
+#       "entity-type": "item",
+#       "numeric-id": 552863,
+#       "id": "Q552863"
+#     },
+#     "type": "wikibase-entityid"
+#   }
+# }
+# ```
 class Wikidatum::DataValueType::WikibaseEntityId
   # @return [String] usually "item"
   attr_reader :entity_type
@@ -28,6 +30,15 @@ class Wikidatum::DataValueType::WikibaseEntityId
     @entity_type = entity_type
     @numeric_id = numeric_id
     @id = id
+  end
+
+  # @return [Hash]
+  def to_h
+    {
+      entity_type: @entity_type,
+      numeric_id: @numeric_id,
+      id: @id
+    }
   end
 
   # @!visibility private

@@ -1,10 +1,31 @@
 # frozen_string_literal: true
 
+# For more information on the possible types that can be returned by
+# datavalues, see the official documentation:
+# https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_json.html#json_datavalues
 module Wikidatum::DataValueType
   class Base
+    # Represents the type for this datavalue instance.
+    #
+    # Possible values for the `type` attribute are:
+    #
+    # - `:no_value`: No value
+    # - `:some_value`: Unknown value
+    # - `:globe_coordinate`: {DataValueType::GlobeCoordinate}
+    # - `:monolingual_text`: {DataValueType::MonolingualText}
+    # - `:quantity`: {DataValueType::Quantity}
+    # - `:string`: {DataValueType::String}
+    # - `:time`: {DataValueType::Time}
+    # - `:wikibase_entity_id`: {DataValueType::WikibaseEntityId}
+    #
     # @return [Symbol]
     attr_reader :type
 
+    # The value of the datavalue object in the response.
+    #
+    # If the `type` is `novalue` or `somevalue`, this returns `nil`.
+    #
+    # @return [DataValueType::GlobeCoordinate, DataValueType::MonolingualText, DataValueType::Quantity, DataValueType::String, DataValueType::Time, DataValueType::WikibaseEntityId, nil]
     attr_reader :value
 
     # @!visibility private
@@ -20,7 +41,7 @@ module Wikidatum::DataValueType
     def to_h
       {
         type: @type,
-        value: @value
+        value: @value&.to_h
       }
     end
 

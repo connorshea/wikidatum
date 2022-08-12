@@ -4,6 +4,8 @@ require 'wikidatum/data_value_type/base'
 
 # The SomeValue type actually has no datavalue key in the blob at all. We work
 # around this by just passing nil to the serializer.
+
+# Represents a value of "unknown value".
 class Wikidatum::DataValueType::SomeValue < Wikidatum::DataValueType::Base
   # @!visibility private
   def self.marshal_load(_data_value_json)

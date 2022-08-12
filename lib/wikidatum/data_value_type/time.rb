@@ -4,19 +4,21 @@ require 'wikidatum/data_value_type/base'
 
 # The time type datavalue JSON looks like this:
 #
-#  {
-#    "datavalue": {
-#      "value": {
-#        "time": "+2019-11-14T00:00:00Z",
-#        "timezone": 0,
-#        "before": 0,
-#        "after": 0,
-#        "precision": 11,
-#        "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
-#      },
-#      "type": "time"
-#    }
-#  }
+# ```json
+# {
+#   "datavalue": {
+#     "value": {
+#       "time": "+2019-11-14T00:00:00Z",
+#       "timezone": 0,
+#       "before": 0,
+#       "after": 0,
+#       "precision": 11,
+#       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+#     },
+#     "type": "time"
+#   }
+# }
+# ```
 #
 # We do not include before and after because the documentation states that
 # they're unused and "may be removed in the future".
@@ -93,6 +95,16 @@ class Wikidatum::DataValueType::Time
     @time_zone = time_zone
     @precision = precision
     @calendar_model = calendarmodel
+  end
+
+  # @return [Hash]
+  def to_h
+    {
+      time: @time,
+      time_zone: @time_zone,
+      precision: @precision,
+      calendar_model: @calendar_model
+    }
   end
 
   # @!visibility private

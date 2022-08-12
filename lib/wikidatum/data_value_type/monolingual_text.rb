@@ -4,15 +4,17 @@ require 'wikidatum/data_value_type/base'
 
 # The Monolingual Text type datavalue JSON looks like this:
 #
-#  {
-#    "datavalue": {
-#      "value": {
-#        "text": "South Pole Telescope eyes birth of first massive galaxies",
-#        "language": "en"
-#      },
-#      "type": "monolingualtext"
-#    }
-#  }
+# ```json
+# {
+#   "datavalue": {
+#     "value": {
+#       "text": "South Pole Telescope eyes birth of first massive galaxies",
+#       "language": "en"
+#     },
+#     "type": "monolingualtext"
+#   }
+# }
+# ```
 class Wikidatum::DataValueType::MonolingualText
   # @return [String] the language code, e.g. 'en'
   attr_reader :language
@@ -24,6 +26,14 @@ class Wikidatum::DataValueType::MonolingualText
   def initialize(language:, text:)
     @language = language
     @text = text
+  end
+
+  # @return [Hash]
+  def to_h
+    {
+      language: @language,
+      text: @text
+    }
   end
 
   # @!visibility private

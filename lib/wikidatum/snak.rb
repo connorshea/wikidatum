@@ -13,7 +13,11 @@ class Wikidatum::Snak
   # @param datatype [String]
   attr_reader :datatype
 
-  # @param datavalue [?] TODO: Not 100% sure what shape this will take yet.
+  # For more information on the possible types that can be returned by
+  # datavalues, see the official documentation:
+  # https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_json.html#json_datavalues
+  #
+  # @param datavalue [Wikidatum::DataValueType::Base] the value of the statement, can take various forms
   attr_reader :datavalue
 
   # @!visibility private

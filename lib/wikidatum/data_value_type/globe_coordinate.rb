@@ -4,17 +4,19 @@ require 'wikidatum/data_value_type/base'
 
 # The Monolingual Text type datavalue JSON looks like this:
 #
-#   {
-#     "datavalue": {
-#       "value": {
-#         "latitude": 52.516666666667,
-#         "longitude": 13.383333333333,
-#         "precision": 0.016666666666667,
-#         "globe": "http:\/\/www.wikidata.org\/entity\/Q2"
-#       },
-#       "type": "globecoordinate"
-#     }
+# ```json
+# {
+#   "datavalue": {
+#     "value": {
+#       "latitude": 52.516666666667,
+#       "longitude": 13.383333333333,
+#       "precision": 0.016666666666667,
+#       "globe": "http:\/\/www.wikidata.org\/entity\/Q2"
+#     },
+#     "type": "globecoordinate"
 #   }
+# }
+# ```
 class Wikidatum::DataValueType::GlobeCoordinate
   # @return [Float]
   attr_reader :latitude
@@ -34,6 +36,16 @@ class Wikidatum::DataValueType::GlobeCoordinate
     @longitude = longitude
     @precision = precision
     @globe = globe
+  end
+
+  # @return [Hash]
+  def to_h
+    {
+      latitude: @latitude,
+      longitude: @longitude,
+      precision: @precision,
+      globe: @globe
+    }
   end
 
   # @!visibility private
