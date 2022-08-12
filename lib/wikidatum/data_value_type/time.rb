@@ -86,7 +86,7 @@ class Wikidatum::DataValueType::Time
   # @return [Integer]
   attr_reader :precision
 
-  # @return [String, nil] a URL (usually in the same Wikibase instance) representing the given calendar model (e.g. Gregorian, Julian), or nil.
+  # @return [String] a URL (usually in the same Wikibase instance) representing the given calendar model (e.g. Gregorian, Julian).
   attr_reader :calendar_model
 
   # @!visibility private
