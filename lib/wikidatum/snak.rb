@@ -4,20 +4,20 @@ class Wikidatum::Snak
   # @return [String] Hash of a snak (a cryptographic hash, not a Ruby hash).
   attr_reader :hash
 
-  # @return snaktype [String]
+  # @return [String]
   attr_reader :snaktype
 
-  # @return property [String] ID of the property for this Snak, in the format 'P123'.
+  # @return [String] ID of the property for this Snak, in the format 'P123'.
   attr_reader :property
 
-  # @return datatype [String]
+  # @return [String]
   attr_reader :datatype
 
   # For more information on the possible types that can be returned by
   # datavalues, see the official documentation:
   # https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_json.html#json_datavalues
   #
-  # @return datavalue [Wikidatum::DataValueType::Base] the value of the statement, can take various forms
+  # @return [Wikidatum::DataValueType::Base] the value of the statement, can take various forms
   attr_reader :datavalue
 
   # @!visibility private
