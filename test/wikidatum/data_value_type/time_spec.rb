@@ -3,7 +3,7 @@
 require 'test_helper'
 
 describe Wikidatum::DataValueType::Time do
-  describe 'creating a time' do
+  describe 'creating a DataValueType::Time' do
     it 'works' do
       time = Wikidatum::DataValueType::Time.new(
         time: '+2022-03-00T00:00:00Z',
