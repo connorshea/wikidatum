@@ -11,6 +11,9 @@ Style/Documentation:
 Style/ClassAndModuleChildren:
   Enabled: false
 
+Style/WordArray:
+  Enabled: false
+
 Layout/LineLength:
   Enabled: false
 

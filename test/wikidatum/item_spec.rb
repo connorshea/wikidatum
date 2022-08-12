@@ -114,4 +114,22 @@ describe Wikidatum::Item do
       assert_kind_of Wikidatum::Sitelink, fixture_item('q123').sitelink(site: :enwiki)
     end
   end
+
+  describe '#statements' do
+    it 'works with no properties specified' do
+      assert(fixture_item('q123').statements.all? { |statement| statement.is_a?(Wikidatum::Statement) })
+    end
+
+    it 'works with a property specified' do
+      assert_kind_of Wikidatum::Statement, fixture_item('q123').statements(properties: ['P694']).first
+    end
+
+    it 'works with multiple properties specified' do
+      assert_kind_of Wikidatum::Statement, fixture_item('q123').statements(properties: ['P694', 'P706']).first
+    end
+
+    it 'works with a non-present property specified' do
+      assert_equal 0, fixture_item('q123').statements(properties: ['P1337']).count
+    end
+  end
 end
