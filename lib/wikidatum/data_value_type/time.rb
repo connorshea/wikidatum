@@ -104,6 +104,7 @@ class Wikidatum::DataValueType::Time
       time: @time,
       time_zone: @time_zone,
       precision: @precision,
+      pretty_precision: pretty_precision,
       calendar_model: @calendar_model
     }
   end
@@ -119,6 +120,35 @@ class Wikidatum::DataValueType::Time
         calendar_model: data_value_json['calendarmodel']
       )
     )
+  end
+
+  PRETTY_PRECISIONS = {
+    0 => :gigayear,
+    1 => :'100_megayear',
+    2 => :'10_megayear',
+    3 => :megayear,
+    4 => :'100_kiloyear',
+    5 => :'10_kiloyear',
+    6 => :millennium,
+    7 => :century,
+    8 => :decade,
+    9 => :year,
+    10 => :month,
+    11 => :day,
+    12 => :hour,
+    13 => :minute,
+    14 => :second
+  }.freeze
+
+  # Returns a symbol representation of the precision, in singular form.
+  #
+  # Possible values are `:gigayear`, `:'100_megayear'`, `:'10_megayear'`,
+  # `:megayear`, `:'100_kiloyear'`, `:'10_kiloyear'`, `:millennium`, `:century`,
+  # `:decade`, `:year`, `:month`, `:day`, `:hour`, `:minute`, and `:second`.
+  #
+  # @return [Symbol]
+  def pretty_precision
+    PRETTY_PRECISIONS[@precision]
   end
 
   # Aliases to match the name returned by the REST API.
