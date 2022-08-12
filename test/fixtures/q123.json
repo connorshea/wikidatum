@@ -279,6 +279,48 @@
         "id": "Q123$d2489982-4fec-6524-9e64-45cdfc09b158",
         "rank": "normal"
       }
+    ],
+    "P646": [
+      {
+        "qualifiers": {
+        },
+        "qualifiers-order": [
+
+        ],
+        "references": [
+
+        ],
+        "mainsnak": {
+          "snaktype": "novalue",
+          "property": "P646",
+          "hash": "19a6e4a408759780501144eaf56cdb869ecef257",
+          "datatype": "string"
+        },
+        "type": "statement",
+        "id": "Q123$ae970899-40fe-da06-1c82-6eaff84c78cb",
+        "rank": "normal"
+      }
+    ],
+    "P17": [
+      {
+        "qualifiers": {
+        },
+        "qualifiers-order": [
+
+        ],
+        "references": [
+
+        ],
+        "mainsnak": {
+          "snaktype": "somevalue",
+          "property": "P17",
+          "hash": "c16e24b04858a71d02e7bb8fd0c7ec39d8bf7e0e",
+          "datatype": "string"
+        },
+        "type": "statement",
+        "id": "Q123$d79f87d7-475a-716f-c854-392c79bc036d",
+        "rank": "normal"
+      }
     ]
   },
   "sitelinks": {
