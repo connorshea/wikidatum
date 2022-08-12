@@ -1,0 +1,296 @@
+{
+  "id": "Q123",
+  "type": "item",
+  "labels": {
+    "en": "TestItem"
+  },
+  "descriptions": {
+    "en": "this is a test item!"
+  },
+  "aliases": {
+    "en": [
+      "test item",
+      "testitem"
+    ]
+  },
+  "statements": {
+    "P694": [
+      {
+        "qualifiers": {
+        },
+        "qualifiers-order": [
+
+        ],
+        "references": [
+
+        ],
+        "mainsnak": {
+          "snaktype": "value",
+          "property": "P694",
+          "hash": "9befa103ef2883c00fed1beacb9347df6c5bff8e",
+          "datavalue": {
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 377211,
+              "id": "Q377211"
+            },
+            "type": "wikibase-entityid"
+          },
+          "datatype": "wikibase-item"
+        },
+        "type": "statement",
+        "id": "Q123$adacda34-46c4-2515-7aa9-ac448c8bfded",
+        "rank": "normal"
+      }
+    ],
+    "P706": [
+      {
+        "qualifiers": {
+        },
+        "qualifiers-order": [
+
+        ],
+        "references": [
+
+        ],
+        "mainsnak": {
+          "snaktype": "value",
+          "property": "P706",
+          "hash": "23a9f221d37cdc29fb6c2232c940bf4fd4c22b06",
+          "datavalue": {
+            "value": {
+              "time": "+2022-01-01T00:00:00Z",
+              "timezone": 0,
+              "before": 0,
+              "after": 0,
+              "precision": 11,
+              "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+            },
+            "type": "time"
+          },
+          "datatype": "time"
+        },
+        "type": "statement",
+        "id": "Q123$3683bbd6-4814-26a1-3ff4-56f0c8854c27",
+        "rank": "normal"
+      }
+    ],
+    "P963": [
+      {
+        "qualifiers": {
+        },
+        "qualifiers-order": [
+
+        ],
+        "references": [
+
+        ],
+        "mainsnak": {
+          "snaktype": "value",
+          "property": "P963",
+          "hash": "7fdca8665eadaf0d8baea7fb494ca677445a97db",
+          "datavalue": {
+            "value": {
+              "entity-type": "item",
+              "numeric-id": 524026,
+              "id": "Q524026"
+            },
+            "type": "wikibase-entityid"
+          },
+          "datatype": "wikibase-item"
+        },
+        "type": "statement",
+        "id": "Q123$8f193976-4b22-a891-caf0-a7d94d8886af",
+        "rank": "normal"
+      }
+    ],
+    "P625": [
+      {
+        "qualifiers": {
+        },
+        "qualifiers-order": [
+
+        ],
+        "references": [
+
+        ],
+        "mainsnak": {
+          "snaktype": "value",
+          "property": "P625",
+          "hash": "b450c377afc6aad673c7c2e0de0f98b1fe78490e",
+          "datavalue": {
+            "value": "foobar baz",
+            "type": "string"
+          },
+          "datatype": "string"
+        },
+        "type": "statement",
+        "id": "Q123$7ecb83a5-4ce1-4dc1-6d6f-7b2ca954ed25",
+        "rank": "normal"
+      }
+    ],
+    "P740": [
+      {
+        "qualifiers": {
+        },
+        "qualifiers-order": [
+
+        ],
+        "references": [
+
+        ],
+        "mainsnak": {
+          "snaktype": "value",
+          "property": "P740",
+          "hash": "b0a516f10facff71f2b1f734f1c13c8d047d3926",
+          "datavalue": {
+            "value": {
+              "latitude": 38.8977,
+              "longitude": -77.0365,
+              "altitude": null,
+              "precision": 0.0001,
+              "globe": "http://www.wikidata.org/entity/Q2"
+            },
+            "type": "globecoordinate"
+          },
+          "datatype": "globe-coordinate"
+        },
+        "type": "statement",
+        "id": "Q123$ea6a4bc7-4a83-3dbf-a531-e5c326b4c735",
+        "rank": "normal"
+      }
+    ],
+    "P937": [
+      {
+        "qualifiers": {
+        },
+        "qualifiers-order": [
+
+        ],
+        "references": [
+
+        ],
+        "mainsnak": {
+          "snaktype": "value",
+          "property": "P937",
+          "hash": "8e8fde751b0ffc26abf78b3bf18fe006a719b042",
+          "datavalue": {
+            "value": {
+              "amount": "+2",
+              "unit": "https://wikidata.beta.wmflabs.org/entity/Q613600"
+            },
+            "type": "quantity"
+          },
+          "datatype": "quantity"
+        },
+        "type": "statement",
+        "id": "Q123$0ef539a3-4b96-1dc1-12c2-27045f8ebcae",
+        "rank": "normal"
+      }
+    ],
+    "P13432": [
+      {
+        "qualifiers": {
+        },
+        "qualifiers-order": [
+
+        ],
+        "references": [
+
+        ],
+        "mainsnak": {
+          "snaktype": "value",
+          "property": "P13432",
+          "hash": "9456d24080f19ee95bb3185dbc0333405578d782",
+          "datavalue": {
+            "value": {
+              "text": "foo",
+              "language": "en-gb"
+            },
+            "type": "monolingualtext"
+          },
+          "datatype": "monolingualtext"
+        },
+        "type": "statement",
+        "id": "Q123$8a50d70e-4a01-b0f7-5732-7570bf5fe737",
+        "rank": "normal"
+      }
+    ],
+    "P476": [
+      {
+        "qualifiers": {
+        },
+        "qualifiers-order": [
+
+        ],
+        "references": [
+
+        ],
+        "mainsnak": {
+          "snaktype": "value",
+          "property": "P476",
+          "hash": "fa4cf5c4c9edea2d9b575f4070c5e242a8fb4bc1",
+          "datavalue": {
+            "value": {
+              "time": "+2022-00-00T00:00:00Z",
+              "timezone": 0,
+              "before": 0,
+              "after": 0,
+              "precision": 9,
+              "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+            },
+            "type": "time"
+          },
+          "datatype": "time"
+        },
+        "type": "statement",
+        "id": "Q123$a2e436e8-450e-0669-03f7-e930df3f362e",
+        "rank": "normal"
+      }
+    ],
+    "P766": [
+      {
+        "qualifiers": {
+        },
+        "qualifiers-order": [
+
+        ],
+        "references": [
+
+        ],
+        "mainsnak": {
+          "snaktype": "value",
+          "property": "P766",
+          "hash": "5af4db4ca02183f7c6dfdfac8225052fec0b2b74",
+          "datavalue": {
+            "value": {
+              "time": "+2022-03-00T00:00:00Z",
+              "timezone": 0,
+              "before": 0,
+              "after": 0,
+              "precision": 10,
+              "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+            },
+            "type": "time"
+          },
+          "datatype": "time"
+        },
+        "type": "statement",
+        "id": "Q123$d2489982-4fec-6524-9e64-45cdfc09b158",
+        "rank": "normal"
+      }
+    ]
+  },
+  "sitelinks": {
+    "dewiki": {
+      "site": "dewiki",
+      "title": "Data-Bridge",
+      "badges": []
+    },
+    "enwiki": {
+      "site": "enwiki",
+      "title": "Data bridge",
+      "badges": []
+    }
+  }
+}
