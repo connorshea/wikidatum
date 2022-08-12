@@ -82,7 +82,7 @@ class Wikidatum::DataValueType::Time
   #
   # If the time represented is "2022" because it's only precise to the year,
   # that would have a precision of years (9).
-  # 
+  #
   # @return [Integer]
   attr_reader :precision
 
@@ -94,7 +94,7 @@ class Wikidatum::DataValueType::Time
     @time = time
     @time_zone = time_zone
     @precision = precision
-    @calendar_model = calendarmodel
+    @calendar_model = calendar_model
   end
 
   # @return [Hash]
@@ -122,6 +122,6 @@ class Wikidatum::DataValueType::Time
 
   # Aliases to match the name returned by the REST API.
 
-  alias_method :timezone, :time_zone
-  alias_method :calendarmodel, :calendar_model
+  alias timezone time_zone
+  alias calendarmodel calendar_model
 end
