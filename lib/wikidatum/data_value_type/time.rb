@@ -31,6 +31,7 @@ class Wikidatum::DataValueType::Time
   # A string representing the time in a format that is very similar to ISO 8601.
   #
   # For example, here are what dates look like for the most common precisions:
+  #
   # - years (9): "+2022-00-00T00:00:00Z", meaning "2022"
   # - months (10): "+2022-03-00T00:00:00Z", meaning "March 2022"
   # - days (11): "+2022-01-01T00:00:00Z", meaning "January 1, 2022"
