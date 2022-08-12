@@ -46,6 +46,7 @@ module Wikidatum
   end
 
   module DataValueType
+    # rubocop:disable Lint/SymbolConversion
     DATA_VALUE_TYPES = {
       'globecoordinate': 'Wikidatum::DataValueType::GlobeCoordinate',
       'monolingualtext': 'Wikidatum::DataValueType::MonolingualText',
@@ -56,5 +57,6 @@ module Wikidatum
       'time': 'Wikidatum::DataValueType::Time',
       'wikibase-entityid': 'Wikidatum::DataValueType::WikibaseEntityId'
     }.freeze
+    # rubocop:enable Lint/SymbolConversion
   end
 end
