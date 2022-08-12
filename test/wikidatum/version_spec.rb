@@ -2,8 +2,8 @@
 
 require "test_helper"
 
-class TestWikidatum < Minitest::Test
-  def test_that_it_has_a_version_number
+describe Wikidatum::VERSION do
+  it 'has a version number' do
     refute_nil ::Wikidatum::VERSION
   end
 end

@@ -19,6 +19,9 @@ Bundler/OrderedGems:
 Metrics/AbcSize:
   Enabled: false
 
+Metrics/BlockLength:
+  Enabled: false
+
 Metrics/CyclomaticComplexity:
   Enabled: false
 
