@@ -256,7 +256,26 @@
 
         ],
         "references": [
-
+          {
+            "hash": "29e1c34d2383c7f72ffcae244cabb6c838baf2bd",
+            "snaks": {
+              "P143": [
+                {
+                  "snaktype": "value",
+                  "property": "P143",
+                  "hash": "537383444fac23e6c1dacb8a3614f05ecf9d9425",
+                  "datavalue": {
+                    "value": "foo",
+                    "type": "string"
+                  },
+                  "datatype": "string"
+                }
+              ]
+            },
+            "snaks-order": [
+              "P143"
+            ]
+          }
         ],
         "mainsnak": {
           "snaktype": "value",
