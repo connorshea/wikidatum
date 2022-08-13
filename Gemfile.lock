@@ -7,16 +7,22 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.8.0)
+      public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.2)
+    crack (0.4.5)
+      rexml
     docile (1.4.0)
     faraday (2.4.0)
       faraday-net_http (~> 2.0)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (2.1.0)
+    hashdiff (1.0.1)
     minitest (5.16.0)
     parallel (1.22.1)
     parser (3.1.2.0)
       ast (~> 2.4.1)
+    public_suffix (4.0.7)
     rainbow (3.1.1)
     rake (13.0.6)
     regexp_parser (2.5.0)
@@ -41,6 +47,10 @@ GEM
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
     unicode-display_width (2.1.0)
+    webmock (3.17.1)
+      addressable (>= 2.8.0)
+      crack (>= 0.3.2)
+      hashdiff (>= 0.4.0, < 2.0.0)
     webrick (1.7.0)
     yard (0.9.28)
       webrick (~> 1.7.0)
@@ -55,6 +65,7 @@ DEPENDENCIES
   rake (~> 13.0)
   rubocop (~> 1.30)
   simplecov (~> 0.21)
+  webmock (~> 3.17)
   wikidatum!
   yard (~> 0.9)
 

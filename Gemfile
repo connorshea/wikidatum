@@ -10,3 +10,4 @@ gem 'minitest', '~> 5.16'
 gem 'simplecov', '~> 0.21', require: false
 gem 'rubocop', '~> 1.30'
 gem 'yard', '~> 0.9'
+gem 'webmock', '~> 3.17', require: false

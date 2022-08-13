@@ -11,3 +11,7 @@ end
 require "wikidatum"
 
 require "minitest/autorun"
+
+require 'webmock/minitest'
+
+WebMock.disable_net_connect!(allow_localhost: false)
