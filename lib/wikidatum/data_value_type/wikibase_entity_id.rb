@@ -59,4 +59,13 @@ class Wikidatum::DataValueType::WikibaseEntityId
       )
     )
   end
+
+  # @!visibility private
+  def marshal_dump
+    {
+      'entity-type': @entity_type,
+      'numeric-id': @numeric_id,
+      id: @id
+    }
+  end
 end

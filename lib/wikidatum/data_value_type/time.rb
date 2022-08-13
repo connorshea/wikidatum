@@ -129,6 +129,16 @@ class Wikidatum::DataValueType::Time
     )
   end
 
+  # @!visibility private
+  def marshal_dump
+    {
+      time: @time,
+      timezone: @time_zone,
+      precision: @precision,
+      calendarmodel: @calendar_model
+    }
+  end
+
   PRETTY_PRECISIONS = {
     0 => :gigayear,
     1 => :'100_megayear',

@@ -44,4 +44,9 @@ class Wikidatum::DataValueType::String
       )
     )
   end
+
+  # @!visibility private
+  def marshal_dump
+    @string
+  end
 end

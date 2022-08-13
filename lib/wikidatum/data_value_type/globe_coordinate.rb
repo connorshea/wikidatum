@@ -67,4 +67,14 @@ class Wikidatum::DataValueType::GlobeCoordinate
       )
     )
   end
+
+  # @!visibility private
+  def marshal_dump
+    {
+      latitude: @latitude,
+      longitude: @longitude,
+      precision: @precision,
+      globe: @globe
+    }
+  end
 end

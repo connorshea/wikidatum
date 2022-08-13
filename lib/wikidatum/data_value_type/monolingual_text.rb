@@ -53,4 +53,12 @@ class Wikidatum::DataValueType::MonolingualText
       )
     )
   end
+
+  # @!visibility private
+  def marshal_dump
+    {
+      language: @language,
+      text: @text
+    }
+  end
 end
