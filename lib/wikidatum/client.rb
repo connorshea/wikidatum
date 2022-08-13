@@ -207,7 +207,7 @@ class Wikidatum::Client
 
     body = {}
     body[:bot] = @bot
-    body[:tags] = tags unless tags.nil?
+    body[:tags] = tags unless tags.empty?
     body[:comment] = comment unless comment.nil?
 
     response = Faraday.delete(url) do |req|

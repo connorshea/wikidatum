@@ -73,4 +73,39 @@ describe Wikidatum::Client do
       assert_kind_of Wikidatum::Statement, statement
     end
   end
+
+  describe '#delete_statement' do
+    let(:statement_id) { 'Q124$adacda34-46c4-2515-7aa9-ac448c8bfded' }
+
+    before do
+      stub_request(:delete, "https://example.com/w/rest.php/wikibase/v0/statements/#{statement_id}")
+        .with(body: JSON.generate({ bot: true }))
+        .to_return(status: 200, body: '', headers: {})
+
+      stub_request(:delete, "https://example.com/w/rest.php/wikibase/v0/statements/#{statement_id}")
+        .with(body: JSON.generate({ bot: true, tags: ['foo'], comment: 'deleting this statement for reasons...' }))
+        .to_return(status: 200, body: '', headers: {})
+    end
+
+    it 'raises when given an invalid statement ID' do
+      assert_raises(ArgumentError, "'bad id' is an invalid Wikibase Statement ID. Must be a string in the format 'Q123$f004ec2b-4857-3b69-b370-e8124f5bd3ac'.") do
+        create_client.delete_statement(id: 'bad id')
+      end
+    end
+
+    it 'returns true' do
+      response = create_client.delete_statement(id: statement_id)
+      assert response
+    end
+
+    it 'returns true when also sending tags and a comment' do
+      response = create_client.delete_statement(
+        id: statement_id,
+        tags: ['foo'],
+        comment: 'deleting this statement for reasons...'
+      )
+
+      assert response
+    end
+  end
 end
