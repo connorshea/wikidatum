@@ -1,20 +1,53 @@
 {
   "qualifiers": {
-    "P443": [
+    "P31": [
       {
         "snaktype": "value",
-        "property": "P443",
-        "hash": "0836b21ff5e6fae5aded4a771ffa1f85c3090027",
+        "property": "P31",
+        "hash": "591a70c182ae2ed0f53be37c64c1572222d948d4",
         "datavalue": {
-          "value": "aaaaaaa",
+          "value": "aaaaa",
           "type": "string"
         },
         "datatype": "string"
       }
+    ],
+    "P407": [
+      {
+        "snaktype": "value",
+        "property": "P407",
+        "hash": "04056a83af133a62c21c1132bcd5ff67dbdfa032",
+        "datavalue": {
+          "value": "bbbbb",
+          "type": "string"
+        },
+        "datatype": "string"
+      }
+    ],
+    "P766": [
+      {
+        "snaktype": "value",
+        "property": "P766",
+        "hash": "aa2620a6b343f62c61135132939c04c7bed9962a",
+        "datavalue": {
+          "value": {
+            "time": "+2001-02-01T00:00:00Z",
+            "timezone": 0,
+            "before": 0,
+            "after": 0,
+            "precision": 11,
+            "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+          },
+          "type": "time"
+        },
+        "datatype": "time"
+      }
     ]
   },
   "qualifiers-order": [
-    "P443"
+    "P31",
+    "P407",
+    "P766"
   ],
   "references": [
     {
