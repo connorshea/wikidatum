@@ -36,5 +36,15 @@ describe Wikidatum::Client do
       item = create_client.item(id: 'Q124')
       assert_kind_of Wikidatum::Item, item
     end
+
+    it 'returns a valid item when passing an integer' do
+      item = create_client.item(id: 124)
+      assert_kind_of Wikidatum::Item, item
+    end
+
+    it 'returns a valid item when passing an stringified integer' do
+      item = create_client.item(id: '124')
+      assert_kind_of Wikidatum::Item, item
+    end
   end
 end

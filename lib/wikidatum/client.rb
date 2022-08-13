@@ -63,7 +63,7 @@ class Wikidatum::Client
 
     # We need to have the ID in the format "Q123" for the API request, so
     # coerce it if necessary.
-    id = "Q#{id}" unless id.start_with?('Q')
+    id = "Q#{id}" unless id.to_s.start_with?('Q')
 
     response = get_request("/entities/items/#{id}")
 
