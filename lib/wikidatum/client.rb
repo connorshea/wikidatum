@@ -93,7 +93,7 @@ class Wikidatum::Client
   #   wikidatum_client.add_statement(
   #     id: 'Q123',
   #     property: 'P23',
-  #     datavalue: Wikidatum::DataValueType::String.new(string: 'Foo'),
+  #     datavalue: Wikidatum::DataValueType::WikibaseString.new(string: 'Foo'),
   #     comment: 'Adding something or another.'
   #   )
   #
@@ -176,7 +176,7 @@ class Wikidatum::Client
   #
   # @param id [String] the ID of the item on which the statement will be added.
   # @param property [String] property ID in the format 'P123'.
-  # @param datavalue [Wikidatum::DataValueType::GlobeCoordinate, Wikidatum::DataValueType::MonolingualText, Wikidatum::DataValueType::Quantity, Wikidatum::DataValueType::String, Wikidatum::DataValueType::Time, Wikidatum::DataValueType::WikibaseEntityId, Wikidatum::DataValueType::NoValue, Wikidatum::DataValueType::SomeValue] the datavalue of the statement being created.
+  # @param datavalue [Wikidatum::DataValueType::GlobeCoordinate, Wikidatum::DataValueType::MonolingualText, Wikidatum::DataValueType::Quantity, Wikidatum::DataValueType::WikibaseString, Wikidatum::DataValueType::Time, Wikidatum::DataValueType::WikibaseEntityId, Wikidatum::DataValueType::NoValue, Wikidatum::DataValueType::SomeValue] the datavalue of the statement being created.
   # @param datatype [String, nil] if nil, it'll determine the type based on what was passed for the statement argument. This may differ from the type of the Statement's datavalue (for example with the 'url' type).
   # @param qualifiers [Hash<String, Array<Wikidatum::Snak>>]
   # @param references [Array<Wikidatum::Reference>]
@@ -210,7 +210,7 @@ class Wikidatum::Client
           datatype: datatype
         }
       }
-    when 'Wikidatum::DataValueType::GlobeCoordinate', 'Wikidatum::DataValueType::MonolingualText', 'Wikidatum::DataValueType::Quantity', 'Wikidatum::DataValueType::String', 'Wikidatum::DataValueType::Time', 'Wikidatum::DataValueType::WikibaseEntityId'
+    when 'Wikidatum::DataValueType::GlobeCoordinate', 'Wikidatum::DataValueType::MonolingualText', 'Wikidatum::DataValueType::Quantity', 'Wikidatum::DataValueType::WikibaseString', 'Wikidatum::DataValueType::Time', 'Wikidatum::DataValueType::WikibaseEntityId'
       statement_hash = {
         mainsnak: {
           snaktype: 'value',

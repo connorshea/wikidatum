@@ -53,7 +53,7 @@ module Wikidatum
       'novalue': 'Wikidatum::DataValueType::NoValue',
       'quantity': 'Wikidatum::DataValueType::Quantity',
       'somevalue': 'Wikidatum::DataValueType::SomeValue',
-      'string': 'Wikidatum::DataValueType::String',
+      'string': 'Wikidatum::DataValueType::WikibaseString',
       'time': 'Wikidatum::DataValueType::Time',
       'wikibase-entityid': 'Wikidatum::DataValueType::WikibaseEntityId'
     }.freeze

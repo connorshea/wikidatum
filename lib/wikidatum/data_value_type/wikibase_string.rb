@@ -12,7 +12,7 @@ require 'wikidatum/data_value_type/base'
 #   }
 # }
 # ```
-class Wikidatum::DataValueType::String
+class Wikidatum::DataValueType::WikibaseString
   # @return [String] the value for the string.
   attr_reader :string
 

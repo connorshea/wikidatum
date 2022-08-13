@@ -114,7 +114,7 @@ describe Wikidatum::Client do
     let(:property) { 'P625' }
 
     describe 'creating a string-type statement' do
-      let(:datavalue) { Wikidatum::DataValueType::String.new(string: 'test data') }
+      let(:datavalue) { Wikidatum::DataValueType::WikibaseString.new(string: 'test data') }
       let(:output_body) do
         {
           statement: {
