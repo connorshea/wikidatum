@@ -16,7 +16,8 @@ class Wikidatum::DataValueType::String
   # @return [String] the value for the string.
   attr_reader :string
 
-  # @!visibility private
+  # @param string [String]
+  # @return [void]
   def initialize(string:)
     @string = string
   end

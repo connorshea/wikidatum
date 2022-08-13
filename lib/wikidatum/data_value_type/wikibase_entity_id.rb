@@ -26,6 +26,10 @@ class Wikidatum::DataValueType::WikibaseEntityId
   # @return [String] in the format "Q123".
   attr_reader :id
 
+  # @param entity_type [String]
+  # @param numeric_id [Integer]
+  # @param id [String]
+  # @return [void]
   def initialize(entity_type:, numeric_id:, id:)
     @entity_type = entity_type
     @numeric_id = numeric_id

@@ -22,7 +22,9 @@ class Wikidatum::DataValueType::MonolingualText
   # @return [String]
   attr_reader :text
 
-  # @!visibility private
+  # @param language [String]
+  # @param text [String]
+  # @return [void]
   def initialize(language:, text:)
     @language = language
     @text = text

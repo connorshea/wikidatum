@@ -30,7 +30,11 @@ class Wikidatum::DataValueType::GlobeCoordinate
   # @return [String] A URL (usually in the same Wikibase instance) representing the given globe model (e.g. Earth).
   attr_reader :globe
 
-  # @!visibility private
+  # @param latitude [Float]
+  # @param longitude [Float]
+  # @param precision [Float]
+  # @param globe [String]
+  # @return [void]
   def initialize(latitude:, longitude:, precision:, globe:)
     @latitude = latitude
     @longitude = longitude

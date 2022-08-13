@@ -30,7 +30,11 @@ class Wikidatum::DataValueType::Quantity
   # @return [String] a URL describing the unit for this quantity, e.g. "meter", "kilometer", "pound", "chapter", "section", etc.
   attr_reader :unit
 
-  # @!visibility private
+  # @param amount [String]
+  # @param upper_bound [String]
+  # @param lower_bound [String]
+  # @param unit [String]
+  # @return [void]
   def initialize(amount:, upper_bound:, lower_bound:, unit:)
     @amount = amount
     @upper_bound = upper_bound

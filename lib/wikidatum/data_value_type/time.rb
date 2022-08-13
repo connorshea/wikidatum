@@ -90,7 +90,11 @@ class Wikidatum::DataValueType::Time
   # @return [String] a URL (usually in the same Wikibase instance) representing the given calendar model (e.g. Gregorian, Julian).
   attr_reader :calendar_model
 
-  # @!visibility private
+  # @param time [String]
+  # @param time_zone [Integer]
+  # @param precision [Integer]
+  # @param calendar_model [String]
+  # @return [void]
   def initialize(time:, time_zone:, precision:, calendar_model:)
     @time = time
     @time_zone = time_zone
