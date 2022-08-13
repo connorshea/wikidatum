@@ -36,6 +36,13 @@ class Wikidatum::DataValueType::MonolingualText
     }
   end
 
+  # The "type" value used by Wikibase, for use when creating/updating statements.
+  #
+  # @return [String]
+  def wikibase_type
+    'monolingualtext'
+  end
+
   # @!visibility private
   def self.marshal_load(data_value_json)
     Wikidatum::DataValueType::Base.new(

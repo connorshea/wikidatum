@@ -111,7 +111,21 @@ describe Wikidatum::Client do
 
   describe '#add_statement' do
     let(:item_id) { 'Q124' }
-    let(:body) do
+    let(:input_body) do
+      {
+        mainsnak: {
+          snaktype: "value",
+          property: "P625",
+          datatype: "string",
+          datavalue: {
+            type: "string",
+            value: "test data"
+          }
+        }
+      }
+    end
+
+    let(:output_body) do
       {
         statement: {
           mainsnak: {
@@ -130,11 +144,11 @@ describe Wikidatum::Client do
 
     before do
       stub_request(:post, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item_id}/statements")
-        .with(body: body.merge({ bot: true }).to_json)
+        .with(body: output_body.merge({ bot: true }).to_json)
         .to_return(status: 200, body: '', headers: {})
 
       stub_request(:post, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item_id}/statements")
-        .with(body: body.merge({ bot: true, tags: ['bar'], comment: 'adding string property' }).to_json)
+        .with(body: output_body.merge({ bot: true, tags: ['bar'], comment: 'adding string property' }).to_json)
         .to_return(status: 200, body: '', headers: {})
     end
 
@@ -145,19 +159,19 @@ describe Wikidatum::Client do
     end
 
     it 'returns true' do
-      response = create_client.add_statement(id: item_id, body: body)
+      response = create_client.add_statement(id: item_id, statement: input_body)
       assert response
     end
 
     it 'returns true when passed an integer' do
-      response = create_client.add_statement(id: 124, body: body)
+      response = create_client.add_statement(id: 124, statement: input_body)
       assert response
     end
 
     it 'returns true when also sending tags and a comment' do
       response = create_client.add_statement(
         id: item_id,
-        body: body,
+        statement: input_body,
         tags: ['bar'],
         comment: 'adding string property'
       )

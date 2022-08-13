@@ -92,19 +92,21 @@ class Wikidatum::Client
   # @example
   #   wikidatum_client.add_statement(
   #     id: 'Q123',
-  #     body: {},
+  #     statement: {},
   #     comment: 'Adding something or another.'
   #   )
   #
   # @param id [String] the ID of the item on which the statement will be added.
-  # @param body [Hash] the body of the statement being created.
+  # @param statement [Hash] the body of the statement being created.
   # @param tags [Array<String>]
   # @param comment [String, nil]
   # @return [Boolean] True if the request succeeded.
-  def add_statement(id:, body:, tags: [], comment: nil)
+  def add_statement(id:, statement:, tags: [], comment: nil)
     raise ArgumentError, "#{id.inspect} is an invalid Wikibase QID. Must be an integer, a string representation of an integer, or in the format 'Q123'." unless id.is_a?(Integer) || id.match?(ITEM_REGEX)
 
     id = coerce_item_id(id)
+
+    body = { statement: statement.merge({ type: "statement" }) }
 
     response = post_request("/entities/items/#{id}/statements", body, tags: tags, comment: comment)
 

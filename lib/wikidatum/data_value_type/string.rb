@@ -28,6 +28,13 @@ class Wikidatum::DataValueType::String
     }
   end
 
+  # The "type" value used by Wikibase, for use when creating/updating statements.
+  #
+  # @return [String]
+  def wikibase_type
+    'string'
+  end
+
   # @!visibility private
   def self.marshal_load(string)
     Wikidatum::DataValueType::Base.new(
