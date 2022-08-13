@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-require_relative 'wikidatum/client'
-require_relative 'wikidatum/data_value_type'
-require_relative 'wikidatum/item'
-require_relative 'wikidatum/qualifier'
-require_relative 'wikidatum/reference'
-require_relative 'wikidatum/sitelink'
-require_relative 'wikidatum/snak'
-require_relative 'wikidatum/statement'
-require_relative 'wikidatum/term'
-require_relative 'wikidatum/version'
+require 'wikidatum/client'
+require 'wikidatum/data_value_type'
+require 'wikidatum/item'
+require 'wikidatum/qualifier'
+require 'wikidatum/reference'
+require 'wikidatum/sitelink'
+require 'wikidatum/snak'
+require 'wikidatum/statement'
+require 'wikidatum/term'
+require 'wikidatum/version'
 
 module Wikidatum
   class Error < StandardError; end
