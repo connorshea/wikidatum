@@ -89,6 +89,9 @@ class Wikidatum::Client
 
   # Add a statement to an item.
   #
+  # NOTE: Adding references/qualifiers with `add_statement` is untested and
+  # effectively unsupported for now.
+  #
   # @example Add a string statement.
   #   wikidatum_client.add_statement(
   #     id: 'Q123',
