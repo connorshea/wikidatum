@@ -286,6 +286,53 @@ describe Wikidatum::Client do
       end
     end
 
+    describe 'creating a monolingualtext-type statement' do
+      let(:datavalue) do
+        Wikidatum::DataValueType::MonolingualText.new(
+          language: 'en',
+          text: 'Foobar'
+        )
+      end
+      let(:output_body) do
+        {
+          statement: {
+            mainsnak: {
+              snaktype: "value",
+              property: "P625",
+              datatype: "monolingualtext",
+              datavalue: {
+                type: "monolingualtext",
+                value: {
+                  language: 'en',
+                  text: 'Foobar'
+                }
+              }
+            },
+            qualifiers: {},
+            references: [],
+            rank: "normal",
+            type: "statement"
+          }
+        }
+      end
+
+      before do
+        stub_request(:post, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item_id}/statements")
+          .with(body: output_body.merge({ bot: true }).to_json)
+          .to_return(status: 200, body: '', headers: {})
+      end
+
+      it 'returns true' do
+        response = create_client.add_statement(
+          id: item_id,
+          property: property,
+          datavalue: datavalue
+        )
+
+        assert response
+      end
+    end
+
     describe 'creating a Wikibase Entity ID-type statement' do
       let(:datavalue) do
         Wikidatum::DataValueType::WikibaseEntityId.new(
