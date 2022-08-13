@@ -190,7 +190,7 @@ describe Wikidatum::Client do
           time: '+2022-08-12T00:00:00Z',
           time_zone: 0,
           precision: 11,
-          calendar_model: 'https://wikidata.org/wiki/Q1234'
+          calendar_model: 'https://wikidata.org/entity/Q1234'
         )
       end
       let(:output_body) do
@@ -206,7 +206,7 @@ describe Wikidatum::Client do
                   time: '+2022-08-12T00:00:00Z',
                   timezone: 0,
                   precision: 11,
-                  calendarmodel: 'https://wikidata.org/wiki/Q1234'
+                  calendarmodel: 'https://wikidata.org/entity/Q1234'
                 }
               }
             },
@@ -241,7 +241,7 @@ describe Wikidatum::Client do
           amount: '+1',
           upper_bound: nil,
           lower_bound: nil,
-          unit: 'https://wikidata.org/wiki/Q1234'
+          unit: 'https://wikidata.org/entity/Q1234'
         )
       end
       let(:output_body) do
@@ -257,7 +257,7 @@ describe Wikidatum::Client do
                   amount: '+1',
                   upperBound: nil,
                   lowerBound: nil,
-                  unit: 'https://wikidata.org/wiki/Q1234'
+                  unit: 'https://wikidata.org/entity/Q1234'
                 }
               }
             },
@@ -388,7 +388,7 @@ describe Wikidatum::Client do
           latitude: 52.516666666667,
           longitude: 13.383333333333,
           precision: 0.016666666666667,
-          globe: 'https://wikidata.org/wiki/Q2'
+          globe: 'https://wikidata.org/entity/Q2'
         )
       end
       let(:output_body) do
@@ -404,7 +404,7 @@ describe Wikidatum::Client do
                   latitude: 52.516666666667,
                   longitude: 13.383333333333,
                   precision: 0.016666666666667,
-                  globe: 'https://wikidata.org/wiki/Q2'
+                  globe: 'https://wikidata.org/entity/Q2'
                 }
               }
             },
