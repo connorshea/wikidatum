@@ -89,12 +89,89 @@ class Wikidatum::Client
 
   # Add a statement to an item.
   #
-  # @example
+  # @example Add a string statement.
   #   wikidatum_client.add_statement(
   #     id: 'Q123',
   #     property: 'P23',
   #     datavalue: Wikidatum::DataValueType::String.new(string: 'Foo'),
   #     comment: 'Adding something or another.'
+  #   )
+  #
+  # @example Add a 'no value' statement.
+  #   wikidatum_client.add_statement(
+  #     id: 'Q123',
+  #     property: 'P124',
+  #     datavalue: Wikidatum::DataValueType::NoValue.new(
+  #       type: :no_value,
+  #       value: nil
+  #     )
+  #   )
+  #
+  # @example Add an 'unknown value' statement.
+  #   wikidatum_client.add_statement(
+  #     id: 'Q123',
+  #     property: 'P124',
+  #     datavalue: Wikidatum::DataValueType::SomeValue.new(
+  #       type: :some_value,
+  #       value: nil
+  #     )
+  #   )
+  #
+  # @example Add a globe coordinate statement.
+  #   wikidatum_client.add_statement(
+  #     id: 'Q123',
+  #     property: 'P124',
+  #     datavalue: Wikidatum::DataValueType::GlobeCoordinate.new(
+  #       latitude: 52.51666,
+  #       longitude: 13.3833,
+  #       precision: 0.01666,
+  #       globe: 'https://wikidata.org/entity/Q2'
+  #     )
+  #   )
+  #
+  # @example Add a monolingual text statement.
+  #   wikidatum_client.add_statement(
+  #     id: 'Q123',
+  #     property: 'P124',
+  #     datavalue: Wikidatum::DataValueType::MonolingualText.new(
+  #       language: 'en',
+  #       text: 'Foobar'
+  #     )
+  #   )
+  #
+  # @example Add a quantity statement.
+  #   wikidatum_client.add_statement(
+  #     id: 'Q123',
+  #     property: 'P124',
+  #     datavalue: Wikidatum::DataValueType::Quantity.new(
+  #       amount: '+12',
+  #       upper_bound: nil,
+  #       lower_bound: nil,
+  #       unit: 'https://wikidata.org/entity/Q1234'
+  #     )
+  #   )
+  #
+  # @example Add a time statement.
+  #   wikidatum_client.add_statement(
+  #     id: 'Q123',
+  #     property: 'P124',
+  #     datavalue: Wikidatum::DataValueType::Time.new(
+  #       time: '+2022-08-12T00:00:00Z',
+  #       time_zone: 0,
+  #       precision: 11,
+  #       calendar_model: 'https://wikidata.org/entity/Q1234'
+  #     )
+  #   )
+  #
+  # @example Add a Wikibase item statement.
+  #   wikidatum_client.add_statement(
+  #     id: 'Q123',
+  #     property: 'P124',
+  #     datavalue: Wikidatum::DataValueType::WikibaseEntityId.new(
+  #       entity_type: 'item',
+  #       numeric_id: 1234,
+  #       id: 'Q1234'
+  #     )
   #   )
   #
   # @param id [String] the ID of the item on which the statement will be added.
