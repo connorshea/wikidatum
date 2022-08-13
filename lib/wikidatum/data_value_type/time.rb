@@ -90,7 +90,11 @@ class Wikidatum::DataValueType::Time
   # @return [String] a URL (usually in the same Wikibase instance) representing the given calendar model (e.g. Gregorian, Julian).
   attr_reader :calendar_model
 
-  # @!visibility private
+  # @param time [String]
+  # @param time_zone [Integer]
+  # @param precision [Integer]
+  # @param calendar_model [String]
+  # @return [void]
   def initialize(time:, time_zone:, precision:, calendar_model:)
     @time = time
     @time_zone = time_zone
@@ -116,6 +120,14 @@ class Wikidatum::DataValueType::Time
     'time'
   end
 
+  # The "datatype" value used by Wikibase, usually identical to wikibase_type
+  # but not always.
+  #
+  # @return [String]
+  def wikibase_datatype
+    wikibase_type
+  end
+
   # @!visibility private
   def self.marshal_load(data_value_json)
     Wikidatum::DataValueType::Base.new(
@@ -127,6 +139,16 @@ class Wikidatum::DataValueType::Time
         calendar_model: data_value_json['calendarmodel']
       )
     )
+  end
+
+  # @!visibility private
+  def marshal_dump
+    {
+      time: @time,
+      timezone: @time_zone,
+      precision: @precision,
+      calendarmodel: @calendar_model
+    }
   end
 
   PRETTY_PRECISIONS = {

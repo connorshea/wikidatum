@@ -26,6 +26,10 @@ class Wikidatum::DataValueType::WikibaseEntityId
   # @return [String] in the format "Q123".
   attr_reader :id
 
+  # @param entity_type [String]
+  # @param numeric_id [Integer]
+  # @param id [String]
+  # @return [void]
   def initialize(entity_type:, numeric_id:, id:)
     @entity_type = entity_type
     @numeric_id = numeric_id
@@ -48,6 +52,14 @@ class Wikidatum::DataValueType::WikibaseEntityId
     'wikibase-entityid'
   end
 
+  # The "datatype" value used by Wikibase, usually identical to wikibase_type
+  # but not always.
+  #
+  # @return [String]
+  def wikibase_datatype
+    'wikibase-item' # yes, really
+  end
+
   # @!visibility private
   def self.marshal_load(data_value_json)
     Wikidatum::DataValueType::Base.new(
@@ -58,5 +70,14 @@ class Wikidatum::DataValueType::WikibaseEntityId
         id: data_value_json['id']
       )
     )
+  end
+
+  # @!visibility private
+  def marshal_dump
+    {
+      'entity-type': @entity_type,
+      'numeric-id': @numeric_id,
+      id: @id
+    }
   end
 end

@@ -28,10 +28,9 @@ module Wikidatum::DataValueType
     # @return [DataValueType::GlobeCoordinate, DataValueType::MonolingualText, DataValueType::Quantity, DataValueType::String, DataValueType::Time, DataValueType::WikibaseEntityId, nil]
     attr_reader :value
 
-    # @!visibility private
-    #
     # @param type [Symbol]
-    # @param value [DataValueType::GlobeCoordinate, DataValueType::MonolingualText, DataValueType::Quantity, DataValueType::String, DataValueType::Time, DataValueType::WikibaseEntityId, nil]
+    # @param value [DataValueType::GlobeCoordinate, DataValueType::MonolingualText, DataValueType::Quantity, DataValueType::String, DataValueType::Time, DataValueType::WikibaseEntityId, nil] nil if type is no_value or some_value
+    # @return [void]
     def initialize(type:, value:)
       @type = type
       @value = value

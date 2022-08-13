@@ -22,7 +22,9 @@ class Wikidatum::DataValueType::MonolingualText
   # @return [String]
   attr_reader :text
 
-  # @!visibility private
+  # @param language [String]
+  # @param text [String]
+  # @return [void]
   def initialize(language:, text:)
     @language = language
     @text = text
@@ -43,6 +45,14 @@ class Wikidatum::DataValueType::MonolingualText
     'monolingualtext'
   end
 
+  # The "datatype" value used by Wikibase, usually identical to wikibase_type
+  # but not always.
+  #
+  # @return [String]
+  def wikibase_datatype
+    wikibase_type
+  end
+
   # @!visibility private
   def self.marshal_load(data_value_json)
     Wikidatum::DataValueType::Base.new(
@@ -52,5 +62,13 @@ class Wikidatum::DataValueType::MonolingualText
         text: data_value_json['text']
       )
     )
+  end
+
+  # @!visibility private
+  def marshal_dump
+    {
+      language: @language,
+      text: @text
+    }
   end
 end

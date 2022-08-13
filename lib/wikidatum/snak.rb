@@ -25,7 +25,7 @@ class Wikidatum::Snak
   # @param snaktype [String]
   # @param property [String] ID of the property for this Snak, in the format 'P123'.
   # @param datatype [String]
-  # @param datavalue [?] TODO: Not sure what this is yet.
+  # @param datavalue [DataValueType::GlobeCoordinate, DataValueType::MonolingualText, DataValueType::Quantity, DataValueType::String, DataValueType::Time, DataValueType::WikibaseEntityId]
   def initialize(hash:, snaktype:, property:, datatype:, datavalue:)
     @hash = hash
     @snaktype = snaktype

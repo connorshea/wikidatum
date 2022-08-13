@@ -30,7 +30,11 @@ class Wikidatum::DataValueType::Quantity
   # @return [String] a URL describing the unit for this quantity, e.g. "meter", "kilometer", "pound", "chapter", "section", etc.
   attr_reader :unit
 
-  # @!visibility private
+  # @param amount [String]
+  # @param upper_bound [String]
+  # @param lower_bound [String]
+  # @param unit [String]
+  # @return [void]
   def initialize(amount:, upper_bound:, lower_bound:, unit:)
     @amount = amount
     @upper_bound = upper_bound
@@ -55,6 +59,14 @@ class Wikidatum::DataValueType::Quantity
     'quantity'
   end
 
+  # The "datatype" value used by Wikibase, usually identical to wikibase_type
+  # but not always.
+  #
+  # @return [String]
+  def wikibase_datatype
+    wikibase_type
+  end
+
   # @!visibility private
   def self.marshal_load(data_value_json)
     Wikidatum::DataValueType::Base.new(
@@ -66,5 +78,15 @@ class Wikidatum::DataValueType::Quantity
         unit: data_value_json['unit']
       )
     )
+  end
+
+  # @!visibility private
+  def marshal_dump
+    {
+      amount: @amount,
+      upperBound: @upper_bound,
+      lowerBound: @lower_bound,
+      unit: @unit
+    }
   end
 end

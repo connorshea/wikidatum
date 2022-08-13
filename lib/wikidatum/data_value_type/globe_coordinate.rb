@@ -2,7 +2,7 @@
 
 require 'wikidatum/data_value_type/base'
 
-# The Monolingual Text type datavalue JSON looks like this:
+# The Globe Coordinate type datavalue JSON looks like this:
 #
 # ```json
 # {
@@ -30,7 +30,11 @@ class Wikidatum::DataValueType::GlobeCoordinate
   # @return [String] A URL (usually in the same Wikibase instance) representing the given globe model (e.g. Earth).
   attr_reader :globe
 
-  # @!visibility private
+  # @param latitude [Float]
+  # @param longitude [Float]
+  # @param precision [Float]
+  # @param globe [String]
+  # @return [void]
   def initialize(latitude:, longitude:, precision:, globe:)
     @latitude = latitude
     @longitude = longitude
@@ -52,7 +56,15 @@ class Wikidatum::DataValueType::GlobeCoordinate
   #
   # @return [String]
   def wikibase_type
-    'globalcoordinate'
+    'globecoordinate'
+  end
+
+  # The "datatype" value used by Wikibase, usually identical to wikibase_type
+  # but not always.
+  #
+  # @return [String]
+  def wikibase_datatype
+    'globe-coordinate' # yes, really
   end
 
   # @!visibility private
@@ -66,5 +78,15 @@ class Wikidatum::DataValueType::GlobeCoordinate
         globe: data_value_json['globe']
       )
     )
+  end
+
+  # @!visibility private
+  def marshal_dump
+    {
+      latitude: @latitude,
+      longitude: @longitude,
+      precision: @precision,
+      globe: @globe
+    }
   end
 end

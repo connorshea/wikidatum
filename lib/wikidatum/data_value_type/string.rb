@@ -16,7 +16,8 @@ class Wikidatum::DataValueType::String
   # @return [String] the value for the string.
   attr_reader :string
 
-  # @!visibility private
+  # @param string [String]
+  # @return [void]
   def initialize(string:)
     @string = string
   end
@@ -35,6 +36,14 @@ class Wikidatum::DataValueType::String
     'string'
   end
 
+  # The "datatype" value used by Wikibase, usually identical to wikibase_type
+  # but not always.
+  #
+  # @return [String]
+  def wikibase_datatype
+    wikibase_type
+  end
+
   # @!visibility private
   def self.marshal_load(string)
     Wikidatum::DataValueType::Base.new(
@@ -43,5 +52,10 @@ class Wikidatum::DataValueType::String
         string: string
       )
     )
+  end
+
+  # @!visibility private
+  def marshal_dump
+    @string
   end
 end
