@@ -72,8 +72,8 @@ class Wikidatum::DataValueType::Quantity
   def marshal_dump
     {
       amount: @amount,
-      'upperBound': @upper_bound,
-      'lowerBound': @lower_bound,
+      upperBound: @upper_bound,
+      lowerBound: @lower_bound,
       unit: @unit
     }
   end

@@ -97,19 +97,47 @@ class Wikidatum::Client
   #   )
   #
   # @param id [String] the ID of the item on which the statement will be added.
-  # @param statement [Hash] the body of the statement being created.
+  # @param property [String] property ID in the format 'P123'.
+  # @param datavalue [Wikidatum::DataValueType::GlobeCoordinate, Wikidatum::DataValueType::MonolingualText, Wikidatum::DataValueType::Quantity, Wikidatum::DataValueType::String, Wikidatum::DataValueType::Time, Wikidatum::DataValueType::WikibaseEntityId, Wikidatum::DataValueType::NoValue, Wikidatum::DataValueType::SomeValue] the datavalue of the statement being created.
+  # @param datatype [String, nil] if nil, it'll determine the type based on what was passed for the statement argument. This may differ from the type of the Statement's datavalue (for example with the 'url' type)
   # @param qualifiers [Hash<String, Array<Wikidatum::Snak>>]
   # @param references [Array<Wikidatum::Reference>]
   # @param rank [String]
   # @param tags [Array<String>]
   # @param comment [String, nil]
   # @return [Boolean] True if the request succeeded.
-  def add_statement(id:, statement:, qualifiers: {}, references: [], rank: 'normal', tags: [], comment: nil)
+  def add_statement(id:, property:, datavalue:, datatype: nil, qualifiers: {}, references: [], rank: 'normal', tags: [], comment: nil)
     raise ArgumentError, "#{id.inspect} is an invalid Wikibase QID. Must be an integer, a string representation of an integer, or in the format 'Q123'." unless id.is_a?(Integer) || id.match?(ITEM_REGEX)
 
     id = coerce_item_id(id)
 
-    body = { statement: statement.merge({ qualifiers: qualifiers, references: references, rank: rank, type: "statement" }) }
+    datatype ||= datavalue.wikibase_type
+
+    case datavalue.class.to_s
+    when 'Wikidatum::DataValueType::NoValue'
+      statement_hash = {
+
+      }
+    when 'Wikidatum::DataValueType::SomeValue'
+      # extra thing to make rubocop shut up for now.
+      statement_hash = { foo: :bar }
+    when 'Wikidatum::DataValueType::GlobeCoordinate', 'Wikidatum::DataValueType::MonolingualText', 'Wikidatum::DataValueType::Quantity', 'Wikidatum::DataValueType::String', 'Wikidatum::DataValueType::Time', 'Wikidatum::DataValueType::WikibaseEntityId'
+      statement_hash = {
+        mainsnak: {
+          snaktype: 'value',
+          property: property,
+          datatype: datatype,
+          datavalue: {
+            type: datavalue.wikibase_type,
+            value: datavalue.marshal_dump
+          }
+        }
+      }
+    else
+      raise ArgumentError, "Expected an instance of one of Wikidatum::DataValueType's subclasses for datavalue, but got #{datavalue.inspect}."
+    end
+
+    body = { statement: statement_hash.merge({ qualifiers: qualifiers, references: references, rank: rank, type: "statement" }) }
 
     response = post_request("/entities/items/#{id}/statements", body, tags: tags, comment: comment)
 

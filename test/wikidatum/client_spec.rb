@@ -111,19 +111,9 @@ describe Wikidatum::Client do
 
   describe '#add_statement' do
     let(:item_id) { 'Q124' }
-    let(:input_body) do
-      {
-        mainsnak: {
-          snaktype: "value",
-          property: "P625",
-          datatype: "string",
-          datavalue: {
-            type: "string",
-            value: "test data"
-          }
-        }
-      }
-    end
+    let(:property) { 'P625' }
+    let(:datatype) { nil }
+    let(:datavalue) { Wikidatum::DataValueType::String.new(string: 'test data') }
 
     let(:output_body) do
       {
@@ -162,19 +152,33 @@ describe Wikidatum::Client do
     end
 
     it 'returns true' do
-      response = create_client.add_statement(id: item_id, statement: input_body)
+      response = create_client.add_statement(
+        id: item_id,
+        property: property,
+        datavalue: datavalue,
+        datatype: datatype
+      )
+
       assert response
     end
 
-    it 'returns true when passed an integer' do
-      response = create_client.add_statement(id: 124, statement: input_body)
+    it 'returns true when passed an integer for id' do
+      response = create_client.add_statement(
+        id: 124,
+        property: property,
+        datavalue: datavalue,
+        datatype: datatype
+      )
+
       assert response
     end
 
     it 'returns true when also sending tags and a comment' do
       response = create_client.add_statement(
         id: item_id,
-        statement: input_body,
+        property: property,
+        datavalue: datavalue,
+        datatype: datatype,
         tags: ['bar'],
         comment: 'adding string property'
       )
