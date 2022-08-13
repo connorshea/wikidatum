@@ -2,7 +2,7 @@
 
 This gem supports making requests to the [new Wikidata/Wikibase REST API](https://doc.wikimedia.org/Wikibase/master/js/rest-api/).
 
-**The gem is currently in very early development and is not ready for production usage**.
+**The gem is currently in early development and is not ready for production usage**.
 
 ## Installation
 
@@ -24,7 +24,7 @@ Or install it yourself as:
 
 You can view the YARD docs on GitHub Pages [here](https://connorshea.github.io/wikidatum/index.html).
 
-Currently, the gem is able to hit a few GET endpoints, and currently has no way to provide authentication and perform POST/PUT/DELETE requests. The additional features will be added later.
+Currently, the gem is able to hit a few of the basic endpoints, and currently has no way to provide authentication. The additional features will be added later.
 
 ```ruby
 require 'wikidatum'
@@ -57,6 +57,27 @@ item.label(lang: :en).value #=> "Earth"
 
 # Get the values for all English aliases on this item.
 item.aliases(langs: [:en]).map(&:value) #=> ["Planet Earth", "Pale Blue Dot"]
+
+statement_id = 'Q123$4543523c-1d1d-1111-1e1e-11b11111b1f1'
+statement = wikidatum_client.statement(id: statement_id) #=> Wikidatum::Statement
+
+# Add a statement to Q193581 for P577 (publication date) that has a time value of November 16, 2004.
+wikidatum_client.add_statement(
+  id: 'Q193581',
+  property: 'P577',
+  datavalue: Wikidatum::DataValueType::Time.new(
+    time: '+2004-11-16T00:00:00Z',
+    time_zone: 0,
+    precision: 11,
+    calendar_model: 'https://www.wikidata.org/entity/Q12138'
+  )
+)
+
+# Delete a statement and include an edit summary.
+wikidatum_client.delete_statement(
+  id: 'Q123$4543523c-1d1d-1111-1e1e-11b11111b1f1',
+  comment: 'Deleting this statement because it is inaccurate.'
+)
 ```
 
 ## Development
