@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
 
+## 0.2.1 - 2022-08-13
+### Fixed
+- Fix a mistake that broke loading the gem.
+
 ## 0.2.0 - 2022-08-13
 ### Added
 
