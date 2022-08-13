@@ -17,8 +17,10 @@ describe Wikidatum::Client do
   end
 
   describe '#item' do
+    let(:item_id) { 'Q124' }
+
     before do
-      stub_request(:get, 'https://example.com/w/rest.php/wikibase/v0/entities/items/Q124')
+      stub_request(:get, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item_id}")
         .to_return(
           status: 200,
           body: File.read('test/fixtures/q124.json'),
@@ -33,7 +35,7 @@ describe Wikidatum::Client do
     end
 
     it 'returns a valid item' do
-      item = create_client.item(id: 'Q124')
+      item = create_client.item(id: item_id)
       assert_kind_of Wikidatum::Item, item
     end
 
@@ -45,6 +47,30 @@ describe Wikidatum::Client do
     it 'returns a valid item when passing an stringified integer' do
       item = create_client.item(id: '124')
       assert_kind_of Wikidatum::Item, item
+    end
+  end
+
+  describe '#statement' do
+    let(:statement_id) { 'Q124$adacda34-46c4-2515-7aa9-ac448c8bfded' }
+
+    before do
+      stub_request(:get, "https://example.com/w/rest.php/wikibase/v0/statements/#{statement_id}")
+        .to_return(
+          status: 200,
+          body: File.read('test/fixtures/q124-statement1.json'),
+          headers: {}
+        )
+    end
+
+    it 'raises when given an invalid statement ID' do
+      assert_raises(ArgumentError, "'bad id' is an invalid Wikibase Statement ID. Must be a string in the format 'Q123$f004ec2b-4857-3b69-b370-e8124f5bd3ac'.") do
+        create_client.statement(id: 'bad id')
+      end
+    end
+
+    it 'returns a valid statement' do
+      statement = create_client.statement(id: statement_id)
+      assert_kind_of Wikidatum::Statement, statement
     end
   end
 end

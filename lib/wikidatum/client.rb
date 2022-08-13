@@ -61,9 +61,7 @@ class Wikidatum::Client
   def item(id:)
     raise ArgumentError, "#{id.inspect} is an invalid Wikibase QID. Must be an integer, a string representation of an integer, or in the format 'Q123'." unless id.is_a?(Integer) || id.match?(ITEM_REGEX)
 
-    # We need to have the ID in the format "Q123" for the API request, so
-    # coerce it if necessary.
-    id = "Q#{id}" unless id.to_s.start_with?('Q')
+    id = coerce_item_id(id)
 
     response = get_request("/entities/items/#{id}")
 
@@ -93,8 +91,9 @@ class Wikidatum::Client
   #
   # @example
   #   wikidatum_client.add_statement(
-  #     'Q123$4543523c-1d1d-1111-1e1e-11b11111b1f1',
-  #     comment: "Deleting this statement because it's bad."
+  #     id: 'Q123',
+  #     body: {},
+  #     comment: 'Adding something or another.'
   #   )
   #
   # @param id [String] the ID of the item on which the statement will be added.
@@ -103,7 +102,9 @@ class Wikidatum::Client
   # @param comment [String, nil]
   # @return [Boolean] True if the request succeeded.
   def add_statement(id:, body:, tags: [], comment: nil)
-    raise ArgumentError, "#{id.inspect} is an invalid Wikibase Statement ID. Must be a string in the format 'Q123$f004ec2b-4857-3b69-b370-e8124f5bd3ac'." unless id.match?(STATEMENT_REGEX)
+    raise ArgumentError, "#{id.inspect} is an invalid Wikibase QID. Must be an integer, a string representation of an integer, or in the format 'Q123'." unless id.is_a?(Integer) || id.match?(ITEM_REGEX)
+
+    id = coerce_item_id(id)
 
     response = post_request("/entities/items/#{id}/statements", body, tags: tags, comment: comment)
 
@@ -116,7 +117,7 @@ class Wikidatum::Client
   #
   # @example
   #   wikidatum_client.delete_statement(
-  #     'Q123$4543523c-1d1d-1111-1e1e-11b11111b1f1',
+  #     id: 'Q123$4543523c-1d1d-1111-1e1e-11b11111b1f1',
   #     comment: "Deleting this statement because it's bad."
   #   )
   #
@@ -223,5 +224,17 @@ class Wikidatum::Client
     end
 
     response
+  end
+
+  # Coerce an Item ID in the formats 'Q123', '123' or 123 into a consistent
+  # 'Q123' format. We need to have the ID in the format 'Q123' for the API
+  # request, which is why coercion is necessary.
+  #
+  # @param id [String, Integer]
+  # @return [String]
+  def coerce_item_id(id)
+    return id if id.to_s.start_with?('Q')
+
+    "Q#{id}"
   end
 end
