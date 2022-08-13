@@ -112,8 +112,9 @@ class Wikidatum::Client
 
     id = coerce_item_id(id)
 
-    # Unless datatype is set explicitly by the caller, just assume it's identical to the wikibase_type.
-    datatype ||= datavalue.wikibase_type
+    # Unless datatype is set explicitly by the caller, just assume we can pull the
+    # default from the datavalue class.
+    datatype ||= datavalue.wikibase_datatype
 
     case datavalue.class.to_s
     when 'Wikidatum::DataValueType::NoValue'

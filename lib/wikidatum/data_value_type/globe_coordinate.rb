@@ -2,7 +2,7 @@
 
 require 'wikidatum/data_value_type/base'
 
-# The Monolingual Text type datavalue JSON looks like this:
+# The Globe Coordinate type datavalue JSON looks like this:
 #
 # ```json
 # {
@@ -56,7 +56,15 @@ class Wikidatum::DataValueType::GlobeCoordinate
   #
   # @return [String]
   def wikibase_type
-    'globalcoordinate'
+    'globecoordinate'
+  end
+
+  # The "datatype" value used by Wikibase, usually identical to wikibase_type
+  # but not always.
+  #
+  # @return [String]
+  def wikibase_datatype
+    'globe-coordinate' # yes, really
   end
 
   # @!visibility private

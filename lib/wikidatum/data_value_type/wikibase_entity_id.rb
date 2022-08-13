@@ -52,6 +52,14 @@ class Wikidatum::DataValueType::WikibaseEntityId
     'wikibase-entityid'
   end
 
+  # The "datatype" value used by Wikibase, usually identical to wikibase_type
+  # but not always.
+  #
+  # @return [String]
+  def wikibase_datatype
+    'wikibase-item' # yes, really
+  end
+
   # @!visibility private
   def self.marshal_load(data_value_json)
     Wikidatum::DataValueType::Base.new(
