@@ -138,7 +138,7 @@ describe Wikidatum::Client do
         .to_return(status: 200, body: '', headers: {})
     end
 
-    it 'raises when given an invalid statement ID' do
+    it 'raises when given an invalid item ID' do
       assert_raises(ArgumentError, "'bad id' is an invalid Wikibase QID. Must be an integer, a string representation of an integer, or in the format 'Q123'.") do
         create_client.add_statement(id: 'bad id')
       end
@@ -146,6 +146,11 @@ describe Wikidatum::Client do
 
     it 'returns true' do
       response = create_client.add_statement(id: item_id, body: body)
+      assert response
+    end
+
+    it 'returns true when passed an integer' do
+      response = create_client.add_statement(id: 124, body: body)
       assert response
     end
 
