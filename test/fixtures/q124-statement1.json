@@ -18,15 +18,15 @@
   ],
   "references": [
     {
-      "hash": "074871a31cac573ea661fa66850c3e2f6298bce5",
+      "hash": "29e1c34d2383c7f72ffcae244cabb6c838baf2bd",
       "snaks": {
-        "P248": [
+        "P143": [
           {
             "snaktype": "value",
-            "property": "P248",
-            "hash": "8d5a4661cc2f4b51cd96b0b75aeac1791f05bad4",
+            "property": "P143",
+            "hash": "537383444fac23e6c1dacb8a3614f05ecf9d9425",
             "datavalue": {
-              "value": "foo bar",
+              "value": "foo",
               "type": "string"
             },
             "datatype": "string"
@@ -34,7 +34,43 @@
         ]
       },
       "snaks-order": [
-        "P248"
+        "P143"
+      ]
+    },
+    {
+      "hash": "0616bb0b53955e0ce25c3328144cd6d02477e01c",
+      "snaks": {
+        "P143": [
+          {
+            "snaktype": "value",
+            "property": "P143",
+            "hash": "0b4ec4c479c5b974949c98777a9ec3621a3d0150",
+            "datavalue": {
+              "value": "asdasdsadsdsadsa",
+              "type": "string"
+            },
+            "datatype": "string"
+          }
+        ],
+        "P937": [
+          {
+            "snaktype": "value",
+            "property": "P937",
+            "hash": "d0df87f89d09bd915f017e975dc3d5291df23960",
+            "datavalue": {
+              "value": {
+                "amount": "+15",
+                "unit": "1"
+              },
+              "type": "quantity"
+            },
+            "datatype": "quantity"
+          }
+        ]
+      },
+      "snaks-order": [
+        "P143",
+        "P937"
       ]
     }
   ],

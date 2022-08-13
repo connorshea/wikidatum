@@ -11,7 +11,7 @@ require 'wikidatum/data_value_type/base'
 #       "latitude": 52.516666666667,
 #       "longitude": 13.383333333333,
 #       "precision": 0.016666666666667,
-#       "globe": "http:\/\/www.wikidata.org\/entity\/Q2"
+#       "globe": "http://www.wikidata.org/entity/Q2"
 #     },
 #     "type": "globecoordinate"
 #   }
