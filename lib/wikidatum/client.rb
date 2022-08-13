@@ -92,14 +92,15 @@ class Wikidatum::Client
   # @example
   #   wikidatum_client.add_statement(
   #     id: 'Q123',
-  #     statement: {},
+  #     property: 'P23',
+  #     datavalue: Wikidatum::DataValueType::String.new(string: 'Foo'),
   #     comment: 'Adding something or another.'
   #   )
   #
   # @param id [String] the ID of the item on which the statement will be added.
   # @param property [String] property ID in the format 'P123'.
   # @param datavalue [Wikidatum::DataValueType::GlobeCoordinate, Wikidatum::DataValueType::MonolingualText, Wikidatum::DataValueType::Quantity, Wikidatum::DataValueType::String, Wikidatum::DataValueType::Time, Wikidatum::DataValueType::WikibaseEntityId, Wikidatum::DataValueType::NoValue, Wikidatum::DataValueType::SomeValue] the datavalue of the statement being created.
-  # @param datatype [String, nil] if nil, it'll determine the type based on what was passed for the statement argument. This may differ from the type of the Statement's datavalue (for example with the 'url' type)
+  # @param datatype [String, nil] if nil, it'll determine the type based on what was passed for the statement argument. This may differ from the type of the Statement's datavalue (for example with the 'url' type).
   # @param qualifiers [Hash<String, Array<Wikidatum::Snak>>]
   # @param references [Array<Wikidatum::Reference>]
   # @param rank [String]
@@ -111,16 +112,26 @@ class Wikidatum::Client
 
     id = coerce_item_id(id)
 
+    # Unless datatype is set explicitly by the caller, just assume it's identical to the wikibase_type.
     datatype ||= datavalue.wikibase_type
 
     case datavalue.class.to_s
     when 'Wikidatum::DataValueType::NoValue'
       statement_hash = {
-
+        mainsnak: {
+          snaktype: 'novalue',
+          property: property,
+          datatype: datatype
+        }
       }
     when 'Wikidatum::DataValueType::SomeValue'
-      # extra thing to make rubocop shut up for now.
-      statement_hash = { foo: :bar }
+      statement_hash = {
+        mainsnak: {
+          snaktype: 'somevalue',
+          property: property,
+          datatype: datatype
+        }
+      }
     when 'Wikidatum::DataValueType::GlobeCoordinate', 'Wikidatum::DataValueType::MonolingualText', 'Wikidatum::DataValueType::Quantity', 'Wikidatum::DataValueType::String', 'Wikidatum::DataValueType::Time', 'Wikidatum::DataValueType::WikibaseEntityId'
       statement_hash = {
         mainsnak: {
