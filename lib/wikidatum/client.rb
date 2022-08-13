@@ -169,7 +169,8 @@ class Wikidatum::Client
     # Error handling if it doesn't return a 200
     unless response.success?
       puts 'Something went wrong with this request!'
-      puts response.inspect
+      puts "Status Code: #{response.status}"
+      puts response.body.inspect
     end
 
     JSON.parse(response.body)
@@ -186,12 +187,15 @@ class Wikidatum::Client
     url = "#{api_url}#{path}"
 
     body[:bot] = @bot
-    body[:tags] = tags unless tags.nil?
+    body[:tags] = tags unless tags.empty?
     body[:comment] = comment unless comment.nil?
 
-    response = Faraday.post(url, body, universal_headers)
+    response = Faraday.post(url) do |req|
+      req.body = JSON.generate(body)
+      req.headers = universal_headers
+    end
 
-    puts response.inspect if ENV['DEBUG']
+    puts response.body.inspect if ENV['DEBUG']
 
     response
   end
@@ -215,12 +219,13 @@ class Wikidatum::Client
       req.headers = universal_headers
     end
 
-    puts response.inspect if ENV['DEBUG']
+    puts response.body.inspect if ENV['DEBUG']
 
     # Error handling if it doesn't return a 200
     unless response.success?
       puts 'Something went wrong with this request!'
-      puts response.inspect
+      puts "Status Code: #{response.status}"
+      puts response.body.inspect
     end
 
     response

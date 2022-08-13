@@ -108,4 +108,56 @@ describe Wikidatum::Client do
       assert response
     end
   end
+
+  describe '#add_statement' do
+    let(:item_id) { 'Q124' }
+    let(:body) do
+      {
+        statement: {
+          mainsnak: {
+            snaktype: "value",
+            property: "P625",
+            datatype: "string",
+            datavalue: {
+              type: "string",
+              value: "test data"
+            }
+          },
+          type: "statement"
+        }
+      }
+    end
+
+    before do
+      stub_request(:post, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item_id}/statements")
+        .with(body: body.merge({ bot: true }).to_json)
+        .to_return(status: 200, body: '', headers: {})
+
+      stub_request(:post, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item_id}/statements")
+        .with(body: body.merge({ bot: true, tags: ['bar'], comment: 'adding string property' }).to_json)
+        .to_return(status: 200, body: '', headers: {})
+    end
+
+    it 'raises when given an invalid statement ID' do
+      assert_raises(ArgumentError, "'bad id' is an invalid Wikibase QID. Must be an integer, a string representation of an integer, or in the format 'Q123'.") do
+        create_client.add_statement(id: 'bad id')
+      end
+    end
+
+    it 'returns true' do
+      response = create_client.add_statement(id: item_id, body: body)
+      assert response
+    end
+
+    it 'returns true when also sending tags and a comment' do
+      response = create_client.add_statement(
+        id: item_id,
+        body: body,
+        tags: ['bar'],
+        comment: 'adding string property'
+      )
+
+      assert response
+    end
+  end
 end
