@@ -432,5 +432,85 @@ describe Wikidatum::Client do
         assert response
       end
     end
+
+    describe 'creating a SomeValue-type statement' do
+      let(:datavalue) do
+        Wikidatum::DataValueType::SomeValue.new(
+          type: :some_value,
+          value: nil
+        )
+      end
+      let(:output_body) do
+        {
+          statement: {
+            mainsnak: {
+              snaktype: "somevalue",
+              property: "P625",
+              datatype: "string"
+            },
+            qualifiers: {},
+            references: [],
+            rank: "normal",
+            type: "statement"
+          }
+        }
+      end
+
+      before do
+        stub_request(:post, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item_id}/statements")
+          .with(body: output_body.merge({ bot: true }).to_json)
+          .to_return(status: 200, body: '', headers: {})
+      end
+
+      it 'returns true' do
+        response = create_client.add_statement(
+          id: item_id,
+          property: property,
+          datavalue: datavalue
+        )
+
+        assert response
+      end
+    end
+
+    describe 'creating a NoValue-type statement' do
+      let(:datavalue) do
+        Wikidatum::DataValueType::NoValue.new(
+          type: :no_value,
+          value: nil
+        )
+      end
+      let(:output_body) do
+        {
+          statement: {
+            mainsnak: {
+              snaktype: "novalue",
+              property: "P625",
+              datatype: "string"
+            },
+            qualifiers: {},
+            references: [],
+            rank: "normal",
+            type: "statement"
+          }
+        }
+      end
+
+      before do
+        stub_request(:post, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item_id}/statements")
+          .with(body: output_body.merge({ bot: true }).to_json)
+          .to_return(status: 200, body: '', headers: {})
+      end
+
+      it 'returns true' do
+        response = create_client.add_statement(
+          id: item_id,
+          property: property,
+          datavalue: datavalue
+        )
+
+        assert response
+      end
+    end
   end
 end
