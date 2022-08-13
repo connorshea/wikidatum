@@ -137,6 +137,9 @@ describe Wikidatum::Client do
               value: "test data"
             }
           },
+          qualifiers: {},
+          references: [],
+          rank: "normal",
           type: "statement"
         }
       }
