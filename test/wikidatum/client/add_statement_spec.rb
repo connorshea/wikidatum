@@ -426,5 +426,14 @@ describe 'Wikidatum::Client#add_statement' do
         assert_equal "\"foobar\" is an invalid rank. Must be normal, preferred, or deprecated.", err.message
       end
     end
+
+    describe 'creating a statement with an invalid datavalue' do
+      it 'raises an error' do
+        err = assert_raises(ArgumentError) do
+          create_client.add_statement(id: item_id, property: property, datavalue: true)
+        end
+        assert_equal "Expected an instance of one of Wikidatum::DataValueType's subclasses for datavalue, but got true.", err.message
+      end
+    end
   end
 end

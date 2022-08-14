@@ -8,6 +8,16 @@ module Wikidatum
     ITEM_REGEX = /^Q?\d+$/.freeze
     STATEMENT_REGEX = /^Q?\d+\$[\w-]+$/.freeze
     VALID_RANKS = ['preferred', 'normal', 'deprecated'].freeze
+    VALID_DATAVALUE_TYPES = [
+      'Wikidatum::DataValueType::GlobeCoordinate',
+      'Wikidatum::DataValueType::MonolingualText',
+      'Wikidatum::DataValueType::NoValue',
+      'Wikidatum::DataValueType::Quantity',
+      'Wikidatum::DataValueType::SomeValue',
+      'Wikidatum::DataValueType::Time',
+      'Wikidatum::DataValueType::WikibaseEntityId',
+      'Wikidatum::DataValueType::WikibaseString'
+    ].freeze
 
     # @return [String] the root URL of the Wikibase instance we want to interact
     #   with. If not provided, will default to Wikidata.
@@ -202,6 +212,7 @@ module Wikidatum
     def add_statement(id:, property:, datavalue:, datatype: nil, qualifiers: {}, references: [], rank: 'normal', tags: [], comment: nil)
       raise ArgumentError, "#{id.inspect} is an invalid Wikibase QID. Must be an integer, a string representation of an integer, or in the format 'Q123'." unless id.is_a?(Integer) || id.match?(ITEM_REGEX)
       raise ArgumentError, "#{rank.inspect} is an invalid rank. Must be normal, preferred, or deprecated." unless VALID_RANKS.include?(rank)
+      raise ArgumentError, "Expected an instance of one of Wikidatum::DataValueType's subclasses for datavalue, but got #{datavalue.inspect}." unless VALID_DATAVALUE_TYPES.include?(datavalue.class.to_s)
 
       id = coerce_item_id(id)
 
@@ -238,8 +249,6 @@ module Wikidatum
             }
           }
         }
-      else
-        raise ArgumentError, "Expected an instance of one of Wikidatum::DataValueType's subclasses for datavalue, but got #{datavalue.inspect}."
       end
 
       body = { statement: statement_hash.merge({ qualifiers: qualifiers, references: references, rank: rank, type: "statement" }) }
