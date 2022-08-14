@@ -24,13 +24,14 @@ module Wikidatum
     #
     # @example
     #  wikidatum_client = Wikidatum::Client.new(
-    #    user_agent: 'REPLACE ME WITH THE NAME OF YOUR BOT!',
+    #    user_agent: 'Bot Name',
     #    wikibase_url: 'https://www.wikidata.org',
     #    bot: true
     #  )
     #
     # @param user_agent [String] The UserAgent header to send with all requests
-    #   to the Wikibase API.
+    #   to the Wikibase API. This will be prepended with the string "Wikidatum
+    #   Ruby gem vX.X.X:".
     # @param wikibase_url [String] The root URL of the Wikibase instance we want
     #   to interact with. If not provided, will default to
     #   `https://www.wikidata.org`. Do not include a `/` at the end of the URL.
@@ -40,9 +41,7 @@ module Wikidatum
     def initialize(user_agent:, wikibase_url: 'https://www.wikidata.org', bot: true)
       raise ArgumentError, "Wikibase URL must not end with a `/`, got #{wikibase_url.inspect}." if wikibase_url.end_with?('/')
 
-      # TODO: Add the Ruby gem version to the UserAgent automatically, and
-      # restrict the ability for end-users to actually set the UserAgent?
-      @user_agent = user_agent
+      @user_agent = "Wikidatum Ruby gem v#{Wikidatum::VERSION}: #{user_agent}"
       @wikibase_url = wikibase_url
       @bot = bot
 
@@ -322,6 +321,13 @@ module Wikidatum
       end
 
       puts response.body.inspect if ENV['DEBUG']
+
+      # Error handling if it doesn't return a 200
+      unless response.success?
+        puts 'Something went wrong with this request!'
+        puts "Status Code: #{response.status}"
+        puts response.body.inspect
+      end
 
       response
     end
