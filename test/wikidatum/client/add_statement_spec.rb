@@ -418,12 +418,71 @@ describe 'Wikidatum::Client#add_statement' do
       end
     end
 
-    describe 'creating a statement with an invalid rank' do
-      it 'raises an error' do
+    describe 'creating a statement with a rank' do
+      it 'raises an error when given an invalid rank' do
         err = assert_raises(ArgumentError) do
           create_client.add_statement(id: item_id, property: property, datavalue: nil, rank: 'foobar')
         end
         assert_equal "\"foobar\" is an invalid rank. Must be normal, preferred, or deprecated.", err.message
+      end
+
+      it 'raises an error when given an invalid symbol rank' do
+        err = assert_raises(ArgumentError) do
+          create_client.add_statement(id: item_id, property: property, datavalue: nil, rank: :foobar)
+        end
+        assert_equal ":foobar is an invalid rank. Must be normal, preferred, or deprecated.", err.message
+      end
+
+      describe 'using a valid rank' do
+        let(:datavalue) do
+          Wikidatum::DataValueType::NoValue.new(
+            type: :no_value,
+            value: nil
+          )
+        end
+        let(:output_body) do
+          {
+            statement: {
+              mainsnak: {
+                snaktype: "novalue",
+                property: property,
+                datatype: "string"
+              },
+              qualifiers: {},
+              references: [],
+              rank: "preferred",
+              type: "statement"
+            }
+          }
+        end
+
+        before do
+          stub_request(:post, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item_id}/statements")
+            .with(body: output_body.merge({ bot: true }).to_json)
+            .to_return(status: 200, body: '', headers: {})
+        end
+
+        it 'returns true' do
+          response = create_client.add_statement(
+            id: item_id,
+            property: property,
+            datavalue: datavalue,
+            rank: 'preferred'
+          )
+
+          assert response
+        end
+
+        it 'returns true with symbol rank' do
+          response = create_client.add_statement(
+            id: item_id,
+            property: property,
+            datavalue: datavalue,
+            rank: :preferred
+          )
+
+          assert response
+        end
       end
     end
 

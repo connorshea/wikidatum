@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Add `allow_ip_edits` argument on `Wikidatum::Client.new`. This protects users from making IP address-exposing edits if they haven't explicitly opted-in to doing that. The argument defaults to false.
+- Add code to raise errors when various types of invalid input are passed to `Wikidatum::Client#add_statement`.
 
 ## 0.2.1 - 2022-08-13
 ### Fixed

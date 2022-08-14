@@ -202,16 +202,19 @@ module Wikidatum
     # @param id [String] the ID of the item on which the statement will be added.
     # @param property [String] property ID in the format 'P123'.
     # @param datavalue [Wikidatum::DataValueType::GlobeCoordinate, Wikidatum::DataValueType::MonolingualText, Wikidatum::DataValueType::Quantity, Wikidatum::DataValueType::WikibaseString, Wikidatum::DataValueType::Time, Wikidatum::DataValueType::WikibaseEntityId, Wikidatum::DataValueType::NoValue, Wikidatum::DataValueType::SomeValue] the datavalue of the statement being created.
-    # @param datatype [String, nil] if nil, it'll determine the type based on what was passed for the statement argument. This may differ from the type of the Statement's datavalue (for example with the 'url' type).
+    # @param datatype [String, nil] if nil, it'll determine the type based on
+    #   what was passed for the statement argument. This may differ from the
+    #   type of the Statement's datavalue (for example with the 'url' type).
     # @param qualifiers [Hash<String, Array<Wikidatum::Snak>>]
     # @param references [Array<Wikidatum::Reference>]
-    # @param rank [String] Valid ranks are preferred, normal or deprecated. Defaults to 'normal'.
+    # @param rank [String, Symbol] Valid ranks are 'preferred', 'normal', or
+    #   'deprecated'. Defaults to 'normal'. Also accepts Symbol for these ranks.
     # @param tags [Array<String>]
     # @param comment [String, nil]
     # @return [Boolean] True if the request succeeded.
     def add_statement(id:, property:, datavalue:, datatype: nil, qualifiers: {}, references: [], rank: 'normal', tags: [], comment: nil)
       raise ArgumentError, "#{id.inspect} is an invalid Wikibase QID. Must be an integer, a string representation of an integer, or in the format 'Q123'." unless id.is_a?(Integer) || id.match?(ITEM_REGEX)
-      raise ArgumentError, "#{rank.inspect} is an invalid rank. Must be normal, preferred, or deprecated." unless VALID_RANKS.include?(rank)
+      raise ArgumentError, "#{rank.inspect} is an invalid rank. Must be normal, preferred, or deprecated." unless VALID_RANKS.include?(rank.to_s)
       raise ArgumentError, "Expected an instance of one of Wikidatum::DataValueType's subclasses for datavalue, but got #{datavalue.inspect}." unless VALID_DATAVALUE_TYPES.include?(datavalue.class.to_s)
 
       id = coerce_item_id(id)
@@ -251,7 +254,7 @@ module Wikidatum
         }
       end
 
-      body = { statement: statement_hash.merge({ qualifiers: qualifiers, references: references, rank: rank, type: "statement" }) }
+      body = { statement: statement_hash.merge({ qualifiers: qualifiers, references: references, rank: rank.to_s, type: "statement" }) }
 
       response = post_request("/entities/items/#{id}/statements", body, tags: tags, comment: comment)
 
