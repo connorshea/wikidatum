@@ -415,7 +415,7 @@ module Wikidatum
       return if authenticated?
       return if allow_ip_edits?
 
-      raise DisallowedIpEditError, 'No authentication provided. If you want to perform unauthenticated edits and are comfortable exposing your IP address publicly, set `allow_ip_edits: true` when instantiating your client with `Wikidatum::Client.new`.'
+      raise DisallowedIpEditError
     end
   end
 end

@@ -17,7 +17,11 @@ module Wikidatum
   # If the Wikidatum::Client is set to disallow IP Edits (the default) and no
   # authentication has been provided, this error will be raised when performing
   # any non-GET requests.
-  class DisallowedIpEditError < Error; end
+  class DisallowedIpEditError < Error
+    def message
+      'No authentication provided. If you want to perform unauthenticated edits and are comfortable exposing your IP address publicly, set `allow_ip_edits: true` when instantiating your client with `Wikidatum::Client.new`.'
+    end
+  end
 
   # rubocop:disable Naming/ConstantName
 

@@ -15,9 +15,10 @@ describe Wikidatum::Client do
 
   describe 'initialize' do
     it 'raises when passed a URL with a trailing slash' do
-      assert_raises(ArgumentError, "Wikibase URL must not end with a `/`, got 'https://example.com/'") do
+      err = assert_raises(ArgumentError) do
         create_client(wikibase_url: 'https://example.com/')
       end
+      assert_equal "Wikibase URL must not end with a `/`, got \"https://example.com/\".", err.message
     end
   end
 
@@ -34,9 +35,10 @@ describe Wikidatum::Client do
     end
 
     it 'raises when given an invalid item ID' do
-      assert_raises(ArgumentError, "'bad id' is an invalid Wikibase QID. Must be an integer, a string representation of an integer, or in the format 'Q123'.") do
+      err = assert_raises(ArgumentError) do
         create_client.item(id: 'bad id')
       end
+      assert_equal "\"bad id\" is an invalid Wikibase QID. Must be an integer, a string representation of an integer, or in the format 'Q123'.", err.message
     end
 
     it 'returns a valid item' do
@@ -68,9 +70,10 @@ describe Wikidatum::Client do
     end
 
     it 'raises when given an invalid statement ID' do
-      assert_raises(ArgumentError, "'bad id' is an invalid Wikibase Statement ID. Must be a string in the format 'Q123$f004ec2b-4857-3b69-b370-e8124f5bd3ac'.") do
+      err = assert_raises(ArgumentError) do
         create_client.statement(id: 'bad id')
       end
+      assert_equal "\"bad id\" is an invalid Wikibase Statement ID. Must be a string in the format 'Q123$f004ec2b-4857-3b69-b370-e8124f5bd3ac'.", err.message
     end
 
     it 'returns a valid statement' do
@@ -93,9 +96,10 @@ describe Wikidatum::Client do
     end
 
     it 'raises when given an invalid statement ID' do
-      assert_raises(ArgumentError, "'bad id' is an invalid Wikibase Statement ID. Must be a string in the format 'Q123$f004ec2b-4857-3b69-b370-e8124f5bd3ac'.") do
+      err = assert_raises(ArgumentError) do
         create_client.delete_statement(id: 'bad id')
       end
+      assert_equal "\"bad id\" is an invalid Wikibase Statement ID. Must be a string in the format 'Q123$f004ec2b-4857-3b69-b370-e8124f5bd3ac'.", err.message
     end
 
     it 'returns true' do
@@ -151,9 +155,10 @@ describe Wikidatum::Client do
       end
 
       it 'raises when given an invalid item ID' do
-        assert_raises(ArgumentError, "'bad id' is an invalid Wikibase QID. Must be an integer, a string representation of an integer, or in the format 'Q123'.") do
-          create_client.add_statement(id: 'bad id')
+        err = assert_raises(ArgumentError) do
+          create_client.add_statement(id: 'bad id', property: 'P123', datavalue: nil)
         end
+        assert_equal "\"bad id\" is an invalid Wikibase QID. Must be an integer, a string representation of an integer, or in the format 'Q123'.", err.message
       end
 
       it 'returns true' do
@@ -516,6 +521,17 @@ describe Wikidatum::Client do
 
         assert response
       end
+    end
+  end
+
+  describe 'when ip edits disallowed' do
+    let(:statement_id) { 'Q124$adacda34-46c4-2515-7aa9-ac448c8bfded' }
+
+    it 'raises when attempting to perform a delete request without authentication' do
+      err = assert_raises(Wikidatum::DisallowedIpEditError) do
+        create_client(allow_ip_edits: false).delete_statement(id: statement_id)
+      end
+      assert_equal 'No authentication provided. If you want to perform unauthenticated edits and are comfortable exposing your IP address publicly, set `allow_ip_edits: true` when instantiating your client with `Wikidatum::Client.new`.', err.message
     end
   end
 end
