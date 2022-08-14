@@ -7,6 +7,7 @@ module Wikidatum
   class Client
     ITEM_REGEX = /^Q?\d+$/.freeze
     STATEMENT_REGEX = /^Q?\d+\$[\w-]+$/.freeze
+    VALID_RANKS = ['preferred', 'normal', 'deprecated'].freeze
 
     # @return [String] the root URL of the Wikibase instance we want to interact
     #   with. If not provided, will default to Wikidata.
@@ -194,12 +195,13 @@ module Wikidatum
     # @param datatype [String, nil] if nil, it'll determine the type based on what was passed for the statement argument. This may differ from the type of the Statement's datavalue (for example with the 'url' type).
     # @param qualifiers [Hash<String, Array<Wikidatum::Snak>>]
     # @param references [Array<Wikidatum::Reference>]
-    # @param rank [String]
+    # @param rank [String] Valid ranks are preferred, normal or deprecated. Defaults to 'normal'.
     # @param tags [Array<String>]
     # @param comment [String, nil]
     # @return [Boolean] True if the request succeeded.
     def add_statement(id:, property:, datavalue:, datatype: nil, qualifiers: {}, references: [], rank: 'normal', tags: [], comment: nil)
       raise ArgumentError, "#{id.inspect} is an invalid Wikibase QID. Must be an integer, a string representation of an integer, or in the format 'Q123'." unless id.is_a?(Integer) || id.match?(ITEM_REGEX)
+      raise ArgumentError, "#{rank.inspect} is an invalid rank. Must be normal, preferred, or deprecated." unless VALID_RANKS.include?(rank)
 
       id = coerce_item_id(id)
 

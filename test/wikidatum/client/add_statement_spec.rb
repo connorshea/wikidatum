@@ -24,7 +24,7 @@ describe 'Wikidatum::Client#add_statement' do
           statement: {
             mainsnak: {
               snaktype: "value",
-              property: "P625",
+              property: property,
               datatype: "string",
               datavalue: {
                 type: "string",
@@ -103,7 +103,7 @@ describe 'Wikidatum::Client#add_statement' do
           statement: {
             mainsnak: {
               snaktype: "value",
-              property: "P625",
+              property: property,
               datatype: "time",
               datavalue: {
                 type: "time",
@@ -154,7 +154,7 @@ describe 'Wikidatum::Client#add_statement' do
           statement: {
             mainsnak: {
               snaktype: "value",
-              property: "P625",
+              property: property,
               datatype: "quantity",
               datavalue: {
                 type: "quantity",
@@ -203,7 +203,7 @@ describe 'Wikidatum::Client#add_statement' do
           statement: {
             mainsnak: {
               snaktype: "value",
-              property: "P625",
+              property: property,
               datatype: "monolingualtext",
               datavalue: {
                 type: "monolingualtext",
@@ -251,7 +251,7 @@ describe 'Wikidatum::Client#add_statement' do
           statement: {
             mainsnak: {
               snaktype: "value",
-              property: "P625",
+              property: property,
               datatype: "wikibase-item",
               datavalue: {
                 type: "wikibase-entityid",
@@ -301,7 +301,7 @@ describe 'Wikidatum::Client#add_statement' do
           statement: {
             mainsnak: {
               snaktype: "value",
-              property: "P625",
+              property: property,
               datatype: "globe-coordinate",
               datavalue: {
                 type: "globecoordinate",
@@ -350,7 +350,7 @@ describe 'Wikidatum::Client#add_statement' do
           statement: {
             mainsnak: {
               snaktype: "somevalue",
-              property: "P625",
+              property: property,
               datatype: "string"
             },
             qualifiers: {},
@@ -390,7 +390,7 @@ describe 'Wikidatum::Client#add_statement' do
           statement: {
             mainsnak: {
               snaktype: "novalue",
-              property: "P625",
+              property: property,
               datatype: "string"
             },
             qualifiers: {},
@@ -415,6 +415,15 @@ describe 'Wikidatum::Client#add_statement' do
         )
 
         assert response
+      end
+    end
+
+    describe 'creating a statement with an invalid rank' do
+      it 'raises an error' do
+        err = assert_raises(ArgumentError) do
+          create_client.add_statement(id: item_id, property: property, datavalue: nil, rank: 'foobar')
+        end
+        assert_equal "\"foobar\" is an invalid rank. Must be normal, preferred, or deprecated.", err.message
       end
     end
   end
