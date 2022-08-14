@@ -346,7 +346,7 @@ module Wikidatum
     # @param tags [Array<String>] The tags to apply to the edit being made by this request, for PUT/POST/DELETE requests.
     # @param comment [String] The edit description, for PUT/POST/DELETE requests.
     # @return [Hash] JSON response, parsed into a hash.
-    def post_request(path, body = {}, tags: nil, comment: nil)
+    def post_request(path, body = {}, tags: [], comment: nil)
       ensure_edit_permitted!
 
       url = "#{api_url}#{path}"
