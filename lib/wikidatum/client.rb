@@ -20,6 +20,10 @@ module Wikidatum
     #   Wikibase API.
     attr_reader :user_agent
 
+    # @return [Boolean] whether this client should allow non-GET requests if
+    #   authentication hasn't been provided. Defaults to false.
+    attr_reader :allow_ip_edits
+
     # Create a new Wikidatum::Client to interact with the Wikibase REST API.
     #
     # @example
@@ -37,13 +41,20 @@ module Wikidatum
     #   `https://www.wikidata.org`. Do not include a `/` at the end of the URL.
     # @param bot [Boolean] Whether requests sent by this client instance should
     #   be registered as bot requests. Defaults to `true`.
+    # @param allow_ip_edits [Boolean] whether this client should allow non-GET
+    #   requests if authentication hasn't been provided. Defaults to false. If
+    #   this is set to true, the IP address of the device from which the
+    #   request was sent will be credited for the edit. Make sure not to allow
+    #   these edits if you don't want your IP address (and in many cases, a
+    #   very close approximation of your physical location) exposed publicly.
     # @return [Wikidatum::Client]
-    def initialize(user_agent:, wikibase_url: 'https://www.wikidata.org', bot: true)
+    def initialize(user_agent:, wikibase_url: 'https://www.wikidata.org', bot: true, allow_ip_edits: false)
       raise ArgumentError, "Wikibase URL must not end with a `/`, got #{wikibase_url.inspect}." if wikibase_url.end_with?('/')
 
       @user_agent = "Wikidatum Ruby gem v#{Wikidatum::VERSION}: #{user_agent}"
       @wikibase_url = wikibase_url
       @bot = bot
+      @allow_ip_edits = allow_ip_edits
 
       Faraday.default_adapter = :net_http
     end
@@ -260,6 +271,22 @@ module Wikidatum
       response.success?
     end
 
+    # Is the current instance of Client authenticated as a Wikibase user?
+    #
+    # @return [Boolean]
+    def authenticated?
+      # TODO: Make it possible for this to be true once authentication
+      #   is implemented.
+      false
+    end
+
+    # Does the current instance of Client allow anonymous IP-based edits?
+    #
+    # @return [Boolean]
+    def allow_ip_edits?
+      @allow_ip_edits
+    end
+
     private
 
     # For now this just returns the `@wikibase_url`, but in the future the API
@@ -309,6 +336,8 @@ module Wikidatum
     # @param comment [String] The edit description, for PUT/POST/DELETE requests.
     # @return [Hash] JSON response, parsed into a hash.
     def post_request(path, body = {}, tags: nil, comment: nil)
+      ensure_edit_permitted!
+
       url = "#{api_url}#{path}"
 
       body[:bot] = @bot
@@ -339,6 +368,8 @@ module Wikidatum
     # @param comment [String] The edit description, for PUT/POST/DELETE requests.
     # @return [Hash] JSON response, parsed into a hash.
     def delete_request(path, tags: [], comment: nil)
+      ensure_edit_permitted!
+
       url = "#{api_url}#{path}"
 
       body = {}
@@ -373,6 +404,18 @@ module Wikidatum
       return id if id.to_s.start_with?('Q')
 
       "Q#{id}"
+    end
+
+    # Check if authentication has been provided, and then check if IP edits
+    # are allowed. If neither condition returns true, raise an error.
+    #
+    # @return [void]
+    # @raise [DisallowedIpEditError]
+    def ensure_edit_permitted!
+      return if authenticated?
+      return if allow_ip_edits?
+
+      raise DisallowedIpEditError, 'No authentication provided. If you want to perform unauthenticated edits and are comfortable exposing your IP address publicly, set `allow_ip_edits: true` when instantiating your client with `Wikidatum::Client.new`.'
     end
   end
 end

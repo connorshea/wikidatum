@@ -14,6 +14,11 @@ require 'wikidatum/version'
 module Wikidatum
   class Error < StandardError; end
 
+  # If the Wikidatum::Client is set to disallow IP Edits (the default) and no
+  # authentication has been provided, this error will be raised when performing
+  # any non-GET requests.
+  class DisallowedIpEditError < Error; end
+
   # rubocop:disable Naming/ConstantName
 
   # These language codes are not enforced, you can pass whatever language code

@@ -5,9 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
+### Added
+
+- Add `allow_ip_edits` argument on `Wikidatum::Client.new`. This protects users from making IP address-exposing edits if they haven't explicitly opted-in to doing that. The argument defaults to false.
 
 ## 0.2.1 - 2022-08-13
 ### Fixed
+
 - Fix a mistake that broke loading the gem.
 
 ## 0.2.0 - 2022-08-13
@@ -28,4 +32,3 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Initial release, nothing is really usable yet.
-

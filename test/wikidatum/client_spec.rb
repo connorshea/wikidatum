@@ -4,8 +4,13 @@ require 'test_helper'
 
 describe Wikidatum::Client do
   # Convenience method for creating a new client
-  def create_client(user_agent: 'Bot name', wikibase_url: 'https://example.com', bot: true)
-    Wikidatum::Client.new(user_agent: user_agent, wikibase_url: wikibase_url, bot: bot)
+  def create_client(user_agent: 'Bot name', wikibase_url: 'https://example.com', bot: true, allow_ip_edits: true)
+    Wikidatum::Client.new(
+      user_agent: user_agent,
+      wikibase_url: wikibase_url,
+      bot: bot,
+      allow_ip_edits: allow_ip_edits
+    )
   end
 
   describe 'initialize' do
