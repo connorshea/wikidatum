@@ -6,6 +6,7 @@ require 'faraday/net_http'
 module Wikidatum
   class Client
     ITEM_REGEX = /^Q?\d+$/.freeze
+    PROPERTY_REGEX = /^P?\d+$/.freeze
     STATEMENT_REGEX = /^Q?\d+\$[\w-]+$/.freeze
     VALID_RANKS = ['preferred', 'normal', 'deprecated'].freeze
     VALID_DATAVALUE_TYPES = [
@@ -199,8 +200,8 @@ module Wikidatum
     #     )
     #   )
     #
-    # @param id [String] the ID of the item on which the statement will be added.
-    # @param property [String] property ID in the format 'P123'.
+    # @param id [String, Integer] the ID of the item on which the statement will be added.
+    # @param property [String, Integer] property ID in the format 'P123', or an integer.
     # @param datavalue [Wikidatum::DataValueType::GlobeCoordinate, Wikidatum::DataValueType::MonolingualText, Wikidatum::DataValueType::Quantity, Wikidatum::DataValueType::WikibaseString, Wikidatum::DataValueType::Time, Wikidatum::DataValueType::WikibaseEntityId, Wikidatum::DataValueType::NoValue, Wikidatum::DataValueType::SomeValue] the datavalue of the statement being created.
     # @param datatype [String, nil] if nil, it'll determine the type based on
     #   what was passed for the statement argument. This may differ from the
@@ -214,10 +215,12 @@ module Wikidatum
     # @return [Boolean] True if the request succeeded.
     def add_statement(id:, property:, datavalue:, datatype: nil, qualifiers: {}, references: [], rank: 'normal', tags: [], comment: nil)
       raise ArgumentError, "#{id.inspect} is an invalid Wikibase QID. Must be an integer, a string representation of an integer, or in the format 'Q123'." unless id.is_a?(Integer) || id.match?(ITEM_REGEX)
+      raise ArgumentError, "#{property.inspect} is an invalid Wikibase PID. Must be an integer, a string representation of an integer, or in the format 'P123'." unless property.is_a?(Integer) || property.match?(PROPERTY_REGEX)
       raise ArgumentError, "#{rank.inspect} is an invalid rank. Must be normal, preferred, or deprecated." unless VALID_RANKS.include?(rank.to_s)
       raise ArgumentError, "Expected an instance of one of Wikidatum::DataValueType's subclasses for datavalue, but got #{datavalue.inspect}." unless VALID_DATAVALUE_TYPES.include?(datavalue.class.to_s)
 
       id = coerce_item_id(id)
+      property = coerce_property_id(property)
 
       # Unless datatype is set explicitly by the caller, just assume we can pull the
       # default from the datavalue class.
@@ -254,7 +257,7 @@ module Wikidatum
         }
       end
 
-      body = { statement: statement_hash.merge({ qualifiers: qualifiers, references: references, rank: rank.to_s, type: "statement" }) }
+      body = { statement: statement_hash.merge({ qualifiers: qualifiers, references: references, rank: rank.to_s, type: 'statement' }) }
 
       response = post_request("/entities/items/#{id}/statements", body, tags: tags, comment: comment)
 
@@ -418,6 +421,18 @@ module Wikidatum
       return id if id.to_s.start_with?('Q')
 
       "Q#{id}"
+    end
+
+    # Coerce a Property ID in the formats 'P123', '123' or 123 into a consistent
+    # 'P123' format. We need to have the ID in the format 'P123' for the API
+    # request, which is why coercion is necessary.
+    #
+    # @param property_id [String, Integer]
+    # @return [String]
+    def coerce_property_id(property_id)
+      return property_id if property_id.to_s.start_with?('P')
+
+      "P#{property_id}"
     end
 
     # Check if authentication has been provided, and then check if IP edits
