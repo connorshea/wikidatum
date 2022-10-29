@@ -2,7 +2,7 @@
 
 This gem supports making requests to the [new Wikidata/Wikibase REST API](https://doc.wikimedia.org/Wikibase/master/js/rest-api/).
 
-The [Wikimedia Docs on Wikibase's JSON format](https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_json.html) are also very useful for interacting with/contributing to this gem.
+The [Wikimedia Docs on Wikibase's JSON format](https://doc.wikimedia.org/Wikibase/master/php/docs_topics_json.html) are also very useful for interacting with/contributing to this gem.
 
 **The gem is currently in early development and is not ready for production usage**.
 
