@@ -37,6 +37,8 @@ class Wikidatum::Reference
   # @param ref_json [Hash]
   # @return [Wikidatum::Reference]
   def self.marshal_load(ref_json)
+    # TODO: Actually fix this.
+    return nil
     snaks = ref_json['snaks'].values.flatten.map { |snak| Wikidatum::Snak.marshal_load(snak) }
 
     Wikidatum::Reference.new(
