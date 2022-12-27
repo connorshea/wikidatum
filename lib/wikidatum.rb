@@ -57,7 +57,7 @@ module Wikidatum
   module DataValueType
     # rubocop:disable Lint/SymbolConversion
     DATA_VALUE_TYPES = {
-      'globecoordinate': 'Wikidatum::DataValueType::GlobeCoordinate',
+      'globe-coordinate': 'Wikidatum::DataValueType::GlobeCoordinate',
       'monolingualtext': 'Wikidatum::DataValueType::MonolingualText',
       'novalue': 'Wikidatum::DataValueType::NoValue',
       'quantity': 'Wikidatum::DataValueType::Quantity',
