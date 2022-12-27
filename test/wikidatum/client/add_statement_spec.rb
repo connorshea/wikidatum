@@ -142,8 +142,6 @@ describe 'Wikidatum::Client#add_statement' do
       let(:datavalue) do
         Wikidatum::DataValueType::Quantity.new(
           amount: '+1',
-          upper_bound: nil,
-          lower_bound: nil,
           unit: 'https://wikidata.org/entity/Q1234'
         )
       end

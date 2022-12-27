@@ -171,8 +171,6 @@ module Wikidatum
     #     property: 'P124',
     #     datavalue: Wikidatum::DataValueType::Quantity.new(
     #       amount: '+12',
-    #       upper_bound: nil,
-    #       lower_bound: nil,
     #       unit: 'https://wikidata.org/entity/Q1234'
     #     )
     #   )
@@ -193,9 +191,7 @@ module Wikidatum
     #     id: 'Q123',
     #     property: 'P124',
     #     datavalue: Wikidatum::DataValueType::WikibaseItem.new(
-    #       entity_type: 'item',
-    #       numeric_id: 1234,
-    #       id: 'Q1234'
+    #       wikibase_id: 'Q1234'
     #     )
     #   )
     #
