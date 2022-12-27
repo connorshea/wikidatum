@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# TODO: Kill
 class Wikidatum::Snak
   # @return [String] Hash of a snak (a cryptographic hash, not a Ruby hash).
   attr_reader :hash
@@ -58,8 +59,8 @@ class Wikidatum::Snak
   # @param snak_json [Hash]
   # @return [Wikidatum::Snak]
   def self.marshal_load(snak_json)
-    # snaktype can be 'novalue' (no value) or 'somevalue' (unknown), so we handle those as somewhat special cases
-    case snak_json['snaktype']
+    # the type can be 'novalue' (no value) or 'somevalue' (unknown), so we handle those as somewhat special cases
+    case snak_json['value']['type']
     when 'novalue'
       datavalue = Wikidatum::DataValueType::Base.marshal_load('novalue', nil)
     when 'somevalue'
@@ -71,7 +72,7 @@ class Wikidatum::Snak
     Wikidatum::Snak.new(
       hash: snak_json['hash'],
       snaktype: snak_json['snaktype'],
-      property: snak_json['property'],
+      property: snak_json.dig('property', 'id'),
       datatype: snak_json['datatype'],
       datavalue: datavalue
     )
