@@ -56,7 +56,7 @@ class Wikidatum::DataValueType::GlobeCoordinate
   #
   # @return [String]
   def wikibase_type
-    'globecoordinate'
+    'globe-coordinate'
   end
 
   # @!visibility private
