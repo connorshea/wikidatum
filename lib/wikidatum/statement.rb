@@ -56,6 +56,7 @@ class Wikidatum::Statement
   # @param statement_json [Hash]
   # @return [Wikidatum::Statement]
   def self.marshal_load(statement_json)
+    debugger
     mainsnak = Wikidatum::Snak.marshal_load(statement_json['mainsnak'])
 
     qualifiers = statement_json['qualifiers'].to_a.flat_map do |_qualifier_prop_id, qualifier|

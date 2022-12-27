@@ -11,3 +11,5 @@ gem 'simplecov', '~> 0.21', require: false
 gem 'rubocop', '~> 1.30'
 gem 'yard', '~> 0.9'
 gem 'webmock', '~> 3.17', require: false
+
+gem "debug", "~> 1.7"
