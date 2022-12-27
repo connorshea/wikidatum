@@ -55,6 +55,7 @@ module Wikidatum
   end
 
   module DataValueType
+    # TODO: Add commonsMedia and url to the possible types.
     # rubocop:disable Lint/SymbolConversion
     DATA_VALUE_TYPES = {
       'globe-coordinate': 'Wikidatum::DataValueType::GlobeCoordinate',
