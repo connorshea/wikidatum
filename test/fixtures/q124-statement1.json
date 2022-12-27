@@ -84,7 +84,7 @@
   ],
   "property": {
     "id": "P694",
-    "type": "wikibase-item"
+    "data-type": "wikibase-item"
   },
   "value": {
     "type": "value",
