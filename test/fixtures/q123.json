@@ -248,12 +248,10 @@
   },
   "sitelinks": {
     "dewiki": {
-      "site": "dewiki",
       "title": "Data-Bridge",
       "badges": []
     },
     "enwiki": {
-      "site": "enwiki",
       "title": "Data bridge",
       "badges": []
     }
