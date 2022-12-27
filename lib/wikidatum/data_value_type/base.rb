@@ -51,7 +51,7 @@ module Wikidatum::DataValueType
     # @return [Wikidatum::DataValueType::Base] An instance of Base.
     def self.marshal_load(data_value_type, data_value_json)
       unless Wikidatum::DataValueType::DATA_VALUE_TYPES.keys.include?(data_value_type.to_sym)
-        puts 'WARNING: Unsupported datavalue type.'
+        puts "WARNING: Unsupported datavalue type (#{data_value_type})"
         return nil
       end
 
