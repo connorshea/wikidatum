@@ -2,18 +2,22 @@
 
 require 'wikidatum/data_value_type/base'
 
-# The Globe Coordinate type datavalue JSON looks like this:
+# The Globe Coordinate type JSON looks like this:
 #
 # ```json
 # {
-#   "datavalue": {
-#     "value": {
-#       "latitude": 52.516666666667,
-#       "longitude": 13.383333333333,
-#       "precision": 0.016666666666667,
+#   "property": {
+#     "id": "P740",
+#     "data-type": "globe-coordinate"
+#   },
+#   "value": {
+#     "type": "value",
+#     "content": {
+#       "latitude": 38.8977,
+#       "longitude": -77.0365,
+#       "precision": 0.0001,
 #       "globe": "http://www.wikidata.org/entity/Q2"
-#     },
-#     "type": "globecoordinate"
+#     }
 #   }
 # }
 # ```
