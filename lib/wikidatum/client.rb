@@ -16,7 +16,7 @@ module Wikidatum
       'Wikidatum::DataValueType::Quantity',
       'Wikidatum::DataValueType::SomeValue',
       'Wikidatum::DataValueType::Time',
-      'Wikidatum::DataValueType::WikibaseEntityId',
+      'Wikidatum::DataValueType::WikibaseItem',
       'Wikidatum::DataValueType::WikibaseString'
     ].freeze
 
@@ -193,7 +193,7 @@ module Wikidatum
     #   wikidatum_client.add_statement(
     #     id: 'Q123',
     #     property: 'P124',
-    #     datavalue: Wikidatum::DataValueType::WikibaseEntityId.new(
+    #     datavalue: Wikidatum::DataValueType::WikibaseItem.new(
     #       entity_type: 'item',
     #       numeric_id: 1234,
     #       id: 'Q1234'
@@ -202,7 +202,7 @@ module Wikidatum
     #
     # @param id [String, Integer] the ID of the item on which the statement will be added.
     # @param property [String, Integer] property ID in the format 'P123', or an integer.
-    # @param datavalue [Wikidatum::DataValueType::GlobeCoordinate, Wikidatum::DataValueType::MonolingualText, Wikidatum::DataValueType::Quantity, Wikidatum::DataValueType::WikibaseString, Wikidatum::DataValueType::Time, Wikidatum::DataValueType::WikibaseEntityId, Wikidatum::DataValueType::NoValue, Wikidatum::DataValueType::SomeValue] the datavalue of the statement being created.
+    # @param datavalue [Wikidatum::DataValueType::GlobeCoordinate, Wikidatum::DataValueType::MonolingualText, Wikidatum::DataValueType::Quantity, Wikidatum::DataValueType::WikibaseString, Wikidatum::DataValueType::Time, Wikidatum::DataValueType::WikibaseItem, Wikidatum::DataValueType::NoValue, Wikidatum::DataValueType::SomeValue] the datavalue of the statement being created.
     # @param datatype [String, nil] if nil, it'll determine the type based on
     #   what was passed for the statement argument. This may differ from the
     #   type of the Statement's datavalue (for example with the 'url' type).
@@ -224,7 +224,7 @@ module Wikidatum
 
       # Unless datatype is set explicitly by the caller, just assume we can pull the
       # default from the datavalue class.
-      datatype ||= datavalue.wikibase_datatype
+      datatype ||= datavalue.wikibase_type
 
       case datavalue.class.to_s
       when 'Wikidatum::DataValueType::NoValue'
@@ -243,7 +243,7 @@ module Wikidatum
             datatype: datatype
           }
         }
-      when 'Wikidatum::DataValueType::GlobeCoordinate', 'Wikidatum::DataValueType::MonolingualText', 'Wikidatum::DataValueType::Quantity', 'Wikidatum::DataValueType::WikibaseString', 'Wikidatum::DataValueType::Time', 'Wikidatum::DataValueType::WikibaseEntityId'
+      when 'Wikidatum::DataValueType::GlobeCoordinate', 'Wikidatum::DataValueType::MonolingualText', 'Wikidatum::DataValueType::Quantity', 'Wikidatum::DataValueType::WikibaseString', 'Wikidatum::DataValueType::Time', 'Wikidatum::DataValueType::WikibaseItem'
         statement_hash = {
           mainsnak: {
             snaktype: 'value',

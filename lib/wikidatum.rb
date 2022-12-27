@@ -64,7 +64,7 @@ module Wikidatum
       'somevalue': 'Wikidatum::DataValueType::SomeValue',
       'string': 'Wikidatum::DataValueType::WikibaseString',
       'time': 'Wikidatum::DataValueType::Time',
-      'wikibase-entityid': 'Wikidatum::DataValueType::WikibaseEntityId'
+      'wikibase-item': 'Wikidatum::DataValueType::WikibaseItem'
     }.freeze
     # rubocop:enable Lint/SymbolConversion
   end

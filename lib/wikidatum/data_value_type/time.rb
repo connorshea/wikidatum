@@ -120,14 +120,6 @@ class Wikidatum::DataValueType::Time
     'time'
   end
 
-  # The "datatype" value used by Wikibase, usually identical to wikibase_type
-  # but not always.
-  #
-  # @return [String]
-  def wikibase_datatype
-    wikibase_type
-  end
-
   # @!visibility private
   def self.marshal_load(data_value_json)
     Wikidatum::DataValueType::Base.new(

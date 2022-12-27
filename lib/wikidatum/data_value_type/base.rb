@@ -16,7 +16,7 @@ module Wikidatum::DataValueType
     # - `:quantity`: {DataValueType::Quantity}
     # - `:string`: {DataValueType::WikibaseString}
     # - `:time`: {DataValueType::Time}
-    # - `:wikibase_entity_id`: {DataValueType::WikibaseEntityId}
+    # - `:wikibase_item`: {DataValueType::WikibaseItem}
     #
     # @return [Symbol]
     attr_reader :type
@@ -25,11 +25,11 @@ module Wikidatum::DataValueType
     #
     # If the `type` is `novalue` or `somevalue`, this returns `nil`.
     #
-    # @return [DataValueType::GlobeCoordinate, DataValueType::MonolingualText, DataValueType::Quantity, DataValueType::WikibaseString, DataValueType::Time, DataValueType::WikibaseEntityId, nil]
+    # @return [DataValueType::GlobeCoordinate, DataValueType::MonolingualText, DataValueType::Quantity, DataValueType::WikibaseString, DataValueType::Time, DataValueType::WikibaseItem, nil]
     attr_reader :value
 
     # @param type [Symbol]
-    # @param value [DataValueType::GlobeCoordinate, DataValueType::MonolingualText, DataValueType::Quantity, DataValueType::WikibaseString, DataValueType::Time, DataValueType::WikibaseEntityId, nil] nil if type is no_value or some_value
+    # @param value [DataValueType::GlobeCoordinate, DataValueType::MonolingualText, DataValueType::Quantity, DataValueType::WikibaseString, DataValueType::Time, DataValueType::WikibaseItem, nil] nil if type is no_value or some_value
     # @return [void]
     def initialize(type:, value:)
       @type = type

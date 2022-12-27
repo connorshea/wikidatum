@@ -238,9 +238,9 @@ describe 'Wikidatum::Client#add_statement' do
       end
     end
 
-    describe 'creating a Wikibase Entity ID-type statement' do
+    describe 'creating a Wikibase Item-type statement' do
       let(:datavalue) do
-        Wikidatum::DataValueType::WikibaseEntityId.new(
+        Wikidatum::DataValueType::WikibaseItem.new(
           entity_type: 'item',
           numeric_id: 1234,
           id: 'Q1234'
@@ -254,7 +254,7 @@ describe 'Wikidatum::Client#add_statement' do
               property: property,
               datatype: "wikibase-item",
               datavalue: {
-                type: "wikibase-entityid",
+                type: "wikibase-item",
                 value: {
                   'entity-type': "item",
                   'numeric-id': 1234,
