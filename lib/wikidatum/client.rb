@@ -183,7 +183,6 @@ module Wikidatum
     #     property: 'P124',
     #     datavalue: Wikidatum::DataValueType::Time.new(
     #       time: '+2022-08-12T00:00:00Z',
-    #       time_zone: 0,
     #       precision: 11,
     #       calendar_model: 'https://wikidata.org/entity/Q1234'
     #     )

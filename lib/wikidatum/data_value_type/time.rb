@@ -2,30 +2,27 @@
 
 require 'wikidatum/data_value_type/base'
 
-# The time type datavalue JSON looks like this:
+# The time type JSON looks like this:
 #
 # ```json
 # {
-#   "datavalue": {
-#     "value": {
+#   "property": {
+#     "id": "P761",
+#     "data-type": "time"
+#   },
+#   "value": {
+#     "type": "value",
+#     "content": {
 #       "time": "+2019-11-14T00:00:00Z",
-#       "timezone": 0,
-#       "before": 0,
-#       "after": 0,
 #       "precision": 11,
 #       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
-#     },
-#     "type": "time"
+#     }
 #   }
 # }
 # ```
 #
-# We do not include before and after because the documentation states that
-# they're unused and "may be removed in the future".
-#
-# NOTE: For consistency with Ruby snake_case attribute names, `timezone` from
-# the API is represented as `time_zone` and `calendarmodel` is
-# `calendar_model`. However, we expose aliases so `timezone` and
+# NOTE: For consistency with Ruby snake_case attribute names, `calendarmodel`
+# in the API is `calendar_model`. However, we expose an alias so
 # `calendarmodel` will still work.
 class Wikidatum::DataValueType::Time
   # A string representing the time in a format that is very similar to ISO 8601.
@@ -47,11 +44,6 @@ class Wikidatum::DataValueType::Time
   #
   # @return [String] the time value, in a format like "+2022-01-01T00:00:00Z", though how this should be interpreted depends on the precision.
   attr_reader :time
-
-  # @return [Integer] an integer for the offset (in minutes) from UTC. 0 means
-  #   UTC, will currently always be 0 but the Wikibase backend may change that
-  #   in the future.
-  attr_reader :time_zone
 
   # An integer representing the precision of the date, where the integers correspond to the following:
   #
@@ -91,13 +83,11 @@ class Wikidatum::DataValueType::Time
   attr_reader :calendar_model
 
   # @param time [String]
-  # @param time_zone [Integer]
   # @param precision [Integer]
   # @param calendar_model [String]
   # @return [void]
-  def initialize(time:, time_zone:, precision:, calendar_model:)
+  def initialize(time:, precision:, calendar_model:)
     @time = time
-    @time_zone = time_zone
     @precision = precision
     @calendar_model = calendar_model
   end
@@ -106,7 +96,6 @@ class Wikidatum::DataValueType::Time
   def to_h
     {
       time: @time,
-      time_zone: @time_zone,
       precision: @precision,
       pretty_precision: pretty_precision,
       calendar_model: @calendar_model
@@ -126,7 +115,6 @@ class Wikidatum::DataValueType::Time
       type: :time,
       value: new(
         time: data_value_json['time'],
-        time_zone: data_value_json['timezone'],
         precision: data_value_json['precision'],
         calendar_model: data_value_json['calendarmodel']
       )
@@ -137,7 +125,6 @@ class Wikidatum::DataValueType::Time
   def marshal_dump
     {
       time: @time,
-      timezone: @time_zone,
       precision: @precision,
       calendarmodel: @calendar_model
     }
@@ -174,6 +161,5 @@ class Wikidatum::DataValueType::Time
 
   # Aliases to match the name returned by the REST API.
 
-  alias timezone time_zone
   alias calendarmodel calendar_model
 end

@@ -7,7 +7,6 @@ describe Wikidatum::DataValueType::Time do
     it 'works' do
       time = Wikidatum::DataValueType::Time.new(
         time: '+2022-03-00T00:00:00Z',
-        time_zone: 0,
         precision: 10,
         calendar_model: 'https://wikidata.org/wiki/Q123'
       )
@@ -21,7 +20,6 @@ describe Wikidatum::DataValueType::Time do
       (0..14).each do |precision|
         time = Wikidatum::DataValueType::Time.new(
           time: '+2022-03-00T00:00:00Z',
-          time_zone: 0,
           precision: precision,
           calendar_model: 'https://wikidata.org/wiki/Q123'
         )
