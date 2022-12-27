@@ -44,7 +44,6 @@
           "type": "value",
           "content": {
             "time": "+2022-01-01T00:00:00Z",
-            "timezone": 0,
             "precision": 11,
             "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
           }
