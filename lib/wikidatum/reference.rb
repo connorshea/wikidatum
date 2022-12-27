@@ -5,27 +5,27 @@ class Wikidatum::Reference
   attr_reader :hash
 
   # @return [Array<Wikidatum::Snak>]
-  attr_reader :snaks
+  attr_reader :parts
 
   # @!visibility private
   # @param hash [String] Hash of the reference (a cryptographic hash, not a Ruby hash).
-  # @param snaks [Array<Wikidatum::Snak>]
-  def initialize(hash:, snaks:)
+  # @param parts [Array<Wikidatum::Snak>]
+  def initialize(hash:, parts:)
     @hash = hash
-    @snaks = snaks
+    @parts = parts
   end
 
   # @return [Hash]
   def to_h
     {
       hash: @hash,
-      snaks: @snaks.map(&:to_h)
+      parts: @parts.map(&:to_h)
     }
   end
 
   # @return [String]
   def inspect
-    "<Wikidatum::Reference hash=#{@hash.inspect} snaks=#{@snaks.inspect}>"
+    "<Wikidatum::Reference hash=#{@hash.inspect} parts=#{@parts.inspect}>"
   end
 
   # @!visibility private
@@ -37,13 +37,11 @@ class Wikidatum::Reference
   # @param ref_json [Hash]
   # @return [Wikidatum::Reference]
   def self.marshal_load(ref_json)
-    # TODO: Actually fix this.
-    return nil
-    snaks = ref_json['snaks'].values.flatten.map { |snak| Wikidatum::Snak.marshal_load(snak) }
+    parts = ref_json['parts'].map { |snak| Wikidatum::Snak.marshal_load(snak) }
 
     Wikidatum::Reference.new(
       hash: ref_json['hash'],
-      snaks: snaks
+      parts: parts
     )
   end
 end
