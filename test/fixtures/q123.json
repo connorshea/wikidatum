@@ -173,19 +173,18 @@
         "references": [
           {
             "hash": "29e1c34d2383c7f72ffcae244cabb6c838baf2bd",
-            "snaks": {
-              "P143": [
-                {
-                  "snaktype": "value",
-                  "property": "P143",
-                  "datavalue": {
-                    "value": "foo",
-                    "type": "string"
-                  },
-                  "datatype": "string"
+            "parts": [
+              {
+                "property": {
+                  "id": "P143",
+                  "data-type": "string"
+                },
+                "value": {
+                  "type": "value",
+                  "content": "foo"
                 }
-              ]
-            }
+              }
+            ]
           }
         ],
         "property": {
