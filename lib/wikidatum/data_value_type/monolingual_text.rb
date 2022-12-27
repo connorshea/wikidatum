@@ -2,16 +2,20 @@
 
 require 'wikidatum/data_value_type/base'
 
-# The Monolingual Text type datavalue JSON looks like this:
+# The Monolingual Text type JSON looks like this:
 #
 # ```json
 # {
-#   "datavalue": {
-#     "value": {
-#       "text": "South Pole Telescope eyes birth of first massive galaxies",
-#       "language": "en"
-#     },
-#     "type": "monolingualtext"
+#   "property": {
+#     "id": "P13432",
+#     "data-type": "monolingualtext"
+#   },
+#   "value": {
+#     "type": "value",
+#     "content": {
+#       "text": "foo",
+#       "language": "en-gb"
+#     }
 #   }
 # }
 # ```

@@ -2,13 +2,17 @@
 
 require 'wikidatum/data_value_type/base'
 
-# The String type datavalue JSON looks like this:
+# The String type JSON looks like this:
 #
 # ```json
 # {
-#   "datavalue": {
-#     "value": "Foobar",
-#     "type": "string"
+#   "property": {
+#     "id": "P143",
+#     "data-type": "string"
+#   },
+#   "value": {
+#     "type": "value",
+#     "content": "foo"
 #   }
 # }
 # ```
