@@ -191,7 +191,7 @@ module Wikidatum
     #     id: 'Q123',
     #     property: 'P124',
     #     datavalue: Wikidatum::DataValueType::WikibaseItem.new(
-    #       wikibase_id: 'Q1234'
+    #       id: 'Q1234'
     #     )
     #   )
     #

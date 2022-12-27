@@ -235,7 +235,7 @@ describe 'Wikidatum::Client#add_statement' do
     describe 'creating a Wikibase Item-type statement' do
       let(:datavalue) do
         Wikidatum::DataValueType::WikibaseItem.new(
-          wikibase_id: 'Q1234'
+          id: 'Q1234'
         )
       end
       let(:output_body) do
@@ -248,8 +248,7 @@ describe 'Wikidatum::Client#add_statement' do
               datavalue: {
                 type: "wikibase-item",
                 value: {
-                  # TODO: This won't work.
-                  wikibase_id: "Q1234"
+                  id: "Q1234"
                 }
               }
             },

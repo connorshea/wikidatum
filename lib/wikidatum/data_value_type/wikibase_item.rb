@@ -18,18 +18,18 @@ require 'wikidatum/data_value_type/base'
 # ```
 class Wikidatum::DataValueType::WikibaseItem
   # @return [String] in the format "Q123".
-  attr_reader :wikibase_id
+  attr_reader :id
 
-  # @param wikibase_id [String]
+  # @param id [String]
   # @return [void]
-  def initialize(wikibase_id:)
-    @wikibase_id = wikibase_id
+  def initialize(id:)
+    @id = id
   end
 
   # @return [Hash]
   def to_h
     {
-      wikibase_id: @wikibase_id
+      id: @id
     }
   end
 
@@ -41,11 +41,11 @@ class Wikidatum::DataValueType::WikibaseItem
   end
 
   # @!visibility private
-  def self.marshal_load(wikibase_id)
+  def self.marshal_load(id)
     Wikidatum::DataValueType::Base.new(
       type: :wikibase_item,
       value: new(
-        wikibase_id: wikibase_id
+        id: id
       )
     )
   end
@@ -53,7 +53,7 @@ class Wikidatum::DataValueType::WikibaseItem
   # @!visibility private
   def marshal_dump
     {
-      wikibase_id: @wikibase_id
+      id: @id
     }
   end
 end
