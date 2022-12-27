@@ -156,8 +156,6 @@ describe 'Wikidatum::Client#add_statement' do
                 type: "quantity",
                 value: {
                   amount: '+1',
-                  upperBound: nil,
-                  lowerBound: nil,
                   unit: 'https://wikidata.org/entity/Q1234'
                 }
               }
@@ -237,9 +235,7 @@ describe 'Wikidatum::Client#add_statement' do
     describe 'creating a Wikibase Item-type statement' do
       let(:datavalue) do
         Wikidatum::DataValueType::WikibaseItem.new(
-          entity_type: 'item',
-          numeric_id: 1234,
-          id: 'Q1234'
+          wikibase_id: 'Q1234'
         )
       end
       let(:output_body) do
@@ -252,9 +248,8 @@ describe 'Wikidatum::Client#add_statement' do
               datavalue: {
                 type: "wikibase-item",
                 value: {
-                  'entity-type': "item",
-                  'numeric-id': 1234,
-                  id: "Q1234"
+                  # TODO: This won't work.
+                  wikibase_id: "Q1234"
                 }
               }
             },
@@ -300,7 +295,7 @@ describe 'Wikidatum::Client#add_statement' do
               property: property,
               datatype: "globe-coordinate",
               datavalue: {
-                type: "globecoordinate",
+                type: "globe-coordinate",
                 value: {
                   latitude: 52.516666666667,
                   longitude: 13.383333333333,
