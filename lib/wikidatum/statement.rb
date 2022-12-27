@@ -7,8 +7,11 @@ class Wikidatum::Statement
   # @return [String] property ID, in the format of 'P123'.
   attr_accessor :property_id
 
-  # @return [Wikidatum::Snak]
-  attr_accessor :mainsnak
+  # @return [String]
+  attr_accessor :data_type
+
+  # @return [DataValueType::GlobeCoordinate, DataValueType::MonolingualText, DataValueType::Quantity, DataValueType::WikibaseString, DataValueType::Time, DataValueType::WikibaseItem, nil]
+  attr_accessor :data_value
 
   # @return [Array<Wikidatum::Qualifier>]
   attr_accessor :qualifiers
@@ -22,15 +25,17 @@ class Wikidatum::Statement
 
   # @param id [String]
   # @param property_id [String] The 'P123' ID of the property that this statement represents.
-  # @param mainsnak [Wikidatum::Snak]
+  # @param data_type [String]
+  # @param data_value [DataValueType::GlobeCoordinate, DataValueType::MonolingualText, DataValueType::Quantity, DataValueType::WikibaseString, DataValueType::Time, DataValueType::WikibaseItem, nil]
   # @param qualifiers [Array<Wikidatum::Qualifier>]
   # @param references [Array<Wikidatum::Reference>]
   # @param rank [String] The rank of the given statement.
   #   Can have the values "preferred", "normal", or "deprecated". Defaults to "normal".
-  def initialize(id:, property_id:, mainsnak:, qualifiers:, references:, rank: 'normal')
+  def initialize(id:, property_id:, data_type:, data_value:, qualifiers:, references:, rank: 'normal')
     @id = id
     @property_id = property_id
-    @mainsnak = mainsnak
+    @data_type = data_type
+    @data_value = data_value
     @qualifiers = qualifiers
     @references = references
     @rank = rank
@@ -41,7 +46,8 @@ class Wikidatum::Statement
     {
       id: @id,
       property_id: @property_id,
-      mainsnak: @mainsnak.to_h,
+      data_type: @data_type,
+      data_value: @data_value.to_h,
       qualifiers: @qualifiers.map(&:to_h),
       references: @references.map(&:to_h),
       rank: @rank
@@ -56,22 +62,42 @@ class Wikidatum::Statement
   # @param statement_json [Hash]
   # @return [Wikidatum::Statement]
   def self.marshal_load(statement_json)
-    mainsnak = Wikidatum::Snak.marshal_load(statement_json['mainsnak'])
+    data_type = statement_json['property']['data-type']
+    data_value = data_value(statement_json)
 
-    qualifiers = statement_json['qualifiers'].to_a.flat_map do |_qualifier_prop_id, qualifier|
-      qualifier.map { |q| Wikidatum::Qualifier.marshal_load(q) }
-    end
+    property_id = statement_json['property']['id']
+
+    # TODO: Fix
+    # qualifiers = statement_json['qualifiers'].to_a.flat_map do |qualifier|
+    #   qualifier.map { |q| Wikidatum::Qualifier.marshal_load(q) }
+    # end
     references = statement_json['references'].flat_map do |reference|
       Wikidatum::Reference.marshal_load(reference)
     end
 
     Wikidatum::Statement.new(
       id: statement_json['id'],
-      property_id: mainsnak.property,
-      mainsnak: mainsnak,
-      qualifiers: qualifiers,
+      property_id: property_id,
+      data_type: data_type,
+      data_value: data_value,
+      qualifiers: [],
       references: references,
       rank: statement_json['rank']
     )
   end
+
+  private
+
+  def self.data_value(statement_json)
+    # the type can be 'novalue' (no value) or 'somevalue' (unknown), so we handle those as somewhat special cases
+    case statement_json['value']['type']
+    when 'novalue'
+      Wikidatum::DataValueType::Base.marshal_load('novalue', nil)
+    when 'somevalue'
+      Wikidatum::DataValueType::Base.marshal_load('somevalue', nil)
+    when 'value'
+      Wikidatum::DataValueType::Base.marshal_load(statement_json['property']['data-type'], statement_json['value']['content'])
+    end
+  end
+
 end
