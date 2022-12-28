@@ -40,10 +40,15 @@ class Wikidatum::DataType::WikibaseItem
     'wikibase-item'
   end
 
+  # @return [Symbol]
+  def self.symbolized_name
+    :wikibase_item
+  end
+
   # @!visibility private
   def self.marshal_load(id)
     Wikidatum::DataType::Base.new(
-      type: :wikibase_item,
+      type: symbolized_name,
       content: new(
         id: id
       )

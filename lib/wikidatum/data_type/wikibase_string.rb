@@ -40,10 +40,15 @@ class Wikidatum::DataType::WikibaseString
     'string'
   end
 
+  # @return [Symbol]
+  def self.symbolized_name
+    :string
+  end
+
   # @!visibility private
   def self.marshal_load(string)
     Wikidatum::DataType::Base.new(
-      type: :string,
+      type: symbolized_name,
       content: new(
         string: string
       )

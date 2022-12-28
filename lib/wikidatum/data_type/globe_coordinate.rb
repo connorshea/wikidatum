@@ -63,10 +63,15 @@ class Wikidatum::DataType::GlobeCoordinate
     'globe-coordinate'
   end
 
+  # @return [Symbol]
+  def self.symbolized_name
+    :monolingual_text
+  end
+
   # @!visibility private
   def self.marshal_load(data_value_json)
     Wikidatum::DataType::Base.new(
-      type: :globe_coordinate,
+      type: symbolized_name,
       content: new(
         latitude: data_value_json['latitude'],
         longitude: data_value_json['longitude'],

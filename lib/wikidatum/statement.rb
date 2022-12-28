@@ -62,7 +62,7 @@ class Wikidatum::Statement
   # @param statement_json [Hash]
   # @return [Wikidatum::Statement]
   def self.marshal_load(statement_json)
-    data_type = statement_json['property']['data-type']
+    data_type = Wikidatum::Utils.symbolized_name_for_data_type(statement_json['property']['data-type'])
     data_value = Wikidatum::Utils.ingest_snak(statement_json)
 
     property_id = statement_json['property']['id']

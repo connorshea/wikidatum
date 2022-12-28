@@ -49,10 +49,15 @@ class Wikidatum::DataType::MonolingualText
     'monolingualtext'
   end
 
+  # @return [Symbol]
+  def self.symbolized_name
+    :monolingual_text
+  end
+
   # @!visibility private
   def self.marshal_load(data_value_json)
     Wikidatum::DataType::Base.new(
-      type: :monolingual_text,
+      type: symbolized_name,
       content: new(
         language: data_value_json['language'],
         text: data_value_json['text']

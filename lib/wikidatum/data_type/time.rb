@@ -109,10 +109,15 @@ class Wikidatum::DataType::Time
     'time'
   end
 
+  # @return [Symbol]
+  def self.symbolized_name
+    :time
+  end
+
   # @!visibility private
   def self.marshal_load(data_value_json)
     Wikidatum::DataType::Base.new(
-      type: :time,
+      type: symbolized_name,
       content: new(
         time: data_value_json['time'],
         precision: data_value_json['precision'],

@@ -49,10 +49,15 @@ class Wikidatum::DataType::Quantity
     'quantity'
   end
 
+  # @return [Symbol]
+  def self.symbolized_name
+    :quantity
+  end
+
   # @!visibility private
   def self.marshal_load(data_value_json)
     Wikidatum::DataType::Base.new(
-      type: :quantity,
+      type: symbolized_name,
       content: new(
         amount: data_value_json['amount'],
         unit: data_value_json['unit']
