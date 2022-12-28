@@ -67,9 +67,8 @@ statement = wikidatum_client.statement(id: statement_id) #=> Wikidatum::Statemen
 wikidatum_client.add_statement(
   id: 'Q193581',
   property: 'P577',
-  datavalue: Wikidatum::DataValueType::Time.new(
+  value: Wikidatum::DataType::Time.new(
     time: '+2004-11-16T00:00:00Z',
-    time_zone: 0,
     precision: 11,
     calendar_model: 'https://www.wikidata.org/entity/Q12138'
   )

@@ -1,18 +1,22 @@
 # frozen_string_literal: true
 
-require 'wikidatum/data_value_type/base'
+require 'wikidatum/data_type/base'
 
-# The String type datavalue JSON looks like this:
+# The String type JSON looks like this:
 #
 # ```json
 # {
-#   "datavalue": {
-#     "value": "Foobar",
-#     "type": "string"
+#   "property": {
+#     "id": "P143",
+#     "data-type": "string"
+#   },
+#   "value": {
+#     "type": "value",
+#     "content": "foo"
 #   }
 # }
 # ```
-class Wikidatum::DataValueType::WikibaseString
+class Wikidatum::DataType::WikibaseString
   # @return [String] the value for the string.
   attr_reader :string
 
@@ -36,19 +40,16 @@ class Wikidatum::DataValueType::WikibaseString
     'string'
   end
 
-  # The "datatype" value used by Wikibase, usually identical to wikibase_type
-  # but not always.
-  #
-  # @return [String]
-  def wikibase_datatype
-    wikibase_type
+  # @return [Symbol]
+  def self.symbolized_name
+    :string
   end
 
   # @!visibility private
   def self.marshal_load(string)
-    Wikidatum::DataValueType::Base.new(
-      type: :string,
-      value: new(
+    Wikidatum::DataType::Base.new(
+      type: symbolized_name,
+      content: new(
         string: string
       )
     )

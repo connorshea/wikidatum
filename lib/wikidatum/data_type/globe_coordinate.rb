@@ -1,23 +1,27 @@
 # frozen_string_literal: true
 
-require 'wikidatum/data_value_type/base'
+require 'wikidatum/data_type/base'
 
-# The Globe Coordinate type datavalue JSON looks like this:
+# The Globe Coordinate type JSON looks like this:
 #
 # ```json
 # {
-#   "datavalue": {
-#     "value": {
-#       "latitude": 52.516666666667,
-#       "longitude": 13.383333333333,
-#       "precision": 0.016666666666667,
+#   "property": {
+#     "id": "P740",
+#     "data-type": "globe-coordinate"
+#   },
+#   "value": {
+#     "type": "value",
+#     "content": {
+#       "latitude": 38.8977,
+#       "longitude": -77.0365,
+#       "precision": 0.0001,
 #       "globe": "http://www.wikidata.org/entity/Q2"
-#     },
-#     "type": "globecoordinate"
+#     }
 #   }
 # }
 # ```
-class Wikidatum::DataValueType::GlobeCoordinate
+class Wikidatum::DataType::GlobeCoordinate
   # @return [Float]
   attr_reader :latitude
 
@@ -56,22 +60,19 @@ class Wikidatum::DataValueType::GlobeCoordinate
   #
   # @return [String]
   def wikibase_type
-    'globecoordinate'
+    'globe-coordinate'
   end
 
-  # The "datatype" value used by Wikibase, usually identical to wikibase_type
-  # but not always.
-  #
-  # @return [String]
-  def wikibase_datatype
-    'globe-coordinate' # yes, really
+  # @return [Symbol]
+  def self.symbolized_name
+    :monolingual_text
   end
 
   # @!visibility private
   def self.marshal_load(data_value_json)
-    Wikidatum::DataValueType::Base.new(
-      type: :globe_coordinate,
-      value: new(
+    Wikidatum::DataType::Base.new(
+      type: symbolized_name,
+      content: new(
         latitude: data_value_json['latitude'],
         longitude: data_value_json['longitude'],
         precision: data_value_json['precision'],

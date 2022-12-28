@@ -1,21 +1,25 @@
 # frozen_string_literal: true
 
-require 'wikidatum/data_value_type/base'
+require 'wikidatum/data_type/base'
 
-# The Monolingual Text type datavalue JSON looks like this:
+# The Monolingual Text type JSON looks like this:
 #
 # ```json
 # {
-#   "datavalue": {
-#     "value": {
-#       "text": "South Pole Telescope eyes birth of first massive galaxies",
-#       "language": "en"
-#     },
-#     "type": "monolingualtext"
+#   "property": {
+#     "id": "P13432",
+#     "data-type": "monolingualtext"
+#   },
+#   "value": {
+#     "type": "value",
+#     "content": {
+#       "text": "foo",
+#       "language": "en-gb"
+#     }
 #   }
 # }
 # ```
-class Wikidatum::DataValueType::MonolingualText
+class Wikidatum::DataType::MonolingualText
   # @return [String] the language code, e.g. 'en'
   attr_reader :language
 
@@ -45,19 +49,16 @@ class Wikidatum::DataValueType::MonolingualText
     'monolingualtext'
   end
 
-  # The "datatype" value used by Wikibase, usually identical to wikibase_type
-  # but not always.
-  #
-  # @return [String]
-  def wikibase_datatype
-    wikibase_type
+  # @return [Symbol]
+  def self.symbolized_name
+    :monolingual_text
   end
 
   # @!visibility private
   def self.marshal_load(data_value_json)
-    Wikidatum::DataValueType::Base.new(
-      type: :monolingual_text,
-      value: new(
+    Wikidatum::DataType::Base.new(
+      type: symbolized_name,
+      content: new(
         language: data_value_json['language'],
         text: data_value_json['text']
       )

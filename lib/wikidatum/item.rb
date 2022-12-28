@@ -186,8 +186,8 @@ class Wikidatum::Item
     statements = item_json['statements'].to_a.flat_map do |_property_id, st_arr|
       st_arr.map { |statement| Wikidatum::Statement.marshal_load(statement) }
     end
-    sitelinks = item_json['sitelinks'].to_a.map do |_name, sitelink|
-      Wikidatum::Sitelink.new(site: sitelink['site'], title: sitelink['title'], badges: sitelink['badges'])
+    sitelinks = item_json['sitelinks'].to_a.map do |site, sitelink|
+      Wikidatum::Sitelink.new(site: site, title: sitelink['title'], badges: sitelink['badges'])
     end
 
     Wikidatum::Item.new(

@@ -2,11 +2,11 @@
 
 require 'test_helper'
 
-describe Wikidatum::DataValueType::SomeValue do
+describe Wikidatum::DataType::SomeValue do
   it '.marshal_load' do
     # The value passed to marshal_load doesn't matter in this case.
-    some_value = Wikidatum::DataValueType::SomeValue.marshal_load(nil)
+    some_value = Wikidatum::DataType::SomeValue.marshal_load(nil)
 
-    assert some_value.is_a?(Wikidatum::DataValueType::Base)
+    assert some_value.is_a?(Wikidatum::DataType::Base)
   end
 end

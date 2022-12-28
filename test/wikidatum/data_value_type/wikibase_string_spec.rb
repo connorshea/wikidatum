@@ -2,14 +2,14 @@
 
 require 'test_helper'
 
-describe Wikidatum::DataValueType::WikibaseString do
-  describe 'creating a DataValueType::WikibaseString' do
+describe Wikidatum::DataType::WikibaseString do
+  describe 'creating a DataType::WikibaseString' do
     it 'works' do
-      string = Wikidatum::DataValueType::WikibaseString.new(
+      string = Wikidatum::DataType::WikibaseString.new(
         string: 'Foobar'
       )
 
-      assert string.is_a?(Wikidatum::DataValueType::WikibaseString)
+      assert string.is_a?(Wikidatum::DataType::WikibaseString)
     end
   end
 end

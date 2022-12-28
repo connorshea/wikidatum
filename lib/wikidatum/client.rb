@@ -9,15 +9,15 @@ module Wikidatum
     PROPERTY_REGEX = /^P?\d+$/.freeze
     STATEMENT_REGEX = /^Q?\d+\$[\w-]+$/.freeze
     VALID_RANKS = ['preferred', 'normal', 'deprecated'].freeze
-    VALID_DATAVALUE_TYPES = [
-      'Wikidatum::DataValueType::GlobeCoordinate',
-      'Wikidatum::DataValueType::MonolingualText',
-      'Wikidatum::DataValueType::NoValue',
-      'Wikidatum::DataValueType::Quantity',
-      'Wikidatum::DataValueType::SomeValue',
-      'Wikidatum::DataValueType::Time',
-      'Wikidatum::DataValueType::WikibaseEntityId',
-      'Wikidatum::DataValueType::WikibaseString'
+    VALID_DATA_TYPES = [
+      'Wikidatum::DataType::GlobeCoordinate',
+      'Wikidatum::DataType::MonolingualText',
+      'Wikidatum::DataType::NoValue',
+      'Wikidatum::DataType::Quantity',
+      'Wikidatum::DataType::SomeValue',
+      'Wikidatum::DataType::Time',
+      'Wikidatum::DataType::WikibaseItem',
+      'Wikidatum::DataType::WikibaseString'
     ].freeze
 
     # @return [String] the root URL of the Wikibase instance we want to interact
@@ -119,7 +119,7 @@ module Wikidatum
     #   wikidatum_client.add_statement(
     #     id: 'Q123',
     #     property: 'P23',
-    #     datavalue: Wikidatum::DataValueType::WikibaseString.new(string: 'Foo'),
+    #     value: Wikidatum::DataType::WikibaseString.new(string: 'Foo'),
     #     comment: 'Adding something or another.'
     #   )
     #
@@ -127,7 +127,7 @@ module Wikidatum
     #   wikidatum_client.add_statement(
     #     id: 'Q123',
     #     property: 'P124',
-    #     datavalue: Wikidatum::DataValueType::NoValue.new(
+    #     value: Wikidatum::DataType::NoValue.new(
     #       type: :no_value,
     #       value: nil
     #     )
@@ -137,7 +137,7 @@ module Wikidatum
     #   wikidatum_client.add_statement(
     #     id: 'Q123',
     #     property: 'P124',
-    #     datavalue: Wikidatum::DataValueType::SomeValue.new(
+    #     value: Wikidatum::DataType::SomeValue.new(
     #       type: :some_value,
     #       value: nil
     #     )
@@ -147,7 +147,7 @@ module Wikidatum
     #   wikidatum_client.add_statement(
     #     id: 'Q123',
     #     property: 'P124',
-    #     datavalue: Wikidatum::DataValueType::GlobeCoordinate.new(
+    #     value: Wikidatum::DataType::GlobeCoordinate.new(
     #       latitude: 52.51666,
     #       longitude: 13.3833,
     #       precision: 0.01666,
@@ -159,7 +159,7 @@ module Wikidatum
     #   wikidatum_client.add_statement(
     #     id: 'Q123',
     #     property: 'P124',
-    #     datavalue: Wikidatum::DataValueType::MonolingualText.new(
+    #     value: Wikidatum::DataType::MonolingualText.new(
     #       language: 'en',
     #       text: 'Foobar'
     #     )
@@ -169,10 +169,8 @@ module Wikidatum
     #   wikidatum_client.add_statement(
     #     id: 'Q123',
     #     property: 'P124',
-    #     datavalue: Wikidatum::DataValueType::Quantity.new(
+    #     value: Wikidatum::DataType::Quantity.new(
     #       amount: '+12',
-    #       upper_bound: nil,
-    #       lower_bound: nil,
     #       unit: 'https://wikidata.org/entity/Q1234'
     #     )
     #   )
@@ -181,9 +179,8 @@ module Wikidatum
     #   wikidatum_client.add_statement(
     #     id: 'Q123',
     #     property: 'P124',
-    #     datavalue: Wikidatum::DataValueType::Time.new(
+    #     value: Wikidatum::DataType::Time.new(
     #       time: '+2022-08-12T00:00:00Z',
-    #       time_zone: 0,
     #       precision: 11,
     #       calendar_model: 'https://wikidata.org/entity/Q1234'
     #     )
@@ -193,66 +190,57 @@ module Wikidatum
     #   wikidatum_client.add_statement(
     #     id: 'Q123',
     #     property: 'P124',
-    #     datavalue: Wikidatum::DataValueType::WikibaseEntityId.new(
-    #       entity_type: 'item',
-    #       numeric_id: 1234,
+    #     value: Wikidatum::DataType::WikibaseItem.new(
     #       id: 'Q1234'
     #     )
     #   )
     #
     # @param id [String, Integer] the ID of the item on which the statement will be added.
     # @param property [String, Integer] property ID in the format 'P123', or an integer.
-    # @param datavalue [Wikidatum::DataValueType::GlobeCoordinate, Wikidatum::DataValueType::MonolingualText, Wikidatum::DataValueType::Quantity, Wikidatum::DataValueType::WikibaseString, Wikidatum::DataValueType::Time, Wikidatum::DataValueType::WikibaseEntityId, Wikidatum::DataValueType::NoValue, Wikidatum::DataValueType::SomeValue] the datavalue of the statement being created.
-    # @param datatype [String, nil] if nil, it'll determine the type based on
-    #   what was passed for the statement argument. This may differ from the
-    #   type of the Statement's datavalue (for example with the 'url' type).
-    # @param qualifiers [Hash<String, Array<Wikidatum::Snak>>]
+    # @param value [Wikidatum::DataType::GlobeCoordinate, Wikidatum::DataType::MonolingualText, Wikidatum::DataType::Quantity, Wikidatum::DataType::WikibaseString, Wikidatum::DataType::Time, Wikidatum::DataType::WikibaseItem, Wikidatum::DataType::NoValue, Wikidatum::DataType::SomeValue] the value of the statement being created.
+    # @param qualifiers [Array<Wikidatum::Qualifier>]
     # @param references [Array<Wikidatum::Reference>]
     # @param rank [String, Symbol] Valid ranks are 'preferred', 'normal', or
     #   'deprecated'. Defaults to 'normal'. Also accepts Symbol for these ranks.
     # @param tags [Array<String>]
     # @param comment [String, nil]
     # @return [Boolean] True if the request succeeded.
-    def add_statement(id:, property:, datavalue:, datatype: nil, qualifiers: {}, references: [], rank: 'normal', tags: [], comment: nil)
+    def add_statement(id:, property:, value:, qualifiers: [], references: [], rank: 'normal', tags: [], comment: nil)
       raise ArgumentError, "#{id.inspect} is an invalid Wikibase QID. Must be an integer, a string representation of an integer, or in the format 'Q123'." unless id.is_a?(Integer) || id.match?(ITEM_REGEX)
       raise ArgumentError, "#{property.inspect} is an invalid Wikibase PID. Must be an integer, a string representation of an integer, or in the format 'P123'." unless property.is_a?(Integer) || property.match?(PROPERTY_REGEX)
       raise ArgumentError, "#{rank.inspect} is an invalid rank. Must be normal, preferred, or deprecated." unless VALID_RANKS.include?(rank.to_s)
-      raise ArgumentError, "Expected an instance of one of Wikidatum::DataValueType's subclasses for datavalue, but got #{datavalue.inspect}." unless VALID_DATAVALUE_TYPES.include?(datavalue.class.to_s)
+      raise ArgumentError, "Expected an instance of one of Wikidatum::DataType's subclasses for value, but got #{value.inspect}." unless VALID_DATA_TYPES.include?(value.class.to_s)
 
       id = coerce_item_id(id)
       property = coerce_property_id(property)
 
-      # Unless datatype is set explicitly by the caller, just assume we can pull the
-      # default from the datavalue class.
-      datatype ||= datavalue.wikibase_datatype
-
-      case datavalue.class.to_s
-      when 'Wikidatum::DataValueType::NoValue'
+      case value.class.to_s
+      when 'Wikidatum::DataType::NoValue'
         statement_hash = {
-          mainsnak: {
-            snaktype: 'novalue',
-            property: property,
-            datatype: datatype
+          property: {
+            id: property
+          },
+          value: {
+            type: 'novalue'
           }
         }
-      when 'Wikidatum::DataValueType::SomeValue'
+      when 'Wikidatum::DataType::SomeValue'
         statement_hash = {
-          mainsnak: {
-            snaktype: 'somevalue',
-            property: property,
-            datatype: datatype
+          property: {
+            id: property
+          },
+          value: {
+            type: 'somevalue'
           }
         }
-      when 'Wikidatum::DataValueType::GlobeCoordinate', 'Wikidatum::DataValueType::MonolingualText', 'Wikidatum::DataValueType::Quantity', 'Wikidatum::DataValueType::WikibaseString', 'Wikidatum::DataValueType::Time', 'Wikidatum::DataValueType::WikibaseEntityId'
+      when 'Wikidatum::DataType::GlobeCoordinate', 'Wikidatum::DataType::MonolingualText', 'Wikidatum::DataType::Quantity', 'Wikidatum::DataType::WikibaseString', 'Wikidatum::DataType::Time', 'Wikidatum::DataType::WikibaseItem'
         statement_hash = {
-          mainsnak: {
-            snaktype: 'value',
-            property: property,
-            datatype: datatype,
-            datavalue: {
-              type: datavalue.wikibase_type,
-              value: datavalue.marshal_dump
-            }
+          property: {
+            id: property
+          },
+          value: {
+            type: 'value',
+            content: value.marshal_dump
           }
         }
       end
