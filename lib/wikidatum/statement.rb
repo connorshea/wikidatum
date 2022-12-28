@@ -84,5 +84,4 @@ class Wikidatum::Statement
       rank: statement_json['rank']
     )
   end
-
 end

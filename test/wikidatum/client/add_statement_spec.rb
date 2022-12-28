@@ -330,7 +330,7 @@ describe 'Wikidatum::Client#add_statement' do
               id: property
             },
             value: {
-              type: 'somevalue',
+              type: 'somevalue'
             },
             qualifiers: [],
             references: [],

@@ -198,9 +198,6 @@ module Wikidatum
     # @param id [String, Integer] the ID of the item on which the statement will be added.
     # @param property [String, Integer] property ID in the format 'P123', or an integer.
     # @param value [Wikidatum::DataType::GlobeCoordinate, Wikidatum::DataType::MonolingualText, Wikidatum::DataType::Quantity, Wikidatum::DataType::WikibaseString, Wikidatum::DataType::Time, Wikidatum::DataType::WikibaseItem, Wikidatum::DataType::NoValue, Wikidatum::DataType::SomeValue] the value of the statement being created.
-    # @param datatype [String, nil] if nil, it'll determine the type based on
-    #   what was passed for the statement argument. This may differ from the
-    #   type of the Statement's datavalue (for example with the 'url' type).
     # @param qualifiers [Array<Wikidatum::Qualifier>]
     # @param references [Array<Wikidatum::Reference>]
     # @param rank [String, Symbol] Valid ranks are 'preferred', 'normal', or
@@ -208,7 +205,7 @@ module Wikidatum
     # @param tags [Array<String>]
     # @param comment [String, nil]
     # @return [Boolean] True if the request succeeded.
-    def add_statement(id:, property:, value:, datatype: nil, qualifiers: [], references: [], rank: 'normal', tags: [], comment: nil)
+    def add_statement(id:, property:, value:, qualifiers: [], references: [], rank: 'normal', tags: [], comment: nil)
       raise ArgumentError, "#{id.inspect} is an invalid Wikibase QID. Must be an integer, a string representation of an integer, or in the format 'Q123'." unless id.is_a?(Integer) || id.match?(ITEM_REGEX)
       raise ArgumentError, "#{property.inspect} is an invalid Wikibase PID. Must be an integer, a string representation of an integer, or in the format 'P123'." unless property.is_a?(Integer) || property.match?(PROPERTY_REGEX)
       raise ArgumentError, "#{rank.inspect} is an invalid rank. Must be normal, preferred, or deprecated." unless VALID_RANKS.include?(rank.to_s)
@@ -216,10 +213,6 @@ module Wikidatum
 
       id = coerce_item_id(id)
       property = coerce_property_id(property)
-
-      # Unless datatype is set explicitly by the caller, just assume we can pull the
-      # default from the value class.
-      datatype ||= value.wikibase_type
 
       case value.class.to_s
       when 'Wikidatum::DataType::NoValue'
