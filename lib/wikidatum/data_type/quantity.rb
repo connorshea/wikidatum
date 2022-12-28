@@ -49,6 +49,14 @@ class Wikidatum::DataType::Quantity
     'quantity'
   end
 
+  # The content of the data value object. Use this to get a more sensible
+  # representation of the statement's contents.
+  #
+  # @return [OpenStruct<amount, unit>]
+  def humanized
+    OpenStruct.new(to_h)
+  end
+
   # @return [Symbol]
   def self.symbolized_name
     :quantity

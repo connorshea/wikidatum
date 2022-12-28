@@ -2,7 +2,7 @@
 
 # For more information on the possible types that can be returned by
 # datavalues, see the official documentation:
-# https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_json.html#json_datavalues
+# https://doc.wikimedia.org/Wikibase/master/php/docs_topics_json.html#json_datavalues
 module Wikidatum::DataType
   class Base
     # Represents the type for this instance.
@@ -42,6 +42,14 @@ module Wikidatum::DataType
         type: @type,
         content: @content&.to_h
       }
+    end
+
+    # Get the humanized version of the content. Depending on the given data
+    # type, it will return values in different formats.
+    #
+    # @return [String, OpenStruct, nil]
+    def humanized_content
+      @content.humanized
     end
 
     # @!visibility private
