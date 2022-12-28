@@ -18,7 +18,7 @@
       {
         "id": "Q123$adacda34-46c4-2515-7aa9-ac448c8bfded",
         "rank": "normal",
-        "qualifiers": {},
+        "qualifiers": [],
         "references": [],
         "property": {
           "id": "P694",
@@ -36,7 +36,7 @@
       {
         "id": "Q123$3683bbd6-4814-26a1-3ff4-56f0c8854c27",
         "rank": "normal",
-        "qualifiers": {},
+        "qualifiers": [],
         "references": [],
         "property": {
           "id": "P963",
@@ -56,7 +56,7 @@
       {
         "id": "Q123$8f193976-4b22-a891-caf0-a7d94d8886af",
         "rank": "normal",
-        "qualifiers": {},
+        "qualifiers": [],
         "references": [],
         "property": {
           "id": "P963",
@@ -74,7 +74,7 @@
       {
         "id": "Q123$7ecb83a5-4ce1-4dc1-6d6f-7b2ca954ed25",
         "rank": "normal",
-        "qualifiers": {},
+        "qualifiers": [],
         "references": [],
         "property": {
           "id": "P625",
@@ -90,7 +90,7 @@
       {
         "id": "Q123$ea6a4bc7-4a83-3dbf-a531-e5c326b4c735",
         "rank": "normal",
-        "qualifiers": {},
+        "qualifiers": [],
         "references": [],
         "property": {
           "id": "P740",
@@ -111,7 +111,7 @@
       {
         "id": "Q123$0ef539a3-4b96-1dc1-12c2-27045f8ebcae",
         "rank": "normal",
-        "qualifiers": {},
+        "qualifiers": [],
         "references": [],
         "property": {
           "id": "P937",
@@ -130,7 +130,7 @@
       {
         "id": "Q123$8a50d70e-4a01-b0f7-5732-7570bf5fe737",
         "rank": "normal",
-        "qualifiers": {},
+        "qualifiers": [],
         "references": [],
         "property": {
           "id": "P13432",
@@ -149,7 +149,7 @@
       {
         "id": "Q123$a2e436e8-450e-0669-03f7-e930df3f362e",
         "rank": "normal",
-        "qualifiers": {},
+        "qualifiers": [],
         "references": [],
         "property": {
           "id": "P476",
@@ -169,7 +169,7 @@
       {
         "id": "Q123$d2489982-4fec-6524-9e64-45cdfc09b158",
         "rank": "normal",
-        "qualifiers": {},
+        "qualifiers": [],
         "references": [
           {
             "hash": "29e1c34d2383c7f72ffcae244cabb6c838baf2bd",
@@ -206,7 +206,7 @@
       {
         "id": "Q123$ae970899-40fe-da06-1c82-6eaff84c78cb",
         "rank": "normal",
-        "qualifiers": {},
+        "qualifiers": [],
         "references": [],
         "property": {
           "id": "P646",
@@ -221,7 +221,7 @@
       {
         "id": "Q123$d79f87d7-475a-716f-c854-392c79bc036d",
         "rank": "normal",
-        "qualifiers": {},
+        "qualifiers": [],
         "references": [],
         "property": {
           "id": "P17",

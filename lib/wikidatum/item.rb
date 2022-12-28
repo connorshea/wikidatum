@@ -178,7 +178,6 @@ class Wikidatum::Item
   # @param item_json [Hash]
   # @return [Wikidatum::Item]
   def self.marshal_load(item_json)
-    puts JSON.pretty_generate(item_json)
     labels = item_json['labels'].to_a.map { |lang, label| Wikidatum::Term.new(lang: lang, value: label) }
     descriptions = item_json['descriptions'].to_a.map { |lang, desc| Wikidatum::Term.new(lang: lang, value: desc) }
     aliases = item_json['aliases'].to_a.flat_map do |lang, als|

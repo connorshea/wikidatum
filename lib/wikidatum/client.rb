@@ -201,7 +201,7 @@ module Wikidatum
     # @param datatype [String, nil] if nil, it'll determine the type based on
     #   what was passed for the statement argument. This may differ from the
     #   type of the Statement's datavalue (for example with the 'url' type).
-    # @param qualifiers [Hash<String, Array<Wikidatum::Snak>>]
+    # @param qualifiers [Hash<String, Array<Wikidatum::Qualifier>>]
     # @param references [Array<Wikidatum::Reference>]
     # @param rank [String, Symbol] Valid ranks are 'preferred', 'normal', or
     #   'deprecated'. Defaults to 'normal'. Also accepts Symbol for these ranks.

@@ -67,10 +67,9 @@ class Wikidatum::Statement
 
     property_id = statement_json['property']['id']
 
-    # TODO: Fix
-    # qualifiers = statement_json['qualifiers'].to_a.flat_map do |qualifier|
-    #   qualifier.map { |q| Wikidatum::Qualifier.marshal_load(q) }
-    # end
+    qualifiers = statement_json['qualifiers'].to_a.flat_map do |qualifier|
+      Wikidatum::Qualifier.marshal_load(qualifier)
+    end
     references = statement_json['references'].flat_map do |reference|
       Wikidatum::Reference.marshal_load(reference)
     end

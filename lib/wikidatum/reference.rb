@@ -4,12 +4,12 @@ class Wikidatum::Reference
   # @return [String] Hash of the reference (a cryptographic hash, not a Ruby hash).
   attr_reader :hash
 
-  # @return [Array<Wikidatum::Snak>]
+  # @return [Array<Wikidatum::ReferencePart>]
   attr_reader :parts
 
   # @!visibility private
   # @param hash [String] Hash of the reference (a cryptographic hash, not a Ruby hash).
-  # @param parts [Array<Wikidatum::Snak>]
+  # @param parts [Array<Wikidatum::ReferencePart>]
   def initialize(hash:, parts:)
     @hash = hash
     @parts = parts
@@ -37,7 +37,7 @@ class Wikidatum::Reference
   # @param ref_json [Hash]
   # @return [Wikidatum::Reference]
   def self.marshal_load(ref_json)
-    parts = ref_json['parts'].map { |snak| Wikidatum::Snak.marshal_load(snak) }
+    parts = ref_json['parts'].map { |part| Wikidatum::ReferencePart.marshal_load(part) }
 
     Wikidatum::Reference.new(
       hash: ref_json['hash'],

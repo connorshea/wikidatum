@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Wikidatum::Qualifier
-  # @return [String] ID of the property for this Qualifier, in the format 'P123'.
+class Wikidatum::ReferencePart
+  # @return [String] ID of the property used, in the format "P123".
   attr_reader :property_id
 
   # @return [String]
@@ -15,7 +15,7 @@ class Wikidatum::Qualifier
   attr_reader :value
 
   # @!visibility private
-  # @param property_id [String] ID of the property for this Qualifier, in the format 'P123'.
+  # @param property_id [String] ID of the property used, in the format "P123".
   # @param data_type [String]
   # @param value [DataType::GlobeCoordinate, DataType::MonolingualText, DataType::Quantity, DataType::WikibaseString, DataType::Time, DataType::WikibaseItem, DataType::NoValue, DataType::SomeValue]
   def initialize(property_id:, data_type:, value:)
@@ -35,35 +35,36 @@ class Wikidatum::Qualifier
 
   # @return [String]
   def inspect
-    "<Wikidatum::Qualifier property_id=#{@property_id.inspect} data_type=#{@data_type.inspect} value=#{@value.inspect}>"
+    "<Wikidatum::ReferencePart property_id=#{@property_id.inspect} data_type=#{@data_type.inspect} value=#{@value.inspect}>"
   end
 
   # @!visibility private
   #
   # This takes in the JSON blob (as a hash) that is output for a given
-  # qualifier the API and turns it into an actual instance of a Qualifier.
+  # reference part in the API and turns it into an actual instance of a
+  # ReferencePart.
   #
-  # @param qualifier_json [Hash]
-  # @return [Wikidatum::Qualifier]
-  def self.marshal_load(qualifier_json)
-    Wikidatum::Qualifier.new(
-      property_id: qualifier_json.dig('property', 'id'),
-      data_type: qualifier_json['data-type'],
-      value: data_value(qualifier_json)
+  # @param part_json [Hash]
+  # @return [Wikidatum::ReferencePart]
+  def self.marshal_load(part_json)
+    Wikidatum::ReferencePart.new(
+      property_id: part_json.dig('property', 'id'),
+      data_type: part_json['data-type'],
+      value: data_value(part_json)
     )
   end
 
   private
 
-  def self.data_value(qualifier_json)
+  def self.data_value(part_json)
     # the type can be 'novalue' (no value) or 'somevalue' (unknown), so we handle those as somewhat special cases
-    case qualifier_json['value']['type']
+    case part_json['value']['type']
     when 'novalue'
       Wikidatum::DataType::Base.marshal_load('novalue', nil)
     when 'somevalue'
       Wikidatum::DataType::Base.marshal_load('somevalue', nil)
     when 'value'
-      Wikidatum::DataType::Base.marshal_load(qualifier_json['property']['data-type'], qualifier_json['value']['content'])
+      Wikidatum::DataType::Base.marshal_load(part_json['property']['data-type'], part_json['value']['content'])
     end
   end
 end

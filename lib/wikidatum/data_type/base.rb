@@ -5,7 +5,7 @@
 # https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_json.html#json_datavalues
 module Wikidatum::DataType
   class Base
-    # Represents the type for this datavalue instance.
+    # Represents the type for this instance.
     #
     # Possible values for the `type` attribute are:
     #
@@ -21,7 +21,7 @@ module Wikidatum::DataType
     # @return [Symbol]
     attr_reader :type
 
-    # The value of the datavalue object in the response.
+    # The value of the "content" attribute in the response.
     #
     # If the `type` is `novalue` or `somevalue`, this returns `nil`.
     #
@@ -46,7 +46,7 @@ module Wikidatum::DataType
 
     # @!visibility private
     #
-    # @param data_type [String] The value of `type` for the given Snak's datavalue.
+    # @param data_type [String] The value of `data-type` for the given Statement or Qualifier's property.
     # @param data_value_json [Hash] The `value` part of datavalue.
     # @return [Wikidatum::DataType::Base] An instance of Base.
     def self.marshal_load(data_type, data_value_json)
