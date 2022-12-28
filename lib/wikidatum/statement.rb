@@ -10,7 +10,7 @@ class Wikidatum::Statement
   # @return [String]
   attr_accessor :data_type
 
-  # @return [DataValueType::GlobeCoordinate, DataValueType::MonolingualText, DataValueType::Quantity, DataValueType::WikibaseString, DataValueType::Time, DataValueType::WikibaseItem, nil]
+  # @return [DataType::GlobeCoordinate, DataType::MonolingualText, DataType::Quantity, DataType::WikibaseString, DataType::Time, DataType::WikibaseItem, nil]
   attr_accessor :data_value
 
   # @return [Array<Wikidatum::Qualifier>]
@@ -26,7 +26,7 @@ class Wikidatum::Statement
   # @param id [String]
   # @param property_id [String] The 'P123' ID of the property that this statement represents.
   # @param data_type [String]
-  # @param data_value [DataValueType::GlobeCoordinate, DataValueType::MonolingualText, DataValueType::Quantity, DataValueType::WikibaseString, DataValueType::Time, DataValueType::WikibaseItem, nil]
+  # @param data_value [DataType::GlobeCoordinate, DataType::MonolingualText, DataType::Quantity, DataType::WikibaseString, DataType::Time, DataType::WikibaseItem, nil]
   # @param qualifiers [Array<Wikidatum::Qualifier>]
   # @param references [Array<Wikidatum::Reference>]
   # @param rank [String] The rank of the given statement.
@@ -92,11 +92,11 @@ class Wikidatum::Statement
     # the type can be 'novalue' (no value) or 'somevalue' (unknown), so we handle those as somewhat special cases
     case statement_json['value']['type']
     when 'novalue'
-      Wikidatum::DataValueType::Base.marshal_load('novalue', nil)
+      Wikidatum::DataType::Base.marshal_load('novalue', nil)
     when 'somevalue'
-      Wikidatum::DataValueType::Base.marshal_load('somevalue', nil)
+      Wikidatum::DataType::Base.marshal_load('somevalue', nil)
     when 'value'
-      Wikidatum::DataValueType::Base.marshal_load(statement_json['property']['data-type'], statement_json['value']['content'])
+      Wikidatum::DataType::Base.marshal_load(statement_json['property']['data-type'], statement_json['value']['content'])
     end
   end
 

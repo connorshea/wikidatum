@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'wikidatum/data_value_type/base'
+require 'wikidatum/data_type/base'
 
 # The Quantity type JSON looks like this:
 #
@@ -19,7 +19,7 @@ require 'wikidatum/data_value_type/base'
 #   }
 # }
 # ```
-class Wikidatum::DataValueType::Quantity
+class Wikidatum::DataType::Quantity
   # @return [String] A string value like "+2", usually an integer but not always.
   attr_reader :amount
 
@@ -51,7 +51,7 @@ class Wikidatum::DataValueType::Quantity
 
   # @!visibility private
   def self.marshal_load(data_value_json)
-    Wikidatum::DataValueType::Base.new(
+    Wikidatum::DataType::Base.new(
       type: :quantity,
       value: new(
         amount: data_value_json['amount'],

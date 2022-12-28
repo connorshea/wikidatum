@@ -18,7 +18,7 @@ class Wikidatum::Snak
   # datavalues, see the official documentation:
   # https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_json.html#json_datavalues
   #
-  # @return [Wikidatum::DataValueType::Base] the value of the statement, can take various forms
+  # @return [Wikidatum::DataType::Base] the value of the statement, can take various forms
   attr_reader :datavalue
 
   # @!visibility private
@@ -26,7 +26,7 @@ class Wikidatum::Snak
   # @param snaktype [String]
   # @param property [String] ID of the property for this Snak, in the format 'P123'.
   # @param datatype [String]
-  # @param datavalue [DataValueType::GlobeCoordinate, DataValueType::MonolingualText, DataValueType::Quantity, DataValueType::WikibaseString, DataValueType::Time, DataValueType::WikibaseItem]
+  # @param datavalue [DataType::GlobeCoordinate, DataType::MonolingualText, DataType::Quantity, DataType::WikibaseString, DataType::Time, DataType::WikibaseItem]
   def initialize(hash:, snaktype:, property:, datatype:, datavalue:)
     @hash = hash
     @snaktype = snaktype
@@ -62,11 +62,11 @@ class Wikidatum::Snak
     # the type can be 'novalue' (no value) or 'somevalue' (unknown), so we handle those as somewhat special cases
     case snak_json['value']['type']
     when 'novalue'
-      datavalue = Wikidatum::DataValueType::Base.marshal_load('novalue', nil)
+      datavalue = Wikidatum::DataType::Base.marshal_load('novalue', nil)
     when 'somevalue'
-      datavalue = Wikidatum::DataValueType::Base.marshal_load('somevalue', nil)
+      datavalue = Wikidatum::DataType::Base.marshal_load('somevalue', nil)
     when 'value'
-      datavalue = Wikidatum::DataValueType::Base.marshal_load(snak_json['datavalue']['type'], snak_json['datavalue']['value'])
+      datavalue = Wikidatum::DataType::Base.marshal_load(snak_json['datavalue']['type'], snak_json['datavalue']['value'])
     end
 
     Wikidatum::Snak.new(

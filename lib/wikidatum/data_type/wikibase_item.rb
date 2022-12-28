@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'wikidatum/data_value_type/base'
+require 'wikidatum/data_type/base'
 
 # The Wikibase Item type JSON looks like this:
 #
@@ -16,7 +16,7 @@ require 'wikidatum/data_value_type/base'
 #   }
 # }
 # ```
-class Wikidatum::DataValueType::WikibaseItem
+class Wikidatum::DataType::WikibaseItem
   # @return [String] in the format "Q123".
   attr_reader :id
 
@@ -42,7 +42,7 @@ class Wikidatum::DataValueType::WikibaseItem
 
   # @!visibility private
   def self.marshal_load(id)
-    Wikidatum::DataValueType::Base.new(
+    Wikidatum::DataType::Base.new(
       type: :wikibase_item,
       value: new(
         id: id

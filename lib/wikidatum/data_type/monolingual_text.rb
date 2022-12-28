@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'wikidatum/data_value_type/base'
+require 'wikidatum/data_type/base'
 
 # The Monolingual Text type JSON looks like this:
 #
@@ -19,7 +19,7 @@ require 'wikidatum/data_value_type/base'
 #   }
 # }
 # ```
-class Wikidatum::DataValueType::MonolingualText
+class Wikidatum::DataType::MonolingualText
   # @return [String] the language code, e.g. 'en'
   attr_reader :language
 
@@ -51,7 +51,7 @@ class Wikidatum::DataValueType::MonolingualText
 
   # @!visibility private
   def self.marshal_load(data_value_json)
-    Wikidatum::DataValueType::Base.new(
+    Wikidatum::DataType::Base.new(
       type: :monolingual_text,
       value: new(
         language: data_value_json['language'],

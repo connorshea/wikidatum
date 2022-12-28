@@ -18,7 +18,7 @@ describe 'Wikidatum::Client#add_statement' do
     let(:property) { 'P625' }
 
     describe 'creating a string-type statement' do
-      let(:datavalue) { Wikidatum::DataValueType::WikibaseString.new(string: 'test data') }
+      let(:datavalue) { Wikidatum::DataType::WikibaseString.new(string: 'test data') }
       let(:output_body) do
         {
           statement: {
@@ -91,7 +91,7 @@ describe 'Wikidatum::Client#add_statement' do
 
     describe 'creating a time-type statement' do
       let(:datavalue) do
-        Wikidatum::DataValueType::Time.new(
+        Wikidatum::DataType::Time.new(
           time: '+2022-08-12T00:00:00Z',
           precision: 11,
           calendar_model: 'https://wikidata.org/entity/Q1234'
@@ -140,7 +140,7 @@ describe 'Wikidatum::Client#add_statement' do
 
     describe 'creating a quantity-type statement' do
       let(:datavalue) do
-        Wikidatum::DataValueType::Quantity.new(
+        Wikidatum::DataType::Quantity.new(
           amount: '+1',
           unit: 'https://wikidata.org/entity/Q1234'
         )
@@ -187,7 +187,7 @@ describe 'Wikidatum::Client#add_statement' do
 
     describe 'creating a monolingualtext-type statement' do
       let(:datavalue) do
-        Wikidatum::DataValueType::MonolingualText.new(
+        Wikidatum::DataType::MonolingualText.new(
           language: 'en',
           text: 'Foobar'
         )
@@ -234,7 +234,7 @@ describe 'Wikidatum::Client#add_statement' do
 
     describe 'creating a Wikibase Item-type statement' do
       let(:datavalue) do
-        Wikidatum::DataValueType::WikibaseItem.new(
+        Wikidatum::DataType::WikibaseItem.new(
           id: 'Q1234'
         )
       end
@@ -279,7 +279,7 @@ describe 'Wikidatum::Client#add_statement' do
 
     describe 'creating a GlobeCoordinate-type statement' do
       let(:datavalue) do
-        Wikidatum::DataValueType::GlobeCoordinate.new(
+        Wikidatum::DataType::GlobeCoordinate.new(
           latitude: 52.516666666667,
           longitude: 13.383333333333,
           precision: 0.016666666666667,
@@ -330,7 +330,7 @@ describe 'Wikidatum::Client#add_statement' do
 
     describe 'creating a SomeValue-type statement' do
       let(:datavalue) do
-        Wikidatum::DataValueType::SomeValue.new(
+        Wikidatum::DataType::SomeValue.new(
           type: :some_value,
           value: nil
         )
@@ -370,7 +370,7 @@ describe 'Wikidatum::Client#add_statement' do
 
     describe 'creating a NoValue-type statement' do
       let(:datavalue) do
-        Wikidatum::DataValueType::NoValue.new(
+        Wikidatum::DataType::NoValue.new(
           type: :no_value,
           value: nil
         )
@@ -425,7 +425,7 @@ describe 'Wikidatum::Client#add_statement' do
 
       describe 'using a valid rank' do
         let(:datavalue) do
-          Wikidatum::DataValueType::NoValue.new(
+          Wikidatum::DataType::NoValue.new(
             type: :no_value,
             value: nil
           )
@@ -481,7 +481,7 @@ describe 'Wikidatum::Client#add_statement' do
         err = assert_raises(ArgumentError) do
           create_client.add_statement(id: item_id, property: property, datavalue: true)
         end
-        assert_equal "Expected an instance of one of Wikidatum::DataValueType's subclasses for datavalue, but got true.", err.message
+        assert_equal "Expected an instance of one of Wikidatum::DataType's subclasses for datavalue, but got true.", err.message
       end
     end
   end

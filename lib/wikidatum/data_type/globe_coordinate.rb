@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'wikidatum/data_value_type/base'
+require 'wikidatum/data_type/base'
 
 # The Globe Coordinate type JSON looks like this:
 #
@@ -21,7 +21,7 @@ require 'wikidatum/data_value_type/base'
 #   }
 # }
 # ```
-class Wikidatum::DataValueType::GlobeCoordinate
+class Wikidatum::DataType::GlobeCoordinate
   # @return [Float]
   attr_reader :latitude
 
@@ -65,7 +65,7 @@ class Wikidatum::DataValueType::GlobeCoordinate
 
   # @!visibility private
   def self.marshal_load(data_value_json)
-    Wikidatum::DataValueType::Base.new(
+    Wikidatum::DataType::Base.new(
       type: :globe_coordinate,
       value: new(
         latitude: data_value_json['latitude'],

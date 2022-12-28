@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'wikidatum/data_value_type/base'
+require 'wikidatum/data_type/base'
 
 # The String type JSON looks like this:
 #
@@ -16,7 +16,7 @@ require 'wikidatum/data_value_type/base'
 #   }
 # }
 # ```
-class Wikidatum::DataValueType::WikibaseString
+class Wikidatum::DataType::WikibaseString
   # @return [String] the value for the string.
   attr_reader :string
 
@@ -42,7 +42,7 @@ class Wikidatum::DataValueType::WikibaseString
 
   # @!visibility private
   def self.marshal_load(string)
-    Wikidatum::DataValueType::Base.new(
+    Wikidatum::DataType::Base.new(
       type: :string,
       value: new(
         string: string

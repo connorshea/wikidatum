@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'wikidatum/client'
-require 'wikidatum/data_value_type'
+require 'wikidatum/data_type'
 require 'wikidatum/item'
 require 'wikidatum/qualifier'
 require 'wikidatum/reference'
@@ -54,18 +54,18 @@ module Wikidatum
     # rubocop:enable Naming/ConstantName
   end
 
-  module DataValueType
+  module DataType
     # TODO: Add commonsMedia and url to the possible types.
     # rubocop:disable Lint/SymbolConversion
-    DATA_VALUE_TYPES = {
-      'globe-coordinate': 'Wikidatum::DataValueType::GlobeCoordinate',
-      'monolingualtext': 'Wikidatum::DataValueType::MonolingualText',
-      'novalue': 'Wikidatum::DataValueType::NoValue',
-      'quantity': 'Wikidatum::DataValueType::Quantity',
-      'somevalue': 'Wikidatum::DataValueType::SomeValue',
-      'string': 'Wikidatum::DataValueType::WikibaseString',
-      'time': 'Wikidatum::DataValueType::Time',
-      'wikibase-item': 'Wikidatum::DataValueType::WikibaseItem'
+    DATA_TYPES = {
+      'globe-coordinate': 'Wikidatum::DataType::GlobeCoordinate',
+      'monolingualtext': 'Wikidatum::DataType::MonolingualText',
+      'novalue': 'Wikidatum::DataType::NoValue',
+      'quantity': 'Wikidatum::DataType::Quantity',
+      'somevalue': 'Wikidatum::DataType::SomeValue',
+      'string': 'Wikidatum::DataType::WikibaseString',
+      'time': 'Wikidatum::DataType::Time',
+      'wikibase-item': 'Wikidatum::DataType::WikibaseItem'
     }.freeze
     # rubocop:enable Lint/SymbolConversion
   end

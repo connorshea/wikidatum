@@ -2,15 +2,15 @@
 
 require 'test_helper'
 
-describe Wikidatum::DataValueType::MonolingualText do
-  describe 'creating a DataValueType::MonolingualText' do
+describe Wikidatum::DataType::MonolingualText do
+  describe 'creating a DataType::MonolingualText' do
     it 'works' do
-      monolingual_text = Wikidatum::DataValueType::MonolingualText.new(
+      monolingual_text = Wikidatum::DataType::MonolingualText.new(
         language: 'en',
         text: 'Foobar'
       )
 
-      assert monolingual_text.is_a?(Wikidatum::DataValueType::MonolingualText)
+      assert monolingual_text.is_a?(Wikidatum::DataType::MonolingualText)
     end
   end
 end

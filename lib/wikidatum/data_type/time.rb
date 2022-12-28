@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'wikidatum/data_value_type/base'
+require 'wikidatum/data_type/base'
 
 # The time type JSON looks like this:
 #
@@ -24,7 +24,7 @@ require 'wikidatum/data_value_type/base'
 # NOTE: For consistency with Ruby snake_case attribute names, `calendarmodel`
 # in the API is `calendar_model`. However, we expose an alias so
 # `calendarmodel` will still work.
-class Wikidatum::DataValueType::Time
+class Wikidatum::DataType::Time
   # A string representing the time in a format that is very similar to ISO 8601.
   #
   # For example, here are what dates look like for the most common precisions:
@@ -111,7 +111,7 @@ class Wikidatum::DataValueType::Time
 
   # @!visibility private
   def self.marshal_load(data_value_json)
-    Wikidatum::DataValueType::Base.new(
+    Wikidatum::DataType::Base.new(
       type: :time,
       value: new(
         time: data_value_json['time'],

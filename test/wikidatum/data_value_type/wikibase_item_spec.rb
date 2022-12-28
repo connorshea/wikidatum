@@ -2,14 +2,14 @@
 
 require 'test_helper'
 
-describe Wikidatum::DataValueType::WikibaseItem do
-  describe 'creating a DataValueType::WikibaseItem' do
+describe Wikidatum::DataType::WikibaseItem do
+  describe 'creating a DataType::WikibaseItem' do
     it 'works' do
-      wikibase_entity = Wikidatum::DataValueType::WikibaseItem.new(
+      wikibase_entity = Wikidatum::DataType::WikibaseItem.new(
         id: 'Q123'
       )
 
-      assert wikibase_entity.is_a?(Wikidatum::DataValueType::WikibaseItem)
+      assert wikibase_entity.is_a?(Wikidatum::DataType::WikibaseItem)
     end
   end
 end

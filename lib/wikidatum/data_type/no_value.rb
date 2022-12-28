@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require 'wikidatum/data_value_type/base'
+require 'wikidatum/data_type/base'
 
 # The NoValue type actually has no datavalue key in the blob at all. We work
 # around this by just passing nil to the serializer.
 
 # Represents "no value".
-class Wikidatum::DataValueType::NoValue < Wikidatum::DataValueType::Base
+class Wikidatum::DataType::NoValue < Wikidatum::DataType::Base
   # The "type" value used by Wikibase, for use when creating/updating statements.
   #
   # @return [String]
