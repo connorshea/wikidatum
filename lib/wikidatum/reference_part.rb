@@ -50,21 +50,7 @@ class Wikidatum::ReferencePart
     Wikidatum::ReferencePart.new(
       property_id: part_json.dig('property', 'id'),
       data_type: part_json.dig('property', 'data-type'),
-      value: data_value(part_json)
+      value: Wikidatum::Utils.ingest_snak(part_json)
     )
-  end
-
-  private
-
-  def self.data_value(part_json)
-    # the type can be 'novalue' (no value) or 'somevalue' (unknown), so we handle those as somewhat special cases
-    case part_json['value']['type']
-    when 'novalue'
-      Wikidatum::DataType::Base.marshal_load('novalue', nil)
-    when 'somevalue'
-      Wikidatum::DataType::Base.marshal_load('somevalue', nil)
-    when 'value'
-      Wikidatum::DataType::Base.marshal_load(part_json['property']['data-type'], part_json['value']['content'])
-    end
   end
 end

@@ -49,21 +49,7 @@ class Wikidatum::Qualifier
     Wikidatum::Qualifier.new(
       property_id: qualifier_json.dig('property', 'id'),
       data_type: qualifier_json.dig('property', 'data-type'),
-      value: data_value(qualifier_json)
+      value: Wikidatum::Utils.ingest_snak(qualifier_json)
     )
-  end
-
-  private
-
-  def self.data_value(qualifier_json)
-    # the type can be 'novalue' (no value) or 'somevalue' (unknown), so we handle those as somewhat special cases
-    case qualifier_json['value']['type']
-    when 'novalue'
-      Wikidatum::DataType::Base.marshal_load('novalue', nil)
-    when 'somevalue'
-      Wikidatum::DataType::Base.marshal_load('somevalue', nil)
-    when 'value'
-      Wikidatum::DataType::Base.marshal_load(qualifier_json['property']['data-type'], qualifier_json['value']['content'])
-    end
   end
 end

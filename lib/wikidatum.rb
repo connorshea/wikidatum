@@ -9,6 +9,7 @@ require 'wikidatum/reference_part'
 require 'wikidatum/sitelink'
 require 'wikidatum/statement'
 require 'wikidatum/term'
+require 'wikidatum/utils'
 require 'wikidatum/version'
 
 module Wikidatum

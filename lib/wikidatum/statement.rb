@@ -63,7 +63,7 @@ class Wikidatum::Statement
   # @return [Wikidatum::Statement]
   def self.marshal_load(statement_json)
     data_type = statement_json['property']['data-type']
-    data_value = data_value(statement_json)
+    data_value = Wikidatum::Utils.ingest_snak(statement_json)
 
     property_id = statement_json['property']['id']
 
@@ -83,20 +83,6 @@ class Wikidatum::Statement
       references: references,
       rank: statement_json['rank']
     )
-  end
-
-  private
-
-  def self.data_value(statement_json)
-    # the type can be 'novalue' (no value) or 'somevalue' (unknown), so we handle those as somewhat special cases
-    case statement_json['value']['type']
-    when 'novalue'
-      Wikidatum::DataType::Base.marshal_load('novalue', nil)
-    when 'somevalue'
-      Wikidatum::DataType::Base.marshal_load('somevalue', nil)
-    when 'value'
-      Wikidatum::DataType::Base.marshal_load(statement_json['property']['data-type'], statement_json['value']['content'])
-    end
   end
 
 end
