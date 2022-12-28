@@ -22,16 +22,14 @@ describe 'Wikidatum::Client#add_statement' do
       let(:output_body) do
         {
           statement: {
-            mainsnak: {
-              snaktype: "value",
-              property: property,
-              datatype: "string",
-              datavalue: {
-                type: "string",
-                value: "test data"
-              }
+            property: {
+              id: property
             },
-            qualifiers: {},
+            value: {
+              type: 'value',
+              content: 'test data'
+            },
+            qualifiers: [],
             references: [],
             rank: "normal",
             type: "statement"
@@ -51,7 +49,7 @@ describe 'Wikidatum::Client#add_statement' do
 
       it 'raises when given an invalid item ID' do
         err = assert_raises(ArgumentError) do
-          create_client.add_statement(id: 'bad id', property: 'P123', datavalue: nil)
+          create_client.add_statement(id: 'bad id', property: 'P123', value: nil)
         end
         assert_equal "\"bad id\" is an invalid Wikibase QID. Must be an integer, a string representation of an integer, or in the format 'Q123'.", err.message
       end
@@ -60,7 +58,7 @@ describe 'Wikidatum::Client#add_statement' do
         response = create_client.add_statement(
           id: item_id,
           property: property,
-          datavalue: datavalue
+          value: datavalue
         )
 
         assert response
@@ -70,7 +68,7 @@ describe 'Wikidatum::Client#add_statement' do
         response = create_client.add_statement(
           id: 124,
           property: property,
-          datavalue: datavalue
+          value: datavalue
         )
 
         assert response
@@ -80,7 +78,7 @@ describe 'Wikidatum::Client#add_statement' do
         response = create_client.add_statement(
           id: item_id,
           property: property,
-          datavalue: datavalue,
+          value: datavalue,
           tags: ['bar'],
           comment: 'adding string property'
         )
@@ -100,20 +98,18 @@ describe 'Wikidatum::Client#add_statement' do
       let(:output_body) do
         {
           statement: {
-            mainsnak: {
-              snaktype: "value",
-              property: property,
-              datatype: "time",
-              datavalue: {
-                type: "time",
-                value: {
-                  time: '+2022-08-12T00:00:00Z',
-                  precision: 11,
-                  calendarmodel: 'https://wikidata.org/entity/Q1234'
-                }
+            property: {
+              id: property
+            },
+            value: {
+              type: 'value',
+              content: {
+                time: '+2022-08-12T00:00:00Z',
+                precision: 11,
+                calendarmodel: 'https://wikidata.org/entity/Q1234'
               }
             },
-            qualifiers: {},
+            qualifiers: [],
             references: [],
             rank: "normal",
             type: "statement"
@@ -131,7 +127,7 @@ describe 'Wikidatum::Client#add_statement' do
         response = create_client.add_statement(
           id: item_id,
           property: property,
-          datavalue: datavalue
+          value: datavalue
         )
 
         assert response
@@ -148,19 +144,17 @@ describe 'Wikidatum::Client#add_statement' do
       let(:output_body) do
         {
           statement: {
-            mainsnak: {
-              snaktype: "value",
-              property: property,
-              datatype: "quantity",
-              datavalue: {
-                type: "quantity",
-                value: {
-                  amount: '+1',
-                  unit: 'https://wikidata.org/entity/Q1234'
-                }
+            property: {
+              id: property
+            },
+            value: {
+              type: 'value',
+              content: {
+                amount: '+1',
+                unit: 'https://wikidata.org/entity/Q1234'
               }
             },
-            qualifiers: {},
+            qualifiers: [],
             references: [],
             rank: "normal",
             type: "statement"
@@ -178,7 +172,7 @@ describe 'Wikidatum::Client#add_statement' do
         response = create_client.add_statement(
           id: item_id,
           property: property,
-          datavalue: datavalue
+          value: datavalue
         )
 
         assert response
@@ -195,19 +189,17 @@ describe 'Wikidatum::Client#add_statement' do
       let(:output_body) do
         {
           statement: {
-            mainsnak: {
-              snaktype: "value",
-              property: property,
-              datatype: "monolingualtext",
-              datavalue: {
-                type: "monolingualtext",
-                value: {
-                  language: 'en',
-                  text: 'Foobar'
-                }
+            property: {
+              id: property
+            },
+            value: {
+              type: 'value',
+              content: {
+                language: 'en',
+                text: 'Foobar'
               }
             },
-            qualifiers: {},
+            qualifiers: [],
             references: [],
             rank: "normal",
             type: "statement"
@@ -225,7 +217,7 @@ describe 'Wikidatum::Client#add_statement' do
         response = create_client.add_statement(
           id: item_id,
           property: property,
-          datavalue: datavalue
+          value: datavalue
         )
 
         assert response
@@ -241,18 +233,16 @@ describe 'Wikidatum::Client#add_statement' do
       let(:output_body) do
         {
           statement: {
-            mainsnak: {
-              snaktype: "value",
-              property: property,
-              datatype: "wikibase-item",
-              datavalue: {
-                type: "wikibase-item",
-                value: {
-                  id: "Q1234"
-                }
+            property: {
+              id: property
+            },
+            value: {
+              type: 'value',
+              content: {
+                id: "Q1234"
               }
             },
-            qualifiers: {},
+            qualifiers: [],
             references: [],
             rank: "normal",
             type: "statement"
@@ -270,7 +260,7 @@ describe 'Wikidatum::Client#add_statement' do
         response = create_client.add_statement(
           id: item_id,
           property: property,
-          datavalue: datavalue
+          value: datavalue
         )
 
         assert response
@@ -289,21 +279,19 @@ describe 'Wikidatum::Client#add_statement' do
       let(:output_body) do
         {
           statement: {
-            mainsnak: {
-              snaktype: "value",
-              property: property,
-              datatype: "globe-coordinate",
-              datavalue: {
-                type: "globe-coordinate",
-                value: {
-                  latitude: 52.516666666667,
-                  longitude: 13.383333333333,
-                  precision: 0.016666666666667,
-                  globe: 'https://wikidata.org/entity/Q2'
-                }
+            property: {
+              id: property
+            },
+            value: {
+              type: 'value',
+              content: {
+                latitude: 52.516666666667,
+                longitude: 13.383333333333,
+                precision: 0.016666666666667,
+                globe: 'https://wikidata.org/entity/Q2'
               }
             },
-            qualifiers: {},
+            qualifiers: [],
             references: [],
             rank: "normal",
             type: "statement"
@@ -321,7 +309,7 @@ describe 'Wikidatum::Client#add_statement' do
         response = create_client.add_statement(
           id: item_id,
           property: property,
-          datavalue: datavalue
+          value: datavalue
         )
 
         assert response
@@ -338,12 +326,13 @@ describe 'Wikidatum::Client#add_statement' do
       let(:output_body) do
         {
           statement: {
-            mainsnak: {
-              snaktype: "somevalue",
-              property: property,
-              datatype: "string"
+            property: {
+              id: property
             },
-            qualifiers: {},
+            value: {
+              type: 'somevalue',
+            },
+            qualifiers: [],
             references: [],
             rank: "normal",
             type: "statement"
@@ -361,7 +350,7 @@ describe 'Wikidatum::Client#add_statement' do
         response = create_client.add_statement(
           id: item_id,
           property: property,
-          datavalue: datavalue
+          value: datavalue
         )
 
         assert response
@@ -378,12 +367,13 @@ describe 'Wikidatum::Client#add_statement' do
       let(:output_body) do
         {
           statement: {
-            mainsnak: {
-              snaktype: "novalue",
-              property: property,
-              datatype: "string"
+            property: {
+              id: property
             },
-            qualifiers: {},
+            value: {
+              type: 'novalue'
+            },
+            qualifiers: [],
             references: [],
             rank: "normal",
             type: "statement"
@@ -401,7 +391,7 @@ describe 'Wikidatum::Client#add_statement' do
         response = create_client.add_statement(
           id: item_id,
           property: property,
-          datavalue: datavalue
+          value: datavalue
         )
 
         assert response
@@ -411,14 +401,14 @@ describe 'Wikidatum::Client#add_statement' do
     describe 'creating a statement with a rank' do
       it 'raises an error when given an invalid rank' do
         err = assert_raises(ArgumentError) do
-          create_client.add_statement(id: item_id, property: property, datavalue: nil, rank: 'foobar')
+          create_client.add_statement(id: item_id, property: property, value: nil, rank: 'foobar')
         end
         assert_equal "\"foobar\" is an invalid rank. Must be normal, preferred, or deprecated.", err.message
       end
 
       it 'raises an error when given an invalid symbol rank' do
         err = assert_raises(ArgumentError) do
-          create_client.add_statement(id: item_id, property: property, datavalue: nil, rank: :foobar)
+          create_client.add_statement(id: item_id, property: property, value: nil, rank: :foobar)
         end
         assert_equal ":foobar is an invalid rank. Must be normal, preferred, or deprecated.", err.message
       end
@@ -433,12 +423,13 @@ describe 'Wikidatum::Client#add_statement' do
         let(:output_body) do
           {
             statement: {
-              mainsnak: {
-                snaktype: "novalue",
-                property: property,
-                datatype: "string"
+              property: {
+                id: property
               },
-              qualifiers: {},
+              value: {
+                type: 'novalue'
+              },
+              qualifiers: [],
               references: [],
               rank: "preferred",
               type: "statement"
@@ -456,7 +447,7 @@ describe 'Wikidatum::Client#add_statement' do
           response = create_client.add_statement(
             id: item_id,
             property: property,
-            datavalue: datavalue,
+            value: datavalue,
             rank: 'preferred'
           )
 
@@ -467,7 +458,7 @@ describe 'Wikidatum::Client#add_statement' do
           response = create_client.add_statement(
             id: item_id,
             property: property,
-            datavalue: datavalue,
+            value: datavalue,
             rank: :preferred
           )
 
@@ -479,9 +470,9 @@ describe 'Wikidatum::Client#add_statement' do
     describe 'creating a statement with an invalid datavalue' do
       it 'raises an error' do
         err = assert_raises(ArgumentError) do
-          create_client.add_statement(id: item_id, property: property, datavalue: true)
+          create_client.add_statement(id: item_id, property: property, value: true)
         end
-        assert_equal "Expected an instance of one of Wikidatum::DataType's subclasses for datavalue, but got true.", err.message
+        assert_equal "Expected an instance of one of Wikidatum::DataType's subclasses for value, but got true.", err.message
       end
     end
   end
