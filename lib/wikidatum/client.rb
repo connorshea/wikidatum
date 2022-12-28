@@ -245,7 +245,15 @@ module Wikidatum
         }
       end
 
-      body = { statement: statement_hash.merge({ qualifiers: qualifiers, references: references, rank: rank.to_s, type: 'statement' }) }
+      body = {
+        statement: statement_hash.merge(
+          {
+            qualifiers: qualifiers,
+            references: references,
+            rank: rank.to_s
+          }
+        )
+      }
 
       response = post_request("/entities/items/#{id}/statements", body, tags: tags, comment: comment)
 
