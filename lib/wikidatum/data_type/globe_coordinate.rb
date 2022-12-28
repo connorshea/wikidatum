@@ -67,7 +67,7 @@ class Wikidatum::DataType::GlobeCoordinate
   def self.marshal_load(data_value_json)
     Wikidatum::DataType::Base.new(
       type: :globe_coordinate,
-      value: new(
+      content: new(
         latitude: data_value_json['latitude'],
         longitude: data_value_json['longitude'],
         precision: data_value_json['precision'],

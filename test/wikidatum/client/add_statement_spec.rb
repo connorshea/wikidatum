@@ -332,7 +332,7 @@ describe 'Wikidatum::Client#add_statement' do
       let(:datavalue) do
         Wikidatum::DataType::SomeValue.new(
           type: :some_value,
-          value: nil
+          content: nil
         )
       end
       let(:output_body) do
@@ -372,7 +372,7 @@ describe 'Wikidatum::Client#add_statement' do
       let(:datavalue) do
         Wikidatum::DataType::NoValue.new(
           type: :no_value,
-          value: nil
+          content: nil
         )
       end
       let(:output_body) do
@@ -427,7 +427,7 @@ describe 'Wikidatum::Client#add_statement' do
         let(:datavalue) do
           Wikidatum::DataType::NoValue.new(
             type: :no_value,
-            value: nil
+            content: nil
           )
         end
         let(:output_body) do

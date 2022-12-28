@@ -53,7 +53,7 @@ class Wikidatum::DataType::MonolingualText
   def self.marshal_load(data_value_json)
     Wikidatum::DataType::Base.new(
       type: :monolingual_text,
-      value: new(
+      content: new(
         language: data_value_json['language'],
         text: data_value_json['text']
       )

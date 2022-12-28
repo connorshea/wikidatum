@@ -44,7 +44,7 @@ class Wikidatum::DataType::WikibaseString
   def self.marshal_load(string)
     Wikidatum::DataType::Base.new(
       type: :string,
-      value: new(
+      content: new(
         string: string
       )
     )

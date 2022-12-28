@@ -26,28 +26,28 @@ module Wikidatum::DataType
     # If the `type` is `novalue` or `somevalue`, this returns `nil`.
     #
     # @return [DataType::GlobeCoordinate, DataType::MonolingualText, DataType::Quantity, DataType::WikibaseString, DataType::Time, DataType::WikibaseItem, nil]
-    attr_reader :value
+    attr_reader :content
 
     # @param type [Symbol]
-    # @param value [DataType::GlobeCoordinate, DataType::MonolingualText, DataType::Quantity, DataType::WikibaseString, DataType::Time, DataType::WikibaseItem, nil] nil if type is no_value or some_value
+    # @param content [DataType::GlobeCoordinate, DataType::MonolingualText, DataType::Quantity, DataType::WikibaseString, DataType::Time, DataType::WikibaseItem, nil] nil if type is no_value or some_value
     # @return [void]
-    def initialize(type:, value:)
+    def initialize(type:, content:)
       @type = type
-      @value = value
+      @content = content
     end
 
     # @return [Hash]
     def to_h
       {
         type: @type,
-        value: @value&.to_h
+        content: @content&.to_h
       }
     end
 
     # @!visibility private
     #
     # @param data_type [String] The value of `data-type` for the given Statement or Qualifier's property.
-    # @param data_value_json [Hash] The `value` part of datavalue.
+    # @param data_value_json [Hash] The `content` part of value object.
     # @return [Wikidatum::DataType::Base] An instance of Base.
     def self.marshal_load(data_type, data_value_json)
       unless Wikidatum::DataType::DATA_TYPES.keys.include?(data_type.to_sym)

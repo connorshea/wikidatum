@@ -113,7 +113,7 @@ class Wikidatum::DataType::Time
   def self.marshal_load(data_value_json)
     Wikidatum::DataType::Base.new(
       type: :time,
-      value: new(
+      content: new(
         time: data_value_json['time'],
         precision: data_value_json['precision'],
         calendar_model: data_value_json['calendarmodel']

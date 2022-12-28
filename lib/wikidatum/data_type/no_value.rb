@@ -16,6 +16,6 @@ class Wikidatum::DataType::NoValue < Wikidatum::DataType::Base
 
   # @!visibility private
   def self.marshal_load(_data_value_json)
-    new(type: :no_value, value: nil)
+    new(type: :no_value, content: nil)
   end
 end

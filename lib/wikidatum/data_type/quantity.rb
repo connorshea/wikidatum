@@ -53,7 +53,7 @@ class Wikidatum::DataType::Quantity
   def self.marshal_load(data_value_json)
     Wikidatum::DataType::Base.new(
       type: :quantity,
-      value: new(
+      content: new(
         amount: data_value_json['amount'],
         unit: data_value_json['unit']
       )
