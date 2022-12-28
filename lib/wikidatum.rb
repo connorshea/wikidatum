@@ -24,6 +24,15 @@ module Wikidatum
     end
   end
 
+  # If the Wikidatum::Client is set to mark their edits as belonging to a bot,
+  # they must be authenticated as a bot user. We will disallow these edits
+  # as long as they're not authenticated as a specific user.
+  class DisallowedBotEditError < Error
+    def message
+      'No authentication provided, but attempted to edit as a bot. You cannot make edits as a bot unless you have authenticated as a user with the Bot flag.'
+    end
+  end
+
   # rubocop:disable Naming/ConstantName
 
   # These language codes are not enforced, you can pass whatever language code

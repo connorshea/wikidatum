@@ -300,6 +300,13 @@ module Wikidatum
       @allow_ip_edits
     end
 
+    # Is the current instance of Client editing as a bot?
+    #
+    # @return [Boolean]
+    def bot?
+      @bot
+    end
+
     private
 
     # For now this just returns the `@wikibase_url`, but in the future the API
@@ -434,13 +441,15 @@ module Wikidatum
     # Check if authentication has been provided, and then check if IP edits
     # are allowed. If neither condition returns true, raise an error.
     #
+    # Also check if the user is performing IP edits as a bot, which will
+    # always return a 403 error from the REST API, and return a specific
+    # error message if so.
+    #
     # @return [void]
-    # @raise [DisallowedIpEditError]
+    # @raise [DisallowedIpEditError, DisallowedBotEditError]
     def ensure_edit_permitted!
-      return if authenticated?
-      return if allow_ip_edits?
-
-      raise DisallowedIpEditError
+      raise DisallowedIpEditError if !authenticated? && !allow_ip_edits?
+      raise DisallowedBotEditError if !authenticated? && bot?
     end
   end
 end

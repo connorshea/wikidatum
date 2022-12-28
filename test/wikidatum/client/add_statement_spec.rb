@@ -4,7 +4,7 @@ require 'test_helper'
 
 describe 'Wikidatum::Client#add_statement' do
   # Convenience method for creating a new client
-  def create_client(user_agent: 'Bot name', wikibase_url: 'https://example.com', bot: true, allow_ip_edits: true)
+  def create_client(user_agent: 'Bot name', wikibase_url: 'https://example.com', bot: false, allow_ip_edits: true)
     Wikidatum::Client.new(
       user_agent: user_agent,
       wikibase_url: wikibase_url,
@@ -38,11 +38,11 @@ describe 'Wikidatum::Client#add_statement' do
 
       before do
         stub_request(:post, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item_id}/statements")
-          .with(body: output_body.merge({ bot: true }).to_json)
+          .with(body: output_body.merge({ bot: false }).to_json)
           .to_return(status: 200, body: '', headers: {})
 
         stub_request(:post, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item_id}/statements")
-          .with(body: output_body.merge({ bot: true, tags: ['bar'], comment: 'adding string property' }).to_json)
+          .with(body: output_body.merge({ bot: false, tags: ['bar'], comment: 'adding string property' }).to_json)
           .to_return(status: 200, body: '', headers: {})
       end
 
@@ -117,7 +117,7 @@ describe 'Wikidatum::Client#add_statement' do
 
       before do
         stub_request(:post, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item_id}/statements")
-          .with(body: output_body.merge({ bot: true }).to_json)
+          .with(body: output_body.merge({ bot: false }).to_json)
           .to_return(status: 200, body: '', headers: {})
       end
 
@@ -161,7 +161,7 @@ describe 'Wikidatum::Client#add_statement' do
 
       before do
         stub_request(:post, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item_id}/statements")
-          .with(body: output_body.merge({ bot: true }).to_json)
+          .with(body: output_body.merge({ bot: false }).to_json)
           .to_return(status: 200, body: '', headers: {})
       end
 
@@ -205,7 +205,7 @@ describe 'Wikidatum::Client#add_statement' do
 
       before do
         stub_request(:post, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item_id}/statements")
-          .with(body: output_body.merge({ bot: true }).to_json)
+          .with(body: output_body.merge({ bot: false }).to_json)
           .to_return(status: 200, body: '', headers: {})
       end
 
@@ -245,7 +245,7 @@ describe 'Wikidatum::Client#add_statement' do
 
       before do
         stub_request(:post, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item_id}/statements")
-          .with(body: output_body.merge({ bot: true }).to_json)
+          .with(body: output_body.merge({ bot: false }).to_json)
           .to_return(status: 200, body: '', headers: {})
       end
 
@@ -293,7 +293,7 @@ describe 'Wikidatum::Client#add_statement' do
 
       before do
         stub_request(:post, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item_id}/statements")
-          .with(body: output_body.merge({ bot: true }).to_json)
+          .with(body: output_body.merge({ bot: false }).to_json)
           .to_return(status: 200, body: '', headers: {})
       end
 
@@ -333,7 +333,7 @@ describe 'Wikidatum::Client#add_statement' do
 
       before do
         stub_request(:post, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item_id}/statements")
-          .with(body: output_body.merge({ bot: true }).to_json)
+          .with(body: output_body.merge({ bot: false }).to_json)
           .to_return(status: 200, body: '', headers: {})
       end
 
@@ -373,7 +373,7 @@ describe 'Wikidatum::Client#add_statement' do
 
       before do
         stub_request(:post, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item_id}/statements")
-          .with(body: output_body.merge({ bot: true }).to_json)
+          .with(body: output_body.merge({ bot: false }).to_json)
           .to_return(status: 200, body: '', headers: {})
       end
 
@@ -428,7 +428,7 @@ describe 'Wikidatum::Client#add_statement' do
 
         before do
           stub_request(:post, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item_id}/statements")
-            .with(body: output_body.merge({ bot: true }).to_json)
+            .with(body: output_body.merge({ bot: false }).to_json)
             .to_return(status: 200, body: '', headers: {})
         end
 

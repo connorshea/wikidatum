@@ -4,7 +4,7 @@ require 'test_helper'
 
 describe Wikidatum::Client do
   # Convenience method for creating a new client
-  def create_client(user_agent: 'Bot name', wikibase_url: 'https://example.com', bot: true, allow_ip_edits: true)
+  def create_client(user_agent: 'Bot name', wikibase_url: 'https://example.com', bot: false, allow_ip_edits: true)
     Wikidatum::Client.new(
       user_agent: user_agent,
       wikibase_url: wikibase_url,
@@ -87,11 +87,11 @@ describe Wikidatum::Client do
 
     before do
       stub_request(:delete, "https://example.com/w/rest.php/wikibase/v0/statements/#{statement_id}")
-        .with(body: JSON.generate({ bot: true }))
+        .with(body: JSON.generate({ bot: false }))
         .to_return(status: 200, body: '', headers: {})
 
       stub_request(:delete, "https://example.com/w/rest.php/wikibase/v0/statements/#{statement_id}")
-        .with(body: JSON.generate({ bot: true, tags: ['foo'], comment: 'deleting this statement for reasons...' }))
+        .with(body: JSON.generate({ bot: false, tags: ['foo'], comment: 'deleting this statement for reasons...' }))
         .to_return(status: 200, body: '', headers: {})
     end
 
@@ -126,6 +126,17 @@ describe Wikidatum::Client do
         create_client(allow_ip_edits: false).delete_statement(id: statement_id)
       end
       assert_equal 'No authentication provided. If you want to perform unauthenticated edits and are comfortable exposing your IP address publicly, set `allow_ip_edits: true` when instantiating your client with `Wikidatum::Client.new`.', err.message
+    end
+  end
+
+  describe 'when editing unauthenticated but marked as a bot' do
+    let(:statement_id) { 'Q124$adacda34-46c4-2515-7aa9-ac448c8bfded' }
+
+    it 'raises an error to prevent hitting a 403' do
+      err = assert_raises(Wikidatum::DisallowedBotEditError) do
+        create_client(bot: true).delete_statement(id: statement_id)
+      end
+      assert_equal 'No authentication provided, but attempted to edit as a bot. You cannot make edits as a bot unless you have authenticated as a user with the Bot flag.', err.message
     end
   end
 end
