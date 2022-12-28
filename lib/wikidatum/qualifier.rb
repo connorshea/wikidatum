@@ -48,7 +48,7 @@ class Wikidatum::Qualifier
   def self.marshal_load(qualifier_json)
     Wikidatum::Qualifier.new(
       property_id: qualifier_json.dig('property', 'id'),
-      data_type: qualifier_json['data-type'],
+      data_type: qualifier_json.dig('property', 'data-type'),
       value: data_value(qualifier_json)
     )
   end
