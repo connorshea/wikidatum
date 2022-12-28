@@ -57,8 +57,6 @@ class Wikidatum::DataType::WikibaseItem
 
   # @!visibility private
   def marshal_dump
-    {
-      id: @id
-    }
+    @id
   end
 end

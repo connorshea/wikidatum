@@ -31,8 +31,7 @@ describe 'Wikidatum::Client#add_statement' do
             },
             qualifiers: [],
             references: [],
-            rank: "normal",
-            type: "statement"
+            rank: "normal"
           }
         }
       end
@@ -111,8 +110,7 @@ describe 'Wikidatum::Client#add_statement' do
             },
             qualifiers: [],
             references: [],
-            rank: "normal",
-            type: "statement"
+            rank: "normal"
           }
         }
       end
@@ -156,8 +154,7 @@ describe 'Wikidatum::Client#add_statement' do
             },
             qualifiers: [],
             references: [],
-            rank: "normal",
-            type: "statement"
+            rank: "normal"
           }
         }
       end
@@ -201,8 +198,7 @@ describe 'Wikidatum::Client#add_statement' do
             },
             qualifiers: [],
             references: [],
-            rank: "normal",
-            type: "statement"
+            rank: "normal"
           }
         }
       end
@@ -238,14 +234,11 @@ describe 'Wikidatum::Client#add_statement' do
             },
             value: {
               type: 'value',
-              content: {
-                id: "Q1234"
-              }
+              content: "Q1234"
             },
             qualifiers: [],
             references: [],
-            rank: "normal",
-            type: "statement"
+            rank: "normal"
           }
         }
       end
@@ -293,8 +286,7 @@ describe 'Wikidatum::Client#add_statement' do
             },
             qualifiers: [],
             references: [],
-            rank: "normal",
-            type: "statement"
+            rank: "normal"
           }
         }
       end
@@ -334,8 +326,7 @@ describe 'Wikidatum::Client#add_statement' do
             },
             qualifiers: [],
             references: [],
-            rank: "normal",
-            type: "statement"
+            rank: "normal"
           }
         }
       end
@@ -375,8 +366,7 @@ describe 'Wikidatum::Client#add_statement' do
             },
             qualifiers: [],
             references: [],
-            rank: "normal",
-            type: "statement"
+            rank: "normal"
           }
         }
       end
@@ -431,8 +421,7 @@ describe 'Wikidatum::Client#add_statement' do
               },
               qualifiers: [],
               references: [],
-              rank: "preferred",
-              type: "statement"
+              rank: "preferred"
             }
           }
         end
