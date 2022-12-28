@@ -79,7 +79,7 @@ class Wikidatum::Statement
       property_id: property_id,
       data_type: data_type,
       data_value: data_value,
-      qualifiers: [],
+      qualifiers: qualifiers,
       references: references,
       rank: statement_json['rank']
     )
