@@ -11,6 +11,7 @@ module Wikidatum::DataType
     #
     # - `:no_value`: No value
     # - `:some_value`: Unknown value
+    # - `:commons_media`: {DataType::CommonsMedia}
     # - `:external_id`: {DataType::ExternalId}
     # - `:globe_coordinate`: {DataType::GlobeCoordinate}
     # - `:monolingual_text`: {DataType::MonolingualText}

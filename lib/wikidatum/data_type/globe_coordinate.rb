@@ -63,12 +63,14 @@ class Wikidatum::DataType::GlobeCoordinate
     'globe-coordinate'
   end
 
+  HumanizedStruct = Struct.new(:latitude, :longitude, :precision, :globe, keyword_init: true)
+
   # The content of the data value object. Use this to get a more sensible
   # representation of the statement's contents.
   #
-  # @return [OpenStruct<latitude, longitude, precision, globe>]
+  # @return [HumanizedStruct<latitude, longitude, precision, globe>]
   def humanized
-    OpenStruct.new(to_h)
+    HumanizedStruct.new(to_h)
   end
 
   # @return [Symbol]

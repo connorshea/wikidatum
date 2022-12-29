@@ -49,12 +49,14 @@ class Wikidatum::DataType::MonolingualText
     'monolingualtext'
   end
 
+  HumanizedStruct = Struct.new(:language, :text, keyword_init: true)
+
   # The content of the data value object. Use this to get a more sensible
   # representation of the statement's contents.
   #
-  # @return [OpenStruct<language, text>]
+  # @return [HumanizedStruct<language, text>]
   def humanized
-    OpenStruct.new(to_h)
+    HumanizedStruct.new(to_h)
   end
 
   # @return [Symbol]
