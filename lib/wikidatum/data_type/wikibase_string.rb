@@ -40,6 +40,14 @@ class Wikidatum::DataType::WikibaseString
     'string'
   end
 
+  # The content of the data value object. Use this to get a more sensible
+  # representation of the statement's contents.
+  #
+  # @return [String]
+  def humanized
+    @string
+  end
+
   # @return [Symbol]
   def self.symbolized_name
     :string

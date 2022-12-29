@@ -49,6 +49,16 @@ class Wikidatum::DataType::Quantity
     'quantity'
   end
 
+  HumanizedStruct = Struct.new(:amount, :unit, keyword_init: true)
+
+  # The content of the data value object. Use this to get a more sensible
+  # representation of the statement's contents.
+  #
+  # @return [HumanizedStruct<amount, unit>]
+  def humanized
+    HumanizedStruct.new(to_h)
+  end
+
   # @return [Symbol]
   def self.symbolized_name
     :quantity
