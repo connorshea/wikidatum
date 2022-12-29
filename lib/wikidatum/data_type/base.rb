@@ -26,7 +26,7 @@ module Wikidatum::DataType
 
     # The value of the "content" attribute in the response.
     #
-    # If the `type` is `novalue` or `somevalue`, this returns `nil`.
+    # If the `type` is `:no_value` or `:some_value`, this returns `nil`.
     #
     # @return [DataType::CommonsMedia, DataType::ExternalId, DataType::GlobeCoordinate, DataType::MonolingualText, DataType::Quantity, DataType::Time, DataType::WikibaseItem, DataType::WikibaseString, DataType::WikibaseUrl, nil]
     attr_reader :content
