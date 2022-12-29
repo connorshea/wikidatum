@@ -36,6 +36,9 @@ wikidatum_client = Wikidatum::Client.new(
   # Currently only the beta site has the API available, you'll
   # likely want to use wikidata.org once it's stable.
   wikibase_url: 'https://wikidata.beta.wmflabs.org',
+  # NOTE: To edit as a bot, you need to authenticate as a user with the Bot
+  # flag. If you don't have that flag on your Wikibase User, you'll get a
+  # 403 error.
   bot: true
 )
 
