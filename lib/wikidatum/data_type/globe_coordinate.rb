@@ -73,7 +73,7 @@ class Wikidatum::DataType::GlobeCoordinate
 
   # @return [Symbol]
   def self.symbolized_name
-    :monolingual_text
+    :globe_coordinate
   end
 
   # @!visibility private
