@@ -11,11 +11,13 @@ module Wikidatum::DataType
     #
     # - `:no_value`: No value
     # - `:some_value`: Unknown value
+    # - `:external_id`: {DataType::ExternalId}
     # - `:globe_coordinate`: {DataType::GlobeCoordinate}
     # - `:monolingual_text`: {DataType::MonolingualText}
     # - `:quantity`: {DataType::Quantity}
     # - `:string`: {DataType::WikibaseString}
     # - `:time`: {DataType::Time}
+    # - `:url`: {DataType::WikibaseUrl}
     # - `:wikibase_item`: {DataType::WikibaseItem}
     #
     # @return [Symbol]
