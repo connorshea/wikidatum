@@ -112,6 +112,28 @@ module Wikidatum
       Wikidatum::Item.marshal_load(response)
     end
 
+    # Get labels for an item from the Wikibase API based on the item's QID.
+    #
+    # @example
+    #   wikidatum_client.labels(id: 'Q123') #=> [<Wikidatum::Term lang="en" value="Foo">, <Wikidatum::Term lang="es" value="Bar">]
+    #   wikidatum_client.labels(id: 123)
+    #   wikidatum_client.labels(id: '123')
+    #
+    # @param id [String, Integer] Either a string or integer representation of
+    #   the relevant item's QID, e.g. `"Q123"`, `"123"`, or `123`.
+    # @return [Array<Wikidatum::Term>] This can, theoretically, be empty if the item has no labels.
+    def labels(id:)
+      raise ArgumentError, "#{id.inspect} is an invalid Wikibase QID. Must be an integer, a string representation of an integer, or in the format 'Q123'." unless id.is_a?(Integer) || id.match?(ITEM_REGEX)
+
+      id = coerce_item_id(id)
+
+      response = get_request("/entities/items/#{id}/labels")
+
+      puts JSON.pretty_generate(response) if ENV['DEBUG']
+
+      response.to_a.map { |lang, val| Wikidatum::Term.new(lang: lang, value: val) }
+    end
+
     # Get a statement from the Wikibase API based on its ID.
     #
     # @example
