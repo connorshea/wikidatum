@@ -10,6 +10,8 @@ module Wikidatum
     STATEMENT_REGEX = /^Q?\d+\$[\w-]+$/.freeze
     VALID_RANKS = ['preferred', 'normal', 'deprecated'].freeze
     VALID_DATA_TYPES = [
+      'Wikidatum::DataType::CommonsMedia',
+      'Wikidatum::DataType::ExternalId',
       'Wikidatum::DataType::GlobeCoordinate',
       'Wikidatum::DataType::MonolingualText',
       'Wikidatum::DataType::NoValue',
@@ -17,7 +19,8 @@ module Wikidatum
       'Wikidatum::DataType::SomeValue',
       'Wikidatum::DataType::Time',
       'Wikidatum::DataType::WikibaseItem',
-      'Wikidatum::DataType::WikibaseString'
+      'Wikidatum::DataType::WikibaseString',
+      'Wikidatum::DataType::WikibaseUrl'
     ].freeze
 
     # @return [String] the root URL of the Wikibase instance we want to interact
