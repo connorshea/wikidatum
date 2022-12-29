@@ -514,10 +514,10 @@ module Wikidatum
     # error message if so.
     #
     # @return [void]
-    # @raise [DisallowedIpEditError, DisallowedBotEditError]
+    # @raise [Errors::DisallowedIpEditError, Errors::DisallowedBotEditError]
     def ensure_edit_permitted!
-      raise DisallowedIpEditError if !authenticated? && !allow_ip_edits?
-      raise DisallowedBotEditError if !authenticated? && bot?
+      raise Errors::DisallowedIpEditError if !authenticated? && !allow_ip_edits?
+      raise Errors::DisallowedBotEditError if !authenticated? && bot?
     end
   end
 end

@@ -174,7 +174,7 @@ describe Wikidatum::Client do
     let(:statement_id) { 'Q124$adacda34-46c4-2515-7aa9-ac448c8bfded' }
 
     it 'raises when attempting to perform a delete request without authentication' do
-      err = assert_raises(Wikidatum::DisallowedIpEditError) do
+      err = assert_raises(Wikidatum::Errors::DisallowedIpEditError) do
         create_client(allow_ip_edits: false).delete_statement(id: statement_id)
       end
       assert_equal 'No authentication provided. If you want to perform unauthenticated edits and are comfortable exposing your IP address publicly, set `allow_ip_edits: true` when instantiating your client with `Wikidatum::Client.new`.', err.message
@@ -185,7 +185,7 @@ describe Wikidatum::Client do
     let(:statement_id) { 'Q124$adacda34-46c4-2515-7aa9-ac448c8bfded' }
 
     it 'raises an error to prevent hitting a 403' do
-      err = assert_raises(Wikidatum::DisallowedBotEditError) do
+      err = assert_raises(Wikidatum::Errors::DisallowedBotEditError) do
         create_client(bot: true).delete_statement(id: statement_id)
       end
       assert_equal 'No authentication provided, but attempted to edit as a bot. You cannot make edits as a bot unless you have authenticated as a user with the Bot flag.', err.message
