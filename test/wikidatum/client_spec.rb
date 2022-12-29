@@ -59,12 +59,20 @@ describe Wikidatum::Client do
 
   describe '#labels' do
     let(:item_id) { 'Q124' }
+    let(:item2_id) { 'Q125' }
 
     before do
       stub_request(:get, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item_id}/labels")
         .to_return(
           status: 200,
           body: { en: 'Foo', es: 'Bar' }.to_json,
+          headers: {}
+        )
+
+      stub_request(:get, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item2_id}/labels")
+        .to_return(
+          status: 200,
+          body: {}.to_json,
           headers: {}
         )
     end
@@ -93,6 +101,11 @@ describe Wikidatum::Client do
     it 'returns a valid array of labels when passing a stringified integer' do
       labels = create_client.labels(id: '124')
       labels.each { |label| assert_kind_of Wikidatum::Term, label }
+    end
+
+    it 'returns an empty array when the item has no labels' do
+      labels = create_client.labels(id: item2_id)
+      assert_empty labels
     end
   end
 
