@@ -65,9 +65,9 @@ module Wikidatum
   end
 
   module DataType
-    # TODO: Add commonsMedia to the possible types.
     # rubocop:disable Lint/SymbolConversion
     DATA_TYPES = {
+      'commonsMedia': 'Wikidatum::DataType::CommonsMedia',
       'external-id': 'Wikidatum::DataType::ExternalId',
       'globe-coordinate': 'Wikidatum::DataType::GlobeCoordinate',
       'monolingualtext': 'Wikidatum::DataType::MonolingualText',
