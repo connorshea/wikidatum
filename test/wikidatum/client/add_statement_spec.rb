@@ -308,6 +308,120 @@ describe 'Wikidatum::Client#add_statement' do
       end
     end
 
+    describe 'creating an ExternalId-type statement' do
+      let(:datavalue) do
+        Wikidatum::DataType::ExternalId.new(string: '123')
+      end
+      let(:output_body) do
+        {
+          statement: {
+            property: {
+              id: property
+            },
+            value: {
+              type: 'value',
+              content: '123'
+            },
+            qualifiers: [],
+            references: [],
+            rank: "normal"
+          }
+        }
+      end
+
+      before do
+        stub_request(:post, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item_id}/statements")
+          .with(body: output_body.merge({ bot: false }).to_json)
+          .to_return(status: 200, body: '', headers: {})
+      end
+
+      it 'returns true' do
+        response = create_client.add_statement(
+          id: item_id,
+          property: property,
+          value: datavalue
+        )
+
+        assert response
+      end
+    end
+
+    describe 'creating a CommonsMedia-type statement' do
+      let(:datavalue) do
+        Wikidatum::DataType::CommonsMedia.new(string: 'FooBar.jpg')
+      end
+      let(:output_body) do
+        {
+          statement: {
+            property: {
+              id: property
+            },
+            value: {
+              type: 'value',
+              content: 'FooBar.jpg'
+            },
+            qualifiers: [],
+            references: [],
+            rank: "normal"
+          }
+        }
+      end
+
+      before do
+        stub_request(:post, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item_id}/statements")
+          .with(body: output_body.merge({ bot: false }).to_json)
+          .to_return(status: 200, body: '', headers: {})
+      end
+
+      it 'returns true' do
+        response = create_client.add_statement(
+          id: item_id,
+          property: property,
+          value: datavalue
+        )
+
+        assert response
+      end
+    end
+
+    describe 'creating a WikibaseUrl-type statement' do
+      let(:datavalue) do
+        Wikidatum::DataType::WikibaseUrl.new(string: 'https://example.com')
+      end
+      let(:output_body) do
+        {
+          statement: {
+            property: {
+              id: property
+            },
+            value: {
+              type: 'value',
+              content: 'https://example.com'
+            },
+            qualifiers: [],
+            references: [],
+            rank: "normal"
+          }
+        }
+      end
+
+      before do
+        stub_request(:post, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item_id}/statements")
+          .with(body: output_body.merge({ bot: false }).to_json)
+          .to_return(status: 200, body: '', headers: {})
+      end
+
+      it 'returns true' do
+        response = create_client.add_statement(
+          id: item_id,
+          property: property,
+          value: datavalue
+        )
+
+        assert response
+      end
+    end
+
     describe 'creating a SomeValue-type statement' do
       let(:datavalue) do
         Wikidatum::DataType::SomeValue.new(
