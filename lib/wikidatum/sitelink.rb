@@ -3,7 +3,7 @@
 # Wikidatum::Sitelinks represent associated sitelinks on a Wikidata item, for
 # example the associated English Wikipedia article.
 class Wikidatum::Sitelink
-  # @return [String] The shortcode for the given site (e.g. 'enwiki', 'commons', etc.), can be either a string or a symbol.
+  # @return [String] The shortcode for the given site (e.g. 'enwiki', 'commons', etc.).
   attr_reader :site
 
   # @return [String] The title of the page in the associated Wikimedia site.
