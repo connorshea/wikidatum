@@ -23,6 +23,19 @@ module Wikidatum
       'Wikidatum::DataType::WikibaseUrl'
     ].freeze
 
+    # @!private
+    CONTENT_DATA_TYPES = [
+      'Wikidatum::DataType::CommonsMedia',
+      'Wikidatum::DataType::ExternalId',
+      'Wikidatum::DataType::GlobeCoordinate',
+      'Wikidatum::DataType::MonolingualText',
+      'Wikidatum::DataType::Quantity',
+      'Wikidatum::DataType::Time',
+      'Wikidatum::DataType::WikibaseItem',
+      'Wikidatum::DataType::WikibaseString',
+      'Wikidatum::DataType::WikibaseUrl'
+    ].freeze
+
     # @return [String] the root URL of the Wikibase instance we want to interact
     #   with. If not provided, will default to Wikidata.
     attr_reader :wikibase_url
@@ -115,19 +128,6 @@ module Wikidatum
 
       Wikidatum::Statement.marshal_load(response)
     end
-
-    # @!private
-    CONTENT_DATA_TYPES = [
-      'Wikidatum::DataType::CommonsMedia',
-      'Wikidatum::DataType::ExternalId',
-      'Wikidatum::DataType::GlobeCoordinate',
-      'Wikidatum::DataType::MonolingualText',
-      'Wikidatum::DataType::Quantity',
-      'Wikidatum::DataType::WikibaseString',
-      'Wikidatum::DataType::Time',
-      'Wikidatum::DataType::WikibaseItem',
-      'Wikidatum::DataType::WikibaseUrl'
-    ].freeze
 
     # Add a statement to an item.
     #
