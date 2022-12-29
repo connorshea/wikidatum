@@ -17,7 +17,7 @@ class Wikidatum::ReferencePart
   # @!visibility private
   # @param property_id [String] ID of the property used, in the format "P123".
   # @param data_type [String]
-  # @param value [DataType::GlobeCoordinate, DataType::MonolingualText, DataType::Quantity, DataType::WikibaseString, DataType::Time, DataType::WikibaseItem, DataType::NoValue, DataType::SomeValue]
+  # @param value [DataType::CommonsMedia, DataType::ExternalId, DataType::GlobeCoordinate, DataType::MonolingualText, DataType::Quantity, DataType::Time, DataType::WikibaseItem, DataType::WikibaseString, DataType::WikibaseUrl, DataType::NoValue, DataType::SomeValue]
   def initialize(property_id:, data_type:, value:)
     @property_id = property_id
     @data_type = data_type

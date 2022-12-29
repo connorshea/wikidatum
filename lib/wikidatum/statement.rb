@@ -10,7 +10,7 @@ class Wikidatum::Statement
   # @return [String]
   attr_accessor :data_type
 
-  # @return [DataType::GlobeCoordinate, DataType::MonolingualText, DataType::Quantity, DataType::WikibaseString, DataType::Time, DataType::WikibaseItem, nil]
+  # @return [DataType::CommonsMedia, DataType::ExternalId, DataType::GlobeCoordinate, DataType::MonolingualText, DataType::Quantity, DataType::Time, DataType::WikibaseItem, DataType::WikibaseString, DataType::WikibaseUrl, nil]
   attr_accessor :data_value
 
   # @return [Array<Wikidatum::Qualifier>]
@@ -26,7 +26,7 @@ class Wikidatum::Statement
   # @param id [String]
   # @param property_id [String] The 'P123' ID of the property that this statement represents.
   # @param data_type [String]
-  # @param data_value [DataType::GlobeCoordinate, DataType::MonolingualText, DataType::Quantity, DataType::WikibaseString, DataType::Time, DataType::WikibaseItem, nil]
+  # @param data_value [DataType::CommonsMedia, DataType::ExternalId, DataType::GlobeCoordinate, DataType::MonolingualText, DataType::Quantity, DataType::Time, DataType::WikibaseItem, DataType::WikibaseString, DataType::WikibaseUrl, nil]
   # @param qualifiers [Array<Wikidatum::Qualifier>]
   # @param references [Array<Wikidatum::Reference>]
   # @param rank [String] The rank of the given statement.

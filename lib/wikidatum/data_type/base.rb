@@ -28,11 +28,11 @@ module Wikidatum::DataType
     #
     # If the `type` is `novalue` or `somevalue`, this returns `nil`.
     #
-    # @return [DataType::GlobeCoordinate, DataType::MonolingualText, DataType::Quantity, DataType::WikibaseString, DataType::Time, DataType::WikibaseItem, nil]
+    # @return [DataType::CommonsMedia, DataType::ExternalId, DataType::GlobeCoordinate, DataType::MonolingualText, DataType::Quantity, DataType::Time, DataType::WikibaseItem, DataType::WikibaseString, DataType::WikibaseUrl, nil]
     attr_reader :content
 
     # @param type [Symbol]
-    # @param content [DataType::GlobeCoordinate, DataType::MonolingualText, DataType::Quantity, DataType::WikibaseString, DataType::Time, DataType::WikibaseItem, nil] nil if type is no_value or some_value
+    # @param content [DataType::CommonsMedia, DataType::ExternalId, DataType::GlobeCoordinate, DataType::MonolingualText, DataType::Quantity, DataType::Time, DataType::WikibaseItem, DataType::WikibaseString, DataType::WikibaseUrl, nil] nil if type is no_value or some_value
     # @return [void]
     def initialize(type:, content:)
       @type = type
