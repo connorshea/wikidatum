@@ -110,6 +110,19 @@ module Wikidatum
       Wikidatum::Statement.marshal_load(response)
     end
 
+    # @!private
+    CONTENT_DATA_TYPES = [
+      'Wikidatum::DataType::CommonsMedia',
+      'Wikidatum::DataType::ExternalId',
+      'Wikidatum::DataType::GlobeCoordinate',
+      'Wikidatum::DataType::MonolingualText',
+      'Wikidatum::DataType::Quantity',
+      'Wikidatum::DataType::WikibaseString',
+      'Wikidatum::DataType::Time',
+      'Wikidatum::DataType::WikibaseItem',
+      'Wikidatum::DataType::WikibaseUrl'
+    ].freeze
+
     # Add a statement to an item.
     #
     # NOTE: Adding references/qualifiers with `add_statement` is untested and
@@ -195,9 +208,36 @@ module Wikidatum
     #     )
     #   )
     #
+    # @example Add a URL statement.
+    #   wikidatum_client.add_statement(
+    #     id: 'Q123',
+    #     property: 'P124',
+    #     value: Wikidatum::DataType::WikibaseUrl.new(
+    #       string: 'https://example.com'
+    #     )
+    #   )
+    #
+    # @example Add an External ID statement.
+    #   wikidatum_client.add_statement(
+    #     id: 'Q123',
+    #     property: 'P124',
+    #     value: Wikidatum::DataType::ExternalId.new(
+    #       string: '123'
+    #     )
+    #   )
+    #
+    # @example Add a statement for an image, video, or audio file from Wikimedia Commons.
+    #   wikidatum_client.add_statement(
+    #     id: 'Q123',
+    #     property: 'P124',
+    #     value: Wikidatum::DataType::CommonsMedia.new(
+    #       string: 'FooBar.jpg'
+    #     )
+    #   )
+    #
     # @param id [String, Integer] the ID of the item on which the statement will be added.
     # @param property [String, Integer] property ID in the format 'P123', or an integer.
-    # @param value [Wikidatum::DataType::GlobeCoordinate, Wikidatum::DataType::MonolingualText, Wikidatum::DataType::Quantity, Wikidatum::DataType::WikibaseString, Wikidatum::DataType::Time, Wikidatum::DataType::WikibaseItem, Wikidatum::DataType::NoValue, Wikidatum::DataType::SomeValue] the value of the statement being created.
+    # @param value [Wikidatum::DataType::CommonsMedia, Wikidatum::DataType::ExternalId, Wikidatum::DataType::GlobeCoordinate, Wikidatum::DataType::MonolingualText, Wikidatum::DataType::Quantity, Wikidatum::DataType::WikibaseString, Wikidatum::DataType::Time, Wikidatum::DataType::WikibaseItem, Wikidatum::DataType::WikibaseUrl, Wikidatum::DataType::NoValue, Wikidatum::DataType::SomeValue] the value of the statement being created.
     # @param qualifiers [Array<Wikidatum::Qualifier>]
     # @param references [Array<Wikidatum::Reference>]
     # @param rank [String, Symbol] Valid ranks are 'preferred', 'normal', or
@@ -233,7 +273,7 @@ module Wikidatum
             type: 'somevalue'
           }
         }
-      when 'Wikidatum::DataType::GlobeCoordinate', 'Wikidatum::DataType::MonolingualText', 'Wikidatum::DataType::Quantity', 'Wikidatum::DataType::WikibaseString', 'Wikidatum::DataType::Time', 'Wikidatum::DataType::WikibaseItem'
+      when *CONTENT_DATA_TYPES
         statement_hash = {
           property: {
             id: property
