@@ -24,7 +24,7 @@ Or install it yourself as:
 
 ## Usage
 
-You can view the YARD docs on GitHub Pages [here](https://connorshea.github.io/wikidatum/index.html).
+You can view the YARD docs on GitHub Pages [here](https://connorshea.github.io/wikidatum/index.html). Generally, you'll want to look at the docs for {Wikidatum::Client} to get started.
 
 Currently, the gem is able to hit a few of the basic endpoints, and currently has no way to provide authentication. The additional features will be added later.
 

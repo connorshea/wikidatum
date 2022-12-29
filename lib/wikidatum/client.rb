@@ -55,7 +55,10 @@ module Wikidatum
     #   to interact with. If not provided, will default to
     #   `https://www.wikidata.org`. Do not include a `/` at the end of the URL.
     # @param bot [Boolean] Whether requests sent by this client instance should
-    #   be registered as bot requests. Defaults to `true`.
+    #   be registered as bot requests. Defaults to `true`. If the user is not
+    #   authenticated, or if the user is not marked with the Bot flag in the
+    #   Wikibase instance, you'll be unable to make edits with this set to
+    #   `true`.
     # @param allow_ip_edits [Boolean] whether this client should allow non-GET
     #   requests if authentication hasn't been provided. Defaults to false. If
     #   this is set to true, the IP address of the device from which the
