@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    wikidatum (0.3.1)
+    wikidatum (0.3.2)
       faraday (~> 2.4)
 
 GEM
@@ -13,10 +13,10 @@ GEM
     crack (0.4.5)
       rexml
     docile (1.4.0)
-    faraday (2.5.2)
+    faraday (2.7.2)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
-    faraday-net_http (3.0.0)
+    faraday-net_http (3.0.2)
     hashdiff (1.0.1)
     minitest (5.16.0)
     parallel (1.22.1)
