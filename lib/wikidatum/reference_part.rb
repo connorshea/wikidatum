@@ -9,7 +9,7 @@ class Wikidatum::ReferencePart
 
   # For more information on the possible types that can be returned by
   # datavalues, see the official documentation:
-  # https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_json.html#json_datavalues
+  # https://doc.wikimedia.org/Wikibase/master/php/docs_topics_json.html#json_datavalues
   #
   # @return [Wikidatum::DataType::Base] the value of the statement, can take various forms
   attr_reader :value
