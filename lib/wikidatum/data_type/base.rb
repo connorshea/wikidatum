@@ -50,7 +50,7 @@ module Wikidatum::DataType
     # Get the humanized version of the content. Depending on the given data
     # type, it will return values in different formats.
     #
-    # @return [String, OpenStruct, nil]
+    # @return [String, DataType::GlobeCoordinate::HumanizedStruct, DataType::MonolingualText::HumanizedStruct, DataType::Quantity::HumanizedStruct, DataType::Time::HumanizedStruct, nil]
     def humanized_content
       @content.humanized
     end
