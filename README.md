@@ -63,6 +63,10 @@ item.label(lang: :en).value #=> "Earth"
 # Get the values for all English aliases on this item.
 item.aliases(langs: [:en]).map(&:value) #=> ["Planet Earth", "Pale Blue Dot"]
 
+# Get all labels for a given item.
+wikidatum_client.labels(id: 'Q2') #=> Array<Wikidatum::Term>
+
+# Get a specific statement from its ID.
 statement_id = 'Q123$4543523c-1d1d-1111-1e1e-11b11111b1f1'
 statement = wikidatum_client.statement(id: statement_id) #=> Wikidatum::Statement
 
