@@ -51,9 +51,48 @@ describe Wikidatum::Client do
       assert_kind_of Wikidatum::Item, item
     end
 
-    it 'returns a valid item when passing an stringified integer' do
+    it 'returns a valid item when passing a stringified integer' do
       item = create_client.item(id: '124')
       assert_kind_of Wikidatum::Item, item
+    end
+  end
+
+  describe '#labels' do
+    let(:item_id) { 'Q124' }
+
+    before do
+      stub_request(:get, "https://example.com/w/rest.php/wikibase/v0/entities/items/#{item_id}/labels")
+        .to_return(
+          status: 200,
+          body: { en: 'Foo', es: 'Bar' }.to_json,
+          headers: {}
+        )
+    end
+
+    it 'raises when given an invalid item ID' do
+      err = assert_raises(ArgumentError) do
+        create_client.labels(id: 'bad id')
+      end
+      assert_equal "\"bad id\" is an invalid Wikibase QID. Must be an integer, a string representation of an integer, or in the format 'Q123'.", err.message
+    end
+
+    it 'returns a valid array of labels' do
+      labels = create_client.labels(id: item_id)
+      labels.each { |label| assert_kind_of Wikidatum::Term, label }
+      # Have to convert these to Hashes so we can match them, otherwise
+      # Minitest doesn't recognize that they're identical because they're
+      # different instances of Wikidatum::Term.
+      assert_includes labels.map(&:to_h), Wikidatum::Term.new(lang: :es, value: 'Bar').to_h
+    end
+
+    it 'returns a valid array of labels when passing an integer' do
+      labels = create_client.labels(id: 124)
+      labels.each { |label| assert_kind_of Wikidatum::Term, label }
+    end
+
+    it 'returns a valid array of labels when passing a stringified integer' do
+      labels = create_client.labels(id: '124')
+      labels.each { |label| assert_kind_of Wikidatum::Term, label }
     end
   end
 
