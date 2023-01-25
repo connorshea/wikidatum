@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    wikidatum (0.3.2)
+    wikidatum (0.3.3)
       faraday (~> 2.4)
 
 GEM
