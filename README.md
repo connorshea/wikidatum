@@ -4,7 +4,9 @@ This gem supports making requests to the [new Wikidata/Wikibase REST API](https:
 
 The [Wikimedia Docs on the Wikibase REST API data format differences](https://doc.wikimedia.org/Wikibase/master/php/rest_data_format_differences.html) are also very useful for interacting with/contributing to this gem.
 
-**The gem is currently in early development and is not ready for production usage**.
+**The gem is currently in development. It's ready to be used, but you should be careful when making edits with it to ensure it's working correctly.** It's missing some key features, namely authentication support, but the core of the library works.
+
+I reserve the right to make breaking changes while the library is still in the 0.x release series, although I'll avoid them unless I believe them to be significantly better for the library's usability/maintainability (or are necessary due to breaking changes in the REST API itself). If they do happen, I'll make them clear in the Changelog.
 
 ## Installation
 
@@ -33,9 +35,7 @@ require 'wikidatum'
 
 wikidatum_client = Wikidatum::Client.new(
   user_agent: 'REPLACE ME WITH THE NAME OF YOUR BOT!',
-  # Currently only the beta site has the API available, you'll
-  # likely want to use wikidata.org once it's stable.
-  wikibase_url: 'https://wikidata.beta.wmflabs.org',
+  wikibase_url: 'https://wikidata.org',
   # NOTE: To edit as a bot, you need to authenticate as a user with the Bot
   # flag. If you don't have that flag on your Wikibase User, you'll get a
   # 403 error.

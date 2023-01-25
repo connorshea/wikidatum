@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## Unreleased
 ### Added
 
-- Add a `labels` method on Wikidatum::Client for getting item label data from the new `items/{id}/labels` endpoint.
+- Add a `labels` method on Wikidatum::Client for getting item label data from the new `items/{id}/labels` endpoint. (This isn't supported in the initial release of the REST API on Wikidata, so it will not work yet)
 
 ### Changed
 
