@@ -35,7 +35,7 @@ require 'wikidatum'
 
 wikidatum_client = Wikidatum::Client.new(
   user_agent: 'REPLACE ME WITH THE NAME OF YOUR BOT!',
-  wikibase_url: 'https://wikidata.org',
+  wikibase_url: 'https://www.wikidata.org',
   # NOTE: To edit as a bot, you need to authenticate as a user with the Bot
   # flag. If you don't have that flag on your Wikibase User, you'll get a
   # 403 error.
