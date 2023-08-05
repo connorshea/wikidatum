@@ -5,11 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## Unreleased
+### Change
+
+- Add redirect handling on the `item` method, will error unless `follow_redirects` is passed as true.
 
 ## 0.3.3 - 2023-01-24
 ### Added
 
-- Add a `labels` method on Wikidatum::Client for getting item label data from the new `items/{id}/labels` endpoint. (This isn't supported in the initial release of the REST API on Wikidata, so it will not work yet)
+- Add a `labels` method on Wikidatum::Client for getting item label data from the new `items/{id}/labels` endpoint.
 
 ### Changed
 

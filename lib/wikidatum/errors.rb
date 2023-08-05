@@ -20,4 +20,23 @@ module Wikidatum::Errors
       'No authentication provided, but attempted to edit as a bot. You cannot make edits as a bot unless you have authenticated as a user with the Bot flag.'
     end
   end
+
+  class RequestRedirectedError < Wikidatum::Error
+    attr_reader :redirect_url
+
+    def initialize(redirect_url)
+      super
+      @redirect_url = redirect_url
+    end
+
+    def message
+      "Request failed, response code was 308 and attempted to redirect to #{redirect_url}."
+    end
+  end
+
+  class InvalidResponseError < Wikidatum::Error
+    def message
+      'Invalid response for the request.'
+    end
+  end
 end

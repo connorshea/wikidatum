@@ -99,13 +99,15 @@ module Wikidatum
     #
     # @param id [String, Integer] Either a string or integer representation of
     #   the item's QID, e.g. `"Q123"`, `"123"`, or `123`.
+    # @param follow_redirects [Boolean] Whether to follow a redirect if it
+    #   occurs. Will only follow the first redirect no matter what.
     # @return [Wikidatum::Item]
-    def item(id:)
+    def item(id:, follow_redirects: false)
       raise ArgumentError, "#{id.inspect} is an invalid Wikibase QID. Must be an integer, a string representation of an integer, or in the format 'Q123'." unless id.is_a?(Integer) || id.match?(ITEM_REGEX)
 
       id = coerce_item_id(id)
 
-      response = get_request("/entities/items/#{id}")
+      response = get_request("/entities/items/#{id}", follow_redirects: follow_redirects)
 
       puts JSON.pretty_generate(response) if ENV['DEBUG']
 
@@ -400,18 +402,28 @@ module Wikidatum
     #
     # @param path [String] The relative path for the API endpoint.
     # @param params [Hash] Query parameters to send with the request, if any.
+    # @param follow_redirects [Boolean] Whether to follow a redirect if it occurs. Will only follow the first redirect no matter what.
     # @return [Hash] JSON response, parsed into a hash.
-    def get_request(path, params = nil)
+    def get_request(path, params = nil, follow_redirects: false)
       url = "#{api_url}#{path}"
 
       response = Faraday.get(url, params, universal_headers)
 
+      # If we have a permanent redirect response and the method is set to follow redirects, follow redirects.
       # Error handling if it doesn't return a 200
-      unless response.success?
+      if response.status == 308
+        return get_request(response.headers['location'].gsub(api_url, ''), params, follow_redirects: false) if follow_redirects
+
+        redirect_url = response.headers['location']
+        raise Errors::RequestRedirectedError.new(redirect_url)
+      elsif !response.success?
         puts 'Something went wrong with this request!'
         puts "Status Code: #{response.status}"
         puts response.body.inspect
       end
+
+      # Raise an error if the response was ''.
+      raise Errors::InvalidResponseError if response.body.empty?
 
       JSON.parse(response.body)
     end
